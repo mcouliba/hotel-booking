@@ -6,13 +6,13 @@
 <model name="DataServiceLayer" type="VIRTUAL" visible="true">
 	<metadata type="DDL"><![CDATA[
 
-	CREATE VIEW service(
+	CREATE VIEW hotel(
 		col1 integer NOT NULL,
 		col2 string(50) NOT NULL,
 		col3 string(50) NOT NULL,
 		col4 string(50) NOT NULL,
 		CONSTRAINT PK0 PRIMARY KEY(col1)
-	) OPTIONS(NAMEINSOURCE 'data') 
+	) 
 	AS
 		SELECT 1, 'first entry col2', 'first entry col3', 'first entry col4'
 		UNION ALL 
