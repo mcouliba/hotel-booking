@@ -2,7 +2,7 @@
 <vdb name="hotel" version="1">
 
   <description>Hotel VDB</description>
-  	<model name="Monolith">
+  	<model name="Monolith" visible="false">
 		<property name="importer.useFullSchemaName" value="false"/>
 		<property name="importer.TableTypes" value="TABLE" />
 		<property name="importer.importKeys" value="false"/>
