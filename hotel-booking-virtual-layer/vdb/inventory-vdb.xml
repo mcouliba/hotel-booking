@@ -9,7 +9,7 @@
 	CREATE VIEW room(
 			id integer NOT NULL,
 			description string(256) NOT NULL,
-			room_type string(256) NOT NULL,
+			type string(256) NOT NULL,
 			room_number integer NOT NULL,
 			max_capacity integer NOT NULL,
 			hotel_id integer NOT NULL,
