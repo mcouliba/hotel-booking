@@ -22,7 +22,7 @@
 				'King' as room_type,
 				666 as room_number,
 				2 as max_capacity,
-				32983 as hotel_id;
+				157176 as hotel_id;
 	]]></metadata>
 </model>
 </vdb>
