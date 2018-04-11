@@ -6,20 +6,23 @@
 <model name="DataServiceLayer" type="VIRTUAL" visible="true">
 	<metadata type="DDL"><![CDATA[
 
-	CREATE VIEW service(
-		col1 integer NOT NULL,
-		col2 string(50) NOT NULL,
-		col3 string(50) NOT NULL,
-		col4 string(50) NOT NULL,
-		CONSTRAINT PK0 PRIMARY KEY(col1)
-	) OPTIONS(NAMEINSOURCE 'data') 
-	AS
-		SELECT 1, 'first entry col2', 'first entry col3', 'first entry col4'
-		UNION ALL 
-		SELECT 2, 'second entry', 'second entry col3', 'second entry col4'
-		UNION ALL
-		SELECT 3, 'third entry', 'third entry col3', 'third entry col4'
-		;
+	CREATE VIEW room(
+			id integer NOT NULL,
+			description string(256) NOT NULL,
+			room_type string(256) NOT NULL,
+			room_number integer NOT NULL,
+			max_capacity integer NOT NULL,
+			hotel_id integer NOT NULL,
+			CONSTRAINT room_pk PRIMARY KEY(id)
+		) 
+		AS
+			SELECT 
+				1 as id,
+				'description' as description,
+				'King' as room_type,
+				666 as room_number,
+				2 as max_capacity,
+				32983 as hotel_id;
 	]]></metadata>
 </model>
 </vdb>
