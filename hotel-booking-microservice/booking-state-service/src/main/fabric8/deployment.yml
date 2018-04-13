@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Deployment
+metadata:
+  name: ${project.artifactId}
+spec:
+  template:
+    spec:
+      containers:
+        - env:
+            - name: SHAREDCACHE_HOTROD_SERVICE_HOST
+              value: "${SHAREDCACHE_HOTROD_SERVICE_HOST}"
+            - name: SHAREDCACHE_HOTROD_SERVICE_PORT
+              value: "${SHAREDCACHE_HOTROD_SERVICE_PORT}"
