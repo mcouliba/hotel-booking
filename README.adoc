@@ -1,3 +1,4 @@
+image::summit-logo.png[Summit Logo]
 = Hotel Booking Demo
 
 IMPORTANT: Requires Node.js 8.11 or greater and `npm` 5.6 or greater.
