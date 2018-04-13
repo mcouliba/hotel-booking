@@ -1,1 +1,118 @@
-# hotel-booking
+= Hotel Booking Demo
+
+IMPORTANT: Requires Node.js 8.11 or greater and `npm` 5.6 or greater.
+
+IMPORTANT: Requires Maven 3.3 or greater.
+
+IMPORTANT: Requires Openshift Container Platform 3.7 or greater.
+
+== Cloning the source code
+To clone the Hotel Booking project on your local environment:
+
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ git clone git@github.com:mcouliba/hotel-booking
+
+$ cd hotel-booking
+----
+
+== Openshift Project
+To create the project on your Openshift Cluster:
+
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ oc new-project hotelbooking --display-name="Hotel Booking" --description="Hotel Booking Demo"
+----
+
+== Monolith Database
+To initialize the Monolith Database:
+
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ cd hotel-booking-monolithdb
+
+$ oc new-app postgresql-persistent --name=monolithdb -p DATABASE_SERVICE_NAME=monolithdb -p POSTGRESQL_USER=postgresql -p POSTGRESQL_PASSWORD=postgresql -p POSTGRESQL_DATABASE=monolithdb
+
+$ oc rsync sql/ <POD_NAME>:/opt/app-root/src
+
+$ oc rsh <POD_NAME> 
+
+sh-4.2$ PGPASSWORD=$POSTGRESQL_PASSWORD psql -h monolithdb $POSTGRESQL_DATABASE $POSTGRESQL_USER -f MonolithDB_PostgreSQL.sql
+
+sh-4.2$  exit
+
+$ cd ..
+----
+
+== Virtual Layer
+To initialize the Virtual Layer:
+
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ cd hotel-booking-virtuallayer
+
+$ oc create -f https://raw.githubusercontent.com/jboss-openshift/application-templates/master/secrets/datavirt-app-secret.yaml
+
+$ oc delete secrets datavirt-app-config
+
+$ oc secrets new datavirt-app-config env/datasources.env
+
+$ oc create sa datavirt-service-account
+
+$ oc adm policy add-role-to-user view system:serviceaccount:hotelbooking:datavirt-service-account
+
+$ oc new-app datavirt64-extensions-support-s2i  --name=virtuallayer -p APPLICATION_NAME=virtuallayer -p TEIID_USERNAME=teiidUser -p TEIID_PASSWORD='redhat1!' -p SOURCE_REPOSITORY_URL='https://github.com/mcouliba/hotel-booking.git' -p CONTEXT_DIR='hotel-booking-virtual-layer' -p VDB_DIRS=vdb -p EXTENSIONS_REPOSITORY_URL='https://github.com/mcouliba/hotel-booking.git' -p EXTENSIONS_DIR='hotel-booking-virtual-layer/extensions'
+
+$ cd ..
+----
+
+== Shared Cache
+To initialize the Shared Cache:
+
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ oc policy add-role-to-user view system:serviceaccount:hotel-booking:default
+
+$ oc new-app datagrid71-basic --name=sharedcache -p APPLICATION_NAME=sharedcache -p CACHE_NAMES=bookingStateCache
+----
+
+== Microservices
+To initialize the microservices:
+
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ cd hotel-booking-microservice
+
+$ cd booking-state-service
+$ mvn clean fabric8:deploy -Popenshift -DskipTests
+$ cd ..
+
+$ cd hotel-service
+$ mvn clean fabric8:deploy -Popenshift -DskipTests
+$ cd ..
+
+$ cd hotel-service-v2
+$ mvn clean fabric8:deploy -Popenshift -DskipTests
+$ cd ..
+
+$ cd inventory-service
+$ mvn clean fabric8:deploy -Popenshift -DskipTests
+$ cd ..
+
+$ cd ..
+----
+
+To set up a A/B deployment for 'hotel-service':
+
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ cd hotel-booking-microservice
+
+$ cd hotel-service-v2
+$ mvn clean fabric8:deploy -Popenshift -DskipTests
+$ cd ..
+
+$ oc set route-backends hotel-service hotel-service=50 hotel-service-v2=50
+
+$ cd ..
+----
