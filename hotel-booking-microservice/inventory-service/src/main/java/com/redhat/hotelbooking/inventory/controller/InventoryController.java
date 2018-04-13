@@ -30,7 +30,7 @@ public class InventoryController {
      @return A List() of Room items
      **/
     @RequestMapping(method=RequestMethod.GET, value="/room/findbyhotel")
-    public Page<Room> findRoomByHotel(Pageable pageable, @RequestParam("hotelId") Integer hotelId) {
+    public Page<Room> findRoomByHotel(Pageable pageable, @RequestParam("hotelid") Integer hotelId) {
         return inventoryService.findRoomByHotel(pageable, hotelId);
     }
 }
