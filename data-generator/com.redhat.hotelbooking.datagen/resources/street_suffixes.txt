@@ -1,0 +1,10 @@
+Avenue
+Circle
+Court
+Drive
+Lane
+Place
+Road
+Terrace
+Trail
+Way

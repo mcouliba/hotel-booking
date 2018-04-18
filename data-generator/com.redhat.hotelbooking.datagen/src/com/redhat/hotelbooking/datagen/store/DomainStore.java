@@ -21,29 +21,46 @@
  */
 package com.redhat.hotelbooking.datagen.store;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public interface DomainStore {
 
-    SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss" );
-    String DROP_TABLE_STMT = "DROP TABLE IF EXISTS \"%s\" CASCADE;";
+    boolean ADD_QUOTES_AROUND_NAMES = false;
+    SimpleDateFormat DATE_TIME_FORMATTER = new SimpleDateFormat( "yyyy-MM-dd HH:mm:ss" );
+    SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat( "yyyy-MM-dd" );
+    String DROP_TABLE_STMT = "DROP TABLE IF EXISTS %s CASCADE;";
+
+    static String addQuotes( final String name ) {
+        if ( ADD_QUOTES_AROUND_NAMES ) {
+            return "\"" + name + "\"";
+        }
+
+        return name;
+    }
 
     static String createForeignKeyConstraint( final String foreignKeyName,
                                               final String keyColumnName,
                                               final String referencedTableName,
                                               final String referencedColumnName ) {
-        // @formatter:off
-        return "CONSTRAINT \""
-                + foreignKeyName
-                + "\" FOREIGN KEY ( \""
-                + keyColumnName
-                + "\" ) REFERENCES \""
-                + referencedTableName
-                + "\" ( \""
-                + referencedColumnName
-                + "\" )";
-        // // @formatter:on
+        final StringBuilder builder = new StringBuilder();
+        builder.append( "CONSTRAINT " );
+        builder.append( DomainStore.addQuotes( foreignKeyName ) );
+        builder.append( " FOREIGN KEY ( " );
+        builder.append( DomainStore.addQuotes( keyColumnName ) );
+        builder.append( " ) REFERENCES " );
+        builder.append( DomainStore.addQuotes( referencedTableName ) );
+        builder.append( " ( " );
+        builder.append( DomainStore.addQuotes( referencedColumnName ) );
+        builder.append( " )" );
+
+        return builder.toString();
     }
 
     static String createValuesStatement( final int numColumns ) {
@@ -64,13 +81,43 @@ public interface DomainStore {
         return builder.toString();
     }
 
+    static String getDropStatement( final String tableName ) {
+        return String.format( DROP_TABLE_STMT, DomainStore.addQuotes( tableName ) );
+    }
+
+    static List< String > load( final String fileName ) throws Exception {
+        final String inputFileName = fileName;
+        final List< String > result = new ArrayList<>();
+        final Path input = Paths.get( inputFileName );
+        final String content = new String( Files.readAllBytes( input ) );
+
+        for ( final String line : content.split( "\r\n" ) ) {
+            result.add( line );
+        }
+
+        return Collections.unmodifiableList( result );
+    }
+
+    static String toColumnsStatement( final String... columnNames ) {
+        final StringBuilder builder = new StringBuilder();
+        boolean firstTime = true;
+
+        for ( final String columnName : columnNames ) {
+            if ( firstTime ) {
+                firstTime = false;
+            } else {
+                builder.append( ", " );
+            }
+
+            builder.append( DomainStore.addQuotes( columnName ) );
+        }
+
+        return builder.toString();
+    }
+
     String getCreateTableStatement();
 
-    String getDropStatement();
-
-    default String getDropStatement( final String tableName ) {
-        return String.format( DROP_TABLE_STMT, tableName );
-    }
+    String getTableName();
 
     default String toDdl( final Object value ) {
         if ( value == null ) {
@@ -85,7 +132,7 @@ public interface DomainStore {
             return value.toString();
         }
 
-        // escape any empbedded single quotes
+        // escape any embedded single quotes
         return "'" + ( ( String ) value ).replace( "'", "''" ) + "'";
     }
 

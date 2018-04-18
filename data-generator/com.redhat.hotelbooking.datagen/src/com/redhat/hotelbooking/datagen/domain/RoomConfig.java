@@ -59,6 +59,26 @@ public final class RoomConfig {
         this.smoking = smoking;
     }
 
+    @Override
+    public boolean equals( final Object obj ) {
+        if ( obj == null || !( obj instanceof RoomConfig ) ) {
+            return false;
+        }
+
+        final RoomConfig that = ( RoomConfig )obj;
+
+        return this.numAdjoiningRooms == that.numAdjoiningRooms
+               && this.livingSpace == that.livingSpace
+               && this.microwave == that.microwave
+               && this.numDouble == that.numDouble
+               && this.numKing == that.numKing
+               && this.numPets == that.numPets
+               && this.numPullouts == that.numPullouts
+               && this.numQueen == that.numQueen
+               && this.refrigerator == that.refrigerator
+               && this.smoking == that.smoking;
+    }
+
     public int getId() {
         return this.id;
     }

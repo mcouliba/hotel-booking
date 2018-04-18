@@ -21,22 +21,31 @@
  */
 package com.redhat.hotelbooking.datagen.domain;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 public final class PaymentInfo {
 
-    private final int creditCardNumber;
-    private final String creditCardType;
+    public enum CreditCardType {
+
+        AMERICAN_EXPRESS,
+        DISCOVER,
+        MASTERCARD,
+        VISA
+
+    }
+
+    private final String creditCardNumber;
+    private final CreditCardType creditCardType;
     private final int customerId;
-    private final Date expirationDate;
+    private final Timestamp expirationDate;
     private final int id;
     private final int securityCode;
 
     public PaymentInfo( final int id,
                         final int customerId,
-                        final int creditCardNumber,
-                        final String creditCardType,
-                        final Date expirationDate,
+                        final String creditCardNumber,
+                        final CreditCardType creditCardType,
+                        final Timestamp expirationDate,
                         final int securityCode ) {
         this.creditCardNumber = creditCardNumber;
         this.creditCardType = creditCardType;
@@ -46,11 +55,11 @@ public final class PaymentInfo {
         this.securityCode = securityCode;
     }
 
-    public int getCreditCardNumber() {
+    public String getCreditCardNumber() {
         return this.creditCardNumber;
     }
 
-    public String getCreditCardType() {
+    public CreditCardType getCreditCardType() {
         return this.creditCardType;
     }
 
@@ -58,7 +67,7 @@ public final class PaymentInfo {
         return this.customerId;
     }
 
-    public Date getExpirationDate() {
+    public Timestamp getExpirationDate() {
         return this.expirationDate;
     }
 

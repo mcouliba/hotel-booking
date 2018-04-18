@@ -21,7 +21,12 @@
  */
 package com.redhat.hotelbooking.datagen.domain;
 
+import java.util.Collections;
+import java.util.List;
+
 public final class HotelChain {
+
+    public static final List< HotelChain > HOTEL_CHAINS = Collections.singletonList( new HotelChain( 1, "Red Hat Hotel" ) );
 
     private final int id;
     private final String name;

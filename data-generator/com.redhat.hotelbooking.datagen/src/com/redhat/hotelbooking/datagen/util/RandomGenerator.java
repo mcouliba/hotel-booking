@@ -21,13 +21,14 @@
  */
 package com.redhat.hotelbooking.datagen.util;
 
+import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.ZoneOffset;
-import java.time.temporal.ChronoField;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * A generator of random things.
@@ -37,7 +38,7 @@ public class RandomGenerator {
     /**
      * Keep seed the same so that order is repeatable.
      */
-    private static final long SEED = LocalDateTime.of( 2010, 1, 1, 1, 1 ).getLong( ChronoField.INSTANT_SECONDS );
+    private static final long SEED = Timestamp.valueOf( LocalDateTime.of( 2010, 1, 1, 1, 1 ) ).getTime();
 
     private final Random random;
 
@@ -95,7 +96,7 @@ public class RandomGenerator {
      * @param min
      *            the <code>int</code> with the smallest value that can be returned
      * @param max
-     *            the the <code>int</code> with the largest value that can be
+     *            the <code>int</code> with the largest value that can be
      *            returned
      * @return the random float
      */
@@ -152,21 +153,26 @@ public class RandomGenerator {
      *            be returned (cannot be <code>null</code>)
      * @return the random date/time (never <code>null</code>)
      */
-    public LocalDateTime next( final LocalDateTime min,
-                               final LocalDateTime max ) {
-        final long first = Objects.requireNonNull( min, "min" ).getLong( ChronoField.INSTANT_SECONDS );
-        final long last = Objects.requireNonNull( max, "max" ).getLong( ChronoField.INSTANT_SECONDS );
-        long diff;
+    public LocalDate next( final LocalDate min,
+                           final LocalDate max ) {
+//        final long first = Timestamp.valueOf( min ).getTime();
+//        final long last = Timestamp.valueOf( max ).getTime();
+//        long diff;
+//
+//        if ( first >= 0 ) {
+//            diff = last - first + 1;
+//        } else if ( last >= 0 ) {
+//            diff = Math.abs( first ) + last + 1;
+//        } else {
+//            diff = Math.abs( first ) - Math.abs( last ) + 1;
+//        }
+//
+//        return LocalDateTime.ofEpochSecond( first + ( long ) ( this.random.nextDouble() * diff ), 0, ZoneOffset.UTC );
+        final long start = min.toEpochDay();
+        final long end = max.toEpochDay();
 
-        if ( first >= 0 ) {
-            diff = last - first + 1;
-        } else if ( last >= 0 ) {
-            diff = Math.abs( first ) + last + 1;
-        } else {
-            diff = Math.abs( first ) - Math.abs( last ) + 1;
-        }
-
-        return LocalDateTime.ofEpochSecond( first + ( long ) ( this.random.nextDouble() * diff ), 0, ZoneOffset.UTC );
+        final long randomEpochDay = ThreadLocalRandom.current().longs(start, end).findAny().getAsLong();
+        return LocalDate.ofEpochDay( randomEpochDay );
     }
 
     /**

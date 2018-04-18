@@ -8,12 +8,14 @@ public final class Hotel {
     private final String email;
     private final int hotelChainId;
     private final int id;
+    private final String name;
     private final String postalCode;
     private final String url;
 
     public Hotel( final int id,
                   final int hotelChainId,
                   final int countryId,
+                  final String name,
                   final String addressLine1,
                   final String city,
                   final String postalCode,
@@ -25,6 +27,7 @@ public final class Hotel {
         this.email = email;
         this.hotelChainId = hotelChainId;
         this.id = id;
+        this.name = name;
         this.postalCode = postalCode;
         this.url = url;
     }
@@ -51,6 +54,10 @@ public final class Hotel {
 
     public int getId() {
         return this.id;
+    }
+
+    public String getName() {
+        return this.name;
     }
 
     public String getPostalCode() {
