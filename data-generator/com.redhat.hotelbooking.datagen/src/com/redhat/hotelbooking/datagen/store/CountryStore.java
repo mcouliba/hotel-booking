@@ -32,46 +32,64 @@ public final class CountryStore implements DomainStore {
         ID,
         ISO_COUNTRY_CODE,
         ISO_CURRENCY_CODE,
-        NAME
+        NAME;
+
+        public String toCreateStatement() {
+            final StringBuilder builder = new StringBuilder();
+            builder.append( DomainStore.addQuotes( this.toString() ) ).append( " " );
+
+            switch ( this ) {
+                case ID:
+                    builder.append( "INTEGER NOT NULL" );
+                    break;
+                case ISO_COUNTRY_CODE:
+                    builder.append( "CHARACTER VARYING(256) NOT NULL" );
+                    break;
+                case ISO_CURRENCY_CODE:
+                    builder.append( "CHARACTER VARYING(256) NOT NULL" );
+                    break;
+                case NAME:
+                    builder.append( "CHARACTER VARYING(256) NOT NULL" );
+                    break;
+                default:
+                    throw new RuntimeException();
+            }
+
+            return builder.toString();
+        }
 
     }
 
     public static final String TABLE_NAME = "COUNTRY";
 
-    // @formatter:off
+    private static final String COLUMNS = DomainStore.toColumnsStatement( Column.ID.name(),
+                                                                          Column.NAME.name(),
+                                                                          Column.ISO_COUNTRY_CODE.name(),
+                                                                          Column.ISO_CURRENCY_CODE.name() );
 
-    private static final String COLUMNS = "\"" + Column.ID + "\", "
-                                          + '"' + Column.NAME + "\", "
-                                          + '"' + Column.ISO_COUNTRY_CODE + "\", "
-                                          + '"' + Column.ISO_CURRENCY_CODE + '\"';
+    private static final String CREATE_TABLE_STMT
+        = "CREATE TABLE " + DomainStore.addQuotes( TABLE_NAME ) + " (\n"
+          + "\t" + Column.ID.toCreateStatement() + ",\n"
+          + "\t" + Column.NAME.toCreateStatement() + ",\n"
+          + "\t" + Column.ISO_COUNTRY_CODE.toCreateStatement() + ",\n"
+          + "\t" + Column.ISO_CURRENCY_CODE.toCreateStatement() + ",\n"
+          + "\tPRIMARY KEY ( " + DomainStore.addQuotes( Column.ID.name() ) + " )\n"
+          + ");";
 
-    private static final String CREATE_TABLE_STMT = "CREATE TABLE \"" + TABLE_NAME + "\" (\n"
-                                                    + "\t\"" + Column.ID + "\" INTEGER NOT NULL,\n"
-                                                    + "\t\"" + Column.NAME + "\" STRING NOT NULL,\n"
-                                                    + "\t\"" + Column.ISO_COUNTRY_CODE + "\" STRING NOT NULL,\n"
-                                                    + "\t\"" + Column.ISO_CURRENCY_CODE + "\" STRING NOT NULL,\n"
-                                                    + "\tPRIMARY KEY ( \"" + Column.ID + "\" )\n"
-                                                    + ");";
-
-    private static final String INSERT_STMT = "INSERT INTO \""
-                                              + TABLE_NAME
-                                              + "\" ( "
+    private static final String INSERT_STMT = "INSERT INTO "
+                                              + DomainStore.addQuotes( TABLE_NAME )
+                                              + " ( "
                                               + COLUMNS
                                               + " ) "
                                               + DomainStore.createValuesStatement( Column.values().length );
-
-    // @formatter:on
 
     public CountryStore() {
         // nothing to do
     }
 
+    @Override
     public String getCreateTableStatement() {
         return CREATE_TABLE_STMT;
-    }
-
-    public String getDropStatement() {
-        return getDropStatement( TABLE_NAME );
     }
 
     public String getInsertStatements( final List< Country > countries ) {
@@ -79,17 +97,20 @@ public final class CountryStore implements DomainStore {
         ddl.append( "\n--" ).append( TABLE_NAME ).append( "\n\n" );
 
         for ( final Country country : countries ) {
-            // @formatter:off
             final String insertStmt = String.format( INSERT_STMT,
                                                      toDdl( country.getId() ),
                                                      toDdl( country.getName() ),
                                                      toDdl( country.getIsoCountryCode() ),
                                                      toDdl( country.getIsoCurrencyCode() ) );
-            // @formatter:on
             ddl.append( insertStmt ).append( '\n' );
         }
 
         return ddl.toString();
+    }
+
+    @Override
+    public String getTableName() {
+        return CountryStore.TABLE_NAME;
     }
 
 }

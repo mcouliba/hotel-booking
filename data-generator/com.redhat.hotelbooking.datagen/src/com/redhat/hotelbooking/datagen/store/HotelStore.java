@@ -35,8 +35,48 @@ public final class HotelStore implements DomainStore {
         EMAIL,
         HOTEL_CHAIN_ID,
         ID,
+        NAME,
         POSTAL_CODE,
-        URL
+        URL;
+
+        public String toCreateStatement() {
+            final StringBuilder builder = new StringBuilder();
+            builder.append( DomainStore.addQuotes( this.toString() ) ).append( " " );
+
+            switch ( this ) {
+                case ADDRESS_LINE_1:
+                    builder.append( "CHARACTER VARYING(256) NOT NULL" );
+                    break;
+                case CITY:
+                    builder.append( "CHARACTER VARYING(256) NOT NULL" );
+                    break;
+                case COUNTRY_ID:
+                    builder.append( "INTEGER NOT NULL" );
+                    break;
+                case EMAIL:
+                    builder.append( "CHARACTER VARYING(256) NOT NULL" );
+                    break;
+                case HOTEL_CHAIN_ID:
+                    builder.append( "INTEGER NOT NULL" );
+                    break;
+                case ID:
+                    builder.append( "INTEGER NOT NULL" );
+                    break;
+                case NAME:
+                    builder.append( "CHARACTER VARYING(256) NOT NULL" );
+                    break;
+                case POSTAL_CODE:
+                    builder.append( "CHARACTER VARYING(256) NOT NULL" );
+                    break;
+                case URL:
+                    builder.append( "CHARACTER VARYING(256) NOT NULL" );
+                    break;
+                default:
+                    throw new RuntimeException();
+            }
+
+            return builder.toString();
+        }
 
     }
 
@@ -44,28 +84,28 @@ public final class HotelStore implements DomainStore {
     public static final String COUNTRY_FK_NAME = "COUNTRY_FK";
     public static final String HOTEL_CHAIN_FK_NAME = "HOTEL_CHAIN_FK";
 
-    // @formatter:off
-
-    private static final String COLUMNS = "\"" + Column.ID + "\", "
-                                          + '"' + Column.HOTEL_CHAIN_ID + "\", "
-                                          + '"' + Column.COUNTRY_ID + "\", "
-                                          + '"' + Column.ADDRESS_LINE_1 + "\", "
-                                          + '"' + Column.CITY + "\", "
-                                          + '"' + Column.POSTAL_CODE + "\", "
-                                          + '"' + Column.EMAIL + "\", "
-                                          + '"' + Column.URL + '\"';
+    private static final String COLUMNS = DomainStore.toColumnsStatement( Column.ID.name(),
+                                                                          Column.HOTEL_CHAIN_ID.name(),
+                                                                          Column.COUNTRY_ID.name(),
+                                                                          Column.NAME.name(),
+                                                                          Column.ADDRESS_LINE_1.name(),
+                                                                          Column.CITY.name(),
+                                                                          Column.POSTAL_CODE.name(),
+                                                                          Column.EMAIL.name(),
+                                                                          Column.URL.name() );
 
     private static final String CREATE_TABLE_STMT
-        = "CREATE TABLE \"" + TABLE_NAME + "\" (\n"
-          + "\t\"" + Column.ID + "\" INTEGER NOT NULL,\n"
-          + "\t\"" + Column.HOTEL_CHAIN_ID + "\" INTEGER NOT NULL,\n"
-          + "\t\"" + Column.COUNTRY_ID + "\" INTEGER NOT NULL,\n"
-          + "\t\"" + Column.ADDRESS_LINE_1 + "\" STRING NOT NULL,\n"
-          + "\t\"" + Column.CITY + "\" STRING NOT NULL,\n"
-          + "\t\"" + Column.POSTAL_CODE + "\" STRING NOT NULL,\n"
-          + "\t\"" + Column.EMAIL + "\" STRING NOT NULL,\n"
-          + "\t\"" + Column.URL + "\" STRING NOT NULL,\n"
-          + "\tPRIMARY KEY ( \"" + Column.ID + "\" ),\n"
+        = "CREATE TABLE " + DomainStore.addQuotes( TABLE_NAME ) + " (\n"
+          + "\t" + Column.ID.toCreateStatement() + ",\n"
+          + "\t" + Column.HOTEL_CHAIN_ID.toCreateStatement() + ",\n"
+          + "\t" + Column.COUNTRY_ID.toCreateStatement() + ",\n"
+          + "\t" + Column.NAME.toCreateStatement() + ",\n"
+          + "\t" + Column.ADDRESS_LINE_1.toCreateStatement() + ",\n"
+          + "\t" + Column.CITY.toCreateStatement() + ",\n"
+          + "\t" + Column.POSTAL_CODE.toCreateStatement() + ",\n"
+          + "\t" + Column.EMAIL.toCreateStatement() + ",\n"
+          + "\t" + Column.URL.toCreateStatement() + ",\n"
+          + "\tPRIMARY KEY ( " + DomainStore.addQuotes( Column.ID.name() ) + " ),\n"
           + "\t" + DomainStore.createForeignKeyConstraint( HOTEL_CHAIN_FK_NAME,
                                                            Column.HOTEL_CHAIN_ID.toString(),
                                                            HotelChainStore.TABLE_NAME,
@@ -76,25 +116,20 @@ public final class HotelStore implements DomainStore {
                                                            CountryStore.Column.ID.toString() ) + "\n"
           + ");";
 
-    private static final String INSERT_STMT = "INSERT INTO \""
-                                              + TABLE_NAME
-                                              + "\" ( "
+    private static final String INSERT_STMT = "INSERT INTO "
+                                              + DomainStore.addQuotes( TABLE_NAME )
+                                              + " ( "
                                               + COLUMNS
                                               + " ) "
                                               + DomainStore.createValuesStatement( Column.values().length );
-
-    // @formatter:on
 
     public HotelStore() {
         // nothing to do
     }
 
+    @Override
     public String getCreateTableStatement() {
         return CREATE_TABLE_STMT;
-    }
-
-    public String getDropStatement() {
-        return getDropStatement( TABLE_NAME );
     }
 
     public String getInsertStatements( final List< Hotel > hotels ) {
@@ -102,21 +137,25 @@ public final class HotelStore implements DomainStore {
         ddl.append( "\n--" ).append( TABLE_NAME ).append( "\n\n" );
 
         for ( final Hotel hotel : hotels ) {
-            // @formatter:off
             final String insertStmt = String.format( INSERT_STMT,
                                                      toDdl( hotel.getId() ),
                                                      toDdl( hotel.getHotelChainId() ),
                                                      toDdl( hotel.getCountryId() ),
+                                                     toDdl( hotel.getName() ),
                                                      toDdl( hotel.getAddressLine1() ),
                                                      toDdl( hotel.getCity() ),
                                                      toDdl( hotel.getPostalCode() ),
                                                      toDdl( hotel.getEmail() ),
                                                      toDdl( hotel.getUrl() ) );
-            // @formatter:on
             ddl.append( insertStmt ).append( '\n' );
         }
 
         return ddl.toString();
+    }
+
+    @Override
+    public String getTableName() {
+        return HotelStore.TABLE_NAME;
     }
 
 }

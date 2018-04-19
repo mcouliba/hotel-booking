@@ -21,7 +21,7 @@
  */
 package com.redhat.hotelbooking.datagen.domain;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 public final class Customer {
 
@@ -29,18 +29,20 @@ public final class Customer {
     private final String city;
     private final String email;
     private final int id;
-    private final Date memberSince;
+    private final Timestamp memberSince;
     private final String name;
+    private final String pswd;
     private final String postalCode;
     private final String rewardsId;
 
     public Customer( final int id,
                      final String name,
                      final String email,
+                     final String pswd,
                      final String addressLine1,
                      final String city,
                      final String postalCode,
-                     final Date memberSince,
+                     final Timestamp memberSince,
                      final String rewardsId ) {
         this.addressLine1 = addressLine1;
         this.city = city;
@@ -49,6 +51,7 @@ public final class Customer {
         this.memberSince = memberSince;
         this.name = name;
         this.postalCode = postalCode;
+        this.pswd = pswd;
         this.rewardsId = rewardsId;
     }
 
@@ -68,12 +71,16 @@ public final class Customer {
         return this.id;
     }
 
-    public Date getMemberSince() {
+    public Timestamp getMemberSince() {
         return this.memberSince;
     }
 
     public String getName() {
         return this.name;
+    }
+
+    public String getPassword() {
+        return this.pswd;
     }
 
     public String getPostalCode() {

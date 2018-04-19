@@ -39,60 +39,98 @@ public final class RoomConfigStore implements DomainStore {
         NUM_PULLOUTS,
         NUM_QUEEN_BEDS,
         REFRIGERATOR,
-        SMOKING
+        SMOKING;
+
+        public String toCreateStatement() {
+            final StringBuilder builder = new StringBuilder();
+            builder.append( DomainStore.addQuotes( this.toString() ) ).append( " " );
+
+            switch ( this ) {
+                case ID:
+                    builder.append( "INTEGER NOT NULL" );
+                    break;
+                case LIVING_AREA:
+                    builder.append( "BOOLEAN NOT NULL" );
+                    break;
+                case MICROWAVE:
+                    builder.append( "BOOLEAN NOT NULL" );
+                    break;
+                case NUM_ADJOINING_ROOMS:
+                    builder.append( "INTEGER NOT NULL" );
+                    break;
+                case NUM_DOUBLE_BEDS:
+                    builder.append( "INTEGER NOT NULL" );
+                    break;
+                case NUM_KING_BEDS:
+                    builder.append( "INTEGER NOT NULL" );
+                    break;
+                case NUM_PETS:
+                    builder.append( "INTEGER NOT NULL" );
+                    break;
+                case NUM_PULLOUTS:
+                    builder.append( "INTEGER NOT NULL" );
+                    break;
+                case NUM_QUEEN_BEDS:
+                    builder.append( "INTEGER NOT NULL" );
+                    break;
+                case REFRIGERATOR:
+                    builder.append( "BOOLEAN NOT NULL" );
+                    break;
+                case SMOKING:
+                    builder.append( "BOOLEAN NOT NULL" );
+                    break;
+                default:
+                    throw new RuntimeException();
+            }
+
+            return builder.toString();
+        }
 
     }
 
     public static final String TABLE_NAME = "ROOM_CONFIG";
 
-    // @formatter:off
+    private static final String COLUMNS = DomainStore.toColumnsStatement( Column.ID.name(),
+                                                                          Column.LIVING_AREA.name(),
+                                                                          Column.MICROWAVE.name(),
+                                                                          Column.NUM_ADJOINING_ROOMS.name(),
+                                                                          Column.NUM_DOUBLE_BEDS.name(),
+                                                                          Column.NUM_KING_BEDS.name(),
+                                                                          Column.NUM_PETS.name(),
+                                                                          Column.NUM_PULLOUTS.name(),
+                                                                          Column.NUM_QUEEN_BEDS.name(),
+                                                                          Column.REFRIGERATOR.name(),
+                                                                          Column.SMOKING.name() );
 
-    private static final String COLUMNS = "\"" + Column.ID + "\", "
-                                          + '"' + Column.LIVING_AREA + "\", "
-                                          + '"' + Column.MICROWAVE + "\", "
-                                          + '"' + Column.NUM_ADJOINING_ROOMS + "\", "
-                                          + '"' + Column.NUM_DOUBLE_BEDS + "\", "
-                                          + '"' + Column.NUM_KING_BEDS + "\", "
-                                          + '"' + Column.NUM_PETS + "\", "
-                                          + '"' + Column.NUM_PULLOUTS + "\", "
-                                          + '"' + Column.NUM_QUEEN_BEDS + "\", "
-                                          + '"' + Column.REFRIGERATOR + "\", "
-                                          + '"' + Column.SMOKING + '\"';
-
-    private static final String CREATE_TABLE_STMT = "CREATE TABLE \"" + TABLE_NAME + "\" (\n"
-                                                    + "\t\"" + Column.ID + "\" INTEGER NOT NULL,\n"
-                                                    + "\t\"" + Column.LIVING_AREA + "\" BOOLEAN NOT NULL,\n"
-                                                    + "\t\"" + Column.MICROWAVE + "\" BOOLEAN NOT NULL,\n"
-                                                    + "\t\"" + Column.NUM_ADJOINING_ROOMS + "\" INTEGER NOT NULL,\n"
-                                                    + "\t\"" + Column.NUM_DOUBLE_BEDS + "\" INTEGER NOT NULL,\n"
-                                                    + "\t\"" + Column.NUM_KING_BEDS + "\" INTEGER NOT NULL,\n"
-                                                    + "\t\"" + Column.NUM_PETS + "\" INTEGER NOT NULL,\n"
-                                                    + "\t\"" + Column.NUM_PULLOUTS + "\" INTEGER NOT NULL,\n"
-                                                    + "\t\"" + Column.NUM_QUEEN_BEDS + "\" INTEGER NOT NULL,\n"
-                                                    + "\t\"" + Column.REFRIGERATOR + "\" BOOLEAN NOT NULL,\n"
-                                                    + "\t\"" + Column.SMOKING + "\" BOOLEAN NOT NULL,\n"
-                                                    + "\tPRIMARY KEY ( \"" + Column.ID + "\" )\n"
+    private static final String CREATE_TABLE_STMT = "CREATE TABLE " + DomainStore.addQuotes( TABLE_NAME ) + " (\n"
+                                                    + "\t" + Column.ID.toCreateStatement() + ",\n"
+                                                    + "\t" + Column.LIVING_AREA.toCreateStatement() + ",\n"
+                                                    + "\t" + Column.MICROWAVE.toCreateStatement() + ",\n"
+                                                    + "\t" + Column.NUM_ADJOINING_ROOMS.toCreateStatement() + ",\n"
+                                                    + "\t" + Column.NUM_DOUBLE_BEDS.toCreateStatement() + ",\n"
+                                                    + "\t" + Column.NUM_KING_BEDS.toCreateStatement() + ",\n"
+                                                    + "\t" + Column.NUM_PETS.toCreateStatement() + ",\n"
+                                                    + "\t" + Column.NUM_PULLOUTS.toCreateStatement() + ",\n"
+                                                    + "\t" + Column.NUM_QUEEN_BEDS.toCreateStatement() + ",\n"
+                                                    + "\t" + Column.REFRIGERATOR.toCreateStatement() + ",\n"
+                                                    + "\t" + Column.SMOKING.toCreateStatement() + ",\n"
+                                                    + "\tPRIMARY KEY ( " + DomainStore.addQuotes( Column.ID.name() ) + " )\n"
                                                     + ");";
 
-    private static final String INSERT_STMT = "INSERT INTO \""
-                                              + TABLE_NAME
-                                              + "\" ( "
+    private static final String INSERT_STMT = "INSERT INTO "
+                                              + DomainStore.addQuotes( TABLE_NAME )
+                                              + " ( "
                                               + COLUMNS
                                               + " ) "
                                               + DomainStore.createValuesStatement( Column.values().length );
-
-    // @formatter:on
 
     public RoomConfigStore() {
         // nothing to do
     }
 
+    @Override
     public String getCreateTableStatement() {
         return CREATE_TABLE_STMT;
-    }
-
-    public String getDropStatement() {
-        return getDropStatement( TABLE_NAME );
     }
 
     public String getInsertStatements( final List< RoomConfig > roomConfigs ) {
@@ -100,7 +138,6 @@ public final class RoomConfigStore implements DomainStore {
         ddl.append( "\n--" ).append( TABLE_NAME ).append( "\n\n" );
 
         for ( final RoomConfig roomConfig : roomConfigs ) {
-            // @formatter:off
             final String insertStmt = String.format( INSERT_STMT,
                                                      toDdl( roomConfig.getId() ),
                                                      toDdl( roomConfig.hasLivingSpace() ),
@@ -113,11 +150,15 @@ public final class RoomConfigStore implements DomainStore {
                                                      toDdl( roomConfig.getNumQueen() ),
                                                      toDdl( roomConfig.hasRefrigerator() ),
                                                      toDdl( roomConfig.isSmoking() ) );
-            // @formatter:on
             ddl.append( insertStmt ).append( '\n' );
         }
 
         return ddl.toString();
+    }
+
+    @Override
+    public String getTableName() {
+        return RoomConfigStore.TABLE_NAME;
     }
 
 }

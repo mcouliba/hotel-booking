@@ -21,26 +21,26 @@
  */
 package com.redhat.hotelbooking.datagen.domain;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 public final class RoomAvailability {
 
     private final boolean available;
-    private final Date date;
+    private final Timestamp date;
     private final int id;
     private final int roomId;
 
     public RoomAvailability( final int id,
                              final int roomId,
                              final boolean available,
-                             final Date date ) {
+                             final Timestamp date ) {
         this.available = available;
         this.date = date;
         this.id = id;
         this.roomId = roomId;
     }
 
-    public Date getDate() {
+    public Timestamp getDate() {
         return this.date;
     }
 
