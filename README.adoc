@@ -117,3 +117,122 @@ $ oc set route-backends hotel-service hotel-service=50 hotel-service-v2=50
 
 $ cd ..
 ----
+
+== Data Model
+The following are the data model entities:
+
+. Country - a country. Each record has the following properties:
+	.. name, 
+	.. ISO country code, and
+	.. ISO currency code.
+. City - a city. Each record has the following properties:
+	.. country, 
+	.. name, and
+	.. postal code.
+. Customer - a hotel customer. Each record has the following properties:
+	.. name, 
+	.. password, 
+	.. email, 
+	.. rewards ID number, 
+	.. date became a member, 
+	.. address, and
+	.. city.
+. Payment Information - a customer's payment information. Each record has the following properties:
+	.. customer, 
+	.. credit card number, 
+	.. credit card type, 
+	.. expiration date, and 
+	.. security code. 
+. Hotel Chain - a hotel chain (ex., Red Hat Hotel). Each record has the following properties:
+	.. name.
+. Hotel - a hotel. Each record has the following properties:
+	.. hotel chain, 
+	.. country, 
+	.. name, 
+	.. address, 
+	.. city, 
+	.. email, and 
+	.. URL.
+. Room Configuration - a room configurations. Each record has the following properties:
+	.. has separate living area indicator, 
+	.. has microwave indicator, 
+	.. number of adjoining rooms, 
+	.. number of double beds, 
+	.. number of king beds, 
+	.. number of pets allowed, 
+	.. number of pullouts, 
+	.. number of queen beds, 
+	.. has refrigerator indicator, and 
+	.. allows smoking indicator. 
+. Room - a hotel room. Each record has the following properties:
+	.. hotel, 
+	.. room configuration, 
+	.. room number, 
+	.. floor, and 
+	.. daily rate. 
+. Room Availability - a room availability. Each record has the following properties:
+	.. room, 
+	.. date, and
+	.. available indicator. 
+. Reservation - a hotel room reservation. Each record has the following properties:
+	.. customer, 
+	.. room, 
+	.. checkin date, 
+	.. checkout date,
+	.. daily rate, and
+	.. status.
+. Payment - a payment for a hotel stay. Each record has the following properties:
+	.. reservation, 
+	.. payment information, and 
+	.. amount. 
+
+== Data Generator
+The data generator is a Java application that generates a Postgres schema DDL and insert statements. The data generator code is located in the *+data-generator+* folder here:
+
+https://github.com/mcouliba/hotel-booking
+
+To generate the DDL file, execute the *+com.redhat.hotelbooking.datagen.DataModelGenerator+* class. The generator outputs a file called *+hotel-booking.ddl+* which is located in the *+resources/generated+*
+folder. 
+
+There are settings in the code that control the generated DDL. Although these settings currently can only be set by changing the code, it would not be hard to also be able to set these via a command-line argument.
+
+Settings
+~~~~~~~~
+
+There are settings in two different places:
+
+. DataModelGenerator - these settings control which DDL statements.
+. DataProvider - these settings control how many insert statements are generated and set min/max values of the generated data.
+
+.DataModelGenerator Settings
+[options="header"]
+|==========================================================================
+|Setting                       |Default Value|
+|verbose                       |false|turns on/off console messages
+|generateDropStatements        |true|
+|generateCreateTableStatements |true|
+|generateInsertStatements      |true|
+|outputFileName                |resources/generated/hotel-booking.ddl|
+|==========================================================================
+
+.DataProvider Settings
+[options="header"]
+|==========================================================================
+|Setting                       |Default Value|
+|oldestMembershipDate          |The date data was generated minus 10 years|  
+|firstReservationDate          |The date data was generated|
+|maxNumHotelsPerCityToGenerate |2|
+|numDaysAvailabilityPerRoom    |60|
+|numCustomersToGenerate        |50|
+|numReservationsToGenerate     |100|
+|numRoomConfigsToGenerate      |100|
+|numRoomsPerHotel              |50|
+|roomAvailabilityStartId       |8000|
+|customerStartId               |400|
+|hotelStartId                  |800|
+|paymentInfoStartId            |1000|
+|reservationStartId            |2000|
+|roomConfigStartId             |700|
+|roomStartId                   |3000|
+|paymentStartId                |7000|
+|==========================================================================
