@@ -30,13 +30,11 @@ public final class HotelStore implements DomainStore {
     public enum Column {
 
         ADDRESS_LINE_1,
-        CITY,
-        COUNTRY_ID,
+        CITY_ID,
         EMAIL,
         HOTEL_CHAIN_ID,
         ID,
         NAME,
-        POSTAL_CODE,
         URL;
 
         public String toCreateStatement() {
@@ -47,10 +45,7 @@ public final class HotelStore implements DomainStore {
                 case ADDRESS_LINE_1:
                     builder.append( "CHARACTER VARYING(256) NOT NULL" );
                     break;
-                case CITY:
-                    builder.append( "CHARACTER VARYING(256) NOT NULL" );
-                    break;
-                case COUNTRY_ID:
+                case CITY_ID:
                     builder.append( "INTEGER NOT NULL" );
                     break;
                 case EMAIL:
@@ -63,9 +58,6 @@ public final class HotelStore implements DomainStore {
                     builder.append( "INTEGER NOT NULL" );
                     break;
                 case NAME:
-                    builder.append( "CHARACTER VARYING(256) NOT NULL" );
-                    break;
-                case POSTAL_CODE:
                     builder.append( "CHARACTER VARYING(256) NOT NULL" );
                     break;
                 case URL:
@@ -81,16 +73,14 @@ public final class HotelStore implements DomainStore {
     }
 
     public static final String TABLE_NAME = "HOTEL";
-    public static final String COUNTRY_FK_NAME = "COUNTRY_FK";
+    public static final String CITY_FK_NAME = "CITY_FK";
     public static final String HOTEL_CHAIN_FK_NAME = "HOTEL_CHAIN_FK";
 
     private static final String COLUMNS = DomainStore.toColumnsStatement( Column.ID.name(),
                                                                           Column.HOTEL_CHAIN_ID.name(),
-                                                                          Column.COUNTRY_ID.name(),
                                                                           Column.NAME.name(),
                                                                           Column.ADDRESS_LINE_1.name(),
-                                                                          Column.CITY.name(),
-                                                                          Column.POSTAL_CODE.name(),
+                                                                          Column.CITY_ID.name(),
                                                                           Column.EMAIL.name(),
                                                                           Column.URL.name() );
 
@@ -98,11 +88,9 @@ public final class HotelStore implements DomainStore {
         = "CREATE TABLE " + DomainStore.addQuotes( TABLE_NAME ) + " (\n"
           + "\t" + Column.ID.toCreateStatement() + ",\n"
           + "\t" + Column.HOTEL_CHAIN_ID.toCreateStatement() + ",\n"
-          + "\t" + Column.COUNTRY_ID.toCreateStatement() + ",\n"
           + "\t" + Column.NAME.toCreateStatement() + ",\n"
           + "\t" + Column.ADDRESS_LINE_1.toCreateStatement() + ",\n"
-          + "\t" + Column.CITY.toCreateStatement() + ",\n"
-          + "\t" + Column.POSTAL_CODE.toCreateStatement() + ",\n"
+          + "\t" + Column.CITY_ID.toCreateStatement() + ",\n"
           + "\t" + Column.EMAIL.toCreateStatement() + ",\n"
           + "\t" + Column.URL.toCreateStatement() + ",\n"
           + "\tPRIMARY KEY ( " + DomainStore.addQuotes( Column.ID.name() ) + " ),\n"
@@ -110,10 +98,10 @@ public final class HotelStore implements DomainStore {
                                                            Column.HOTEL_CHAIN_ID.toString(),
                                                            HotelChainStore.TABLE_NAME,
                                                            HotelChainStore.Column.ID.toString() ) + ",\n"
-          + "\t" + DomainStore.createForeignKeyConstraint( COUNTRY_FK_NAME,
-                                                           Column.COUNTRY_ID.toString(),
-                                                           CountryStore.TABLE_NAME,
-                                                           CountryStore.Column.ID.toString() ) + "\n"
+          + "\t" + DomainStore.createForeignKeyConstraint( CITY_FK_NAME,
+                                                           Column.CITY_ID.toString(),
+                                                           CityStore.TABLE_NAME,
+                                                           CityStore.Column.ID.toString() ) + "\n"
           + ");";
 
     private static final String INSERT_STMT = "INSERT INTO "
@@ -140,11 +128,9 @@ public final class HotelStore implements DomainStore {
             final String insertStmt = String.format( INSERT_STMT,
                                                      toDdl( hotel.getId() ),
                                                      toDdl( hotel.getHotelChainId() ),
-                                                     toDdl( hotel.getCountryId() ),
                                                      toDdl( hotel.getName() ),
                                                      toDdl( hotel.getAddressLine1() ),
-                                                     toDdl( hotel.getCity() ),
-                                                     toDdl( hotel.getPostalCode() ),
+                                                     toDdl( hotel.getCityId() ),
                                                      toDdl( hotel.getEmail() ),
                                                      toDdl( hotel.getUrl() ) );
             ddl.append( insertStmt ).append( '\n' );

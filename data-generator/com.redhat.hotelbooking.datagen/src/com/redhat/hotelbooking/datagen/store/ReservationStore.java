@@ -34,7 +34,8 @@ public final class ReservationStore implements DomainStore {
         CUSTOMER_ID,
         DAILY_RATE,
         ID,
-        ROOM_ID;
+        ROOM_ID,
+        STATUS;
 
         public String toCreateStatement() {
             final StringBuilder builder = new StringBuilder();
@@ -59,6 +60,9 @@ public final class ReservationStore implements DomainStore {
                 case ROOM_ID:
                     builder.append( "INTEGER NOT NULL" );
                     break;
+                case STATUS:
+                    builder.append( "CHARACTER VARYING(256) NOT NULL" );
+                    break;
                 default:
                     throw new RuntimeException();
             }
@@ -77,7 +81,8 @@ public final class ReservationStore implements DomainStore {
                                                                           Column.ROOM_ID.name(),
                                                                           Column.CHECKIN.name(),
                                                                           Column.CHECKOUT.name(),
-                                                                          Column.DAILY_RATE.name() );
+                                                                          Column.DAILY_RATE.name(),
+                                                                          Column.STATUS.name() );
 
     private static final String CREATE_TABLE_STMT
         = "CREATE TABLE " + DomainStore.addQuotes( TABLE_NAME )+ " (\n"
@@ -87,6 +92,7 @@ public final class ReservationStore implements DomainStore {
           + "\t" + Column.CHECKIN.toCreateStatement() + ",\n"
           + "\t" + Column.CHECKOUT.toCreateStatement() + ",\n"
           + "\t" + Column.DAILY_RATE.toCreateStatement() + ",\n"
+          + "\t" + Column.STATUS.toCreateStatement() + ",\n"
           + "\tPRIMARY KEY ( " + DomainStore.addQuotes( Column.ID.name() ) + " ),\n"
           + "\t" + DomainStore.createForeignKeyConstraint( CUSTOMER_FK_NAME,
                                                            Column.CUSTOMER_ID.toString(),
@@ -125,7 +131,8 @@ public final class ReservationStore implements DomainStore {
                                                      toDdl( reservation.getRoomId() ),
                                                      toDdl( reservation.getCheckin() ),
                                                      toDdl( reservation.getCheckout() ),
-                                                     toDdl( reservation.getDailyRate() ) );
+                                                     toDdl( reservation.getDailyRate() ),
+                                                     toDdl( reservation.getStatus().name() ) );
             ddl.append( insertStmt ).append( '\n' );
         }
 

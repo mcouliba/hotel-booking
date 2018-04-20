@@ -25,25 +25,37 @@ import java.sql.Timestamp;
 
 public final class Reservation {
 
+    public enum Status {
+
+        CANCELED,
+        CHECKIN,
+        CHECKOUT,
+        RESERVED
+
+    }
+
     private final Timestamp checkin;
     private final Timestamp checkout;
     private final int customerId;
     private final double dailyRate;
     private final int id;
     private final int roomId;
+    private final Status status;
 
     public Reservation( final int id,
                         final int roomId,
                         final int customerId,
                         final Timestamp checkin,
                         final Timestamp checkout,
-                        final double dailyRate ) {
+                        final double dailyRate,
+                        final Status status ) {
         this.checkin = checkin;
         this.checkout = checkout;
         this.customerId = customerId;
         this.dailyRate = dailyRate;
         this.id = id;
         this.roomId = roomId;
+        this.status = status;
     }
 
     public Timestamp getCheckin() {
@@ -68,6 +80,10 @@ public final class Reservation {
 
     public int getRoomId() {
         return this.roomId;
+    }
+
+    public Status getStatus() {
+        return this.status;
     }
 
 }

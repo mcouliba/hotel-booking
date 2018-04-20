@@ -56,6 +56,19 @@ public final class DataProvider {
         public int numRoomConfigsToGenerate = 100;
         public int numRoomsPerHotel = 50;
 
+        // The following are used to create the database record IDs.
+        // hotel chain ID = 1
+        // country IDs 101-110
+        // city IDs 200-232
+        public int roomAvailabilityStartId = 8000;
+        public int customerStartId = 400;
+        public int hotelStartId = 800;
+        public int paymentInfoStartId = 1000;
+        public int reservationStartId = 2000;
+        public int roomConfigStartId = 700;
+        public int roomStartId = 3000;
+        public int paymentStartId = 7000;
+
     }
 
     private static List< String > _femaleNames;
@@ -63,18 +76,6 @@ public final class DataProvider {
     private static List< String > _maleNames;
     private static List< String > _streets;
     private static List< String > _streetSuffixes;
-
-    // hotel chain ID = 1
-    // country IDs 101-110
-    // city IDs 201-233?
-    private static int _availabilityId = 8000;
-    private static int _customerId = 400;
-    private static int _hotelId = 800;
-    private static int _paymentInfoId = 1000;
-    private static int _reservationId = 2000;
-    private static int _roomConfigId = 700;
-    private static int _roomId = 3000;
-    private static int _paymentId = 7000;
 
     private static String[] EMAIL_PROVIDERS = {
         "aol.com",
@@ -152,7 +153,7 @@ public final class DataProvider {
         for ( final Room room : rooms ) {
             for ( int i = 0; i < this.settings.numDaysAvailabilityPerRoom; ++i ) {
                 final LocalDate day = this.settings.firstReservationDate.plusDays( i );
-                final RoomAvailability availability = new RoomAvailability( _availabilityId++,
+                final RoomAvailability availability = new RoomAvailability( this.settings.roomAvailabilityStartId++,
                                                                             room.getId(),
                                                                             this.random.next(),
                                                                             Timestamp.valueOf( day.atStartOfDay() ) );
@@ -244,13 +245,12 @@ public final class DataProvider {
                 rewardsId = nextRewardsId();
             }
 
-            final Customer customer = new Customer( i + _customerId,
+            final Customer customer = new Customer( i + this.settings.customerStartId,
                                                     name,
                                                     email,
                                                     pswd,
                                                     addressLine1,
-                                                    city.getName(),
-                                                    city.getPostalCode(),
+                                                    city.getId(),
                                                     Timestamp.valueOf( nextMemberSince().atStartOfDay() ),
                                                     rewardsId );
             customers.add( customer );
@@ -290,13 +290,11 @@ public final class DataProvider {
                                              + city.getName()
                                              + " " + addressLine1.substring( index + 1 );
 
-                    final Hotel hotel = new Hotel( _hotelId++,
+                    final Hotel hotel = new Hotel( this.settings.hotelStartId++,
                                                    hotelChain.getId(),
-                                                   city.getCountryId(),
                                                    hotelName,
                                                    addressLine1,
-                                                   city.getName(),
-                                                   city.getPostalCode(),
+                                                   city.getId(),
                                                    email,
                                                    url );
                     hotels.add( hotel );
@@ -320,7 +318,7 @@ public final class DataProvider {
             final LocalDate expirationDate = this.random.next( LocalDate.of( expirationYear, 1, 1 ),
                                                                LocalDate.of( expirationYear + 4, 12, 31 ) );
 
-            final PaymentInfo paymentInfo = new PaymentInfo( i + _paymentInfoId,
+            final PaymentInfo paymentInfo = new PaymentInfo( i + this.settings.paymentInfoStartId,
                                                              customer.getId(),
                                                              creditCardNumber,
                                                              creditCardType,
@@ -347,7 +345,7 @@ public final class DataProvider {
                     = paymentInfos.stream().filter(
                           p -> p.getCustomerId() == reservation.getCustomerId()
                       ).findFirst();
-                final Payment payment = new Payment( _paymentId++,
+                final Payment payment = new Payment( this.settings.paymentStartId++,
                                                      paymentInfo.get().getId(),
                                                      reservation.getId(),
                                                      roundRate( reservation.getDailyRate() * numDays ) );
@@ -371,12 +369,13 @@ public final class DataProvider {
             final int numDays = this.random.next( 2, 9 );
             final LocalDate checkout = this.random.next( checkin.plusDays( 1 ), checkin.plusDays( numDays ) );
 
-            final Reservation reservation = new Reservation( i + _reservationId,
+            final Reservation reservation = new Reservation( i + this.settings.reservationStartId,
                                                              room.getId(),
                                                              customer.getId(),
                                                              Timestamp.valueOf( checkin.atStartOfDay() ),
                                                              Timestamp.valueOf( checkout.atStartOfDay() ),
-                                                             room.getRate() );
+                                                             room.getRate(),
+                                                             Reservation.Status.RESERVED );
             reservations.add( reservation );
         }
 
@@ -403,7 +402,7 @@ public final class DataProvider {
                 final int numQueen = numKing == 2 ? 0 : this.random.next( 0, 2 - numKing );
                 final int numDouble = 2 - numKing - numQueen;
 
-                roomConfig = new RoomConfig( i + _roomConfigId,
+                roomConfig = new RoomConfig( i + this.settings.roomConfigStartId,
                                              livingSpace,
                                              microwave,
                                              numAdjoiningRooms,
@@ -434,7 +433,12 @@ public final class DataProvider {
                 final RoomConfig roomConfig = this.random.next( roomConfigs );
                 final double rate = roundRate( this.random.next( 75.00f, 250.00f ) );
                 final String roomTitle = floor + "-" + roomNumber;
-                final Room room = new Room( _roomId++, hotel.getId(), roomConfig.getId(), rate, floor, roomTitle );
+                final Room room = new Room( this.settings.roomStartId++,
+                                            hotel.getId(),
+                                            roomConfig.getId(),
+                                            rate,
+                                            floor,
+                                            roomTitle );
                 rooms.add( room );
 
                 if ( i != 0 && i % 20 == 0 ) {

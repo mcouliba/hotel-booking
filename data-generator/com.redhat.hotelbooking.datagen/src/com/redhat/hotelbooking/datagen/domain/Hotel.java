@@ -3,32 +3,26 @@ package com.redhat.hotelbooking.datagen.domain;
 public final class Hotel {
 
     private final String addressLine1;
-    private final String city;
-    private final int countryId;
+    private final int cityId;
     private final String email;
     private final int hotelChainId;
     private final int id;
     private final String name;
-    private final String postalCode;
     private final String url;
 
     public Hotel( final int id,
                   final int hotelChainId,
-                  final int countryId,
                   final String name,
                   final String addressLine1,
-                  final String city,
-                  final String postalCode,
+                  final int cityId,
                   final String email,
                   final String url ) {
         this.addressLine1 = addressLine1;
-        this.city = city;
-        this.countryId = countryId;
+        this.cityId = cityId;
         this.email = email;
         this.hotelChainId = hotelChainId;
         this.id = id;
         this.name = name;
-        this.postalCode = postalCode;
         this.url = url;
     }
 
@@ -36,12 +30,8 @@ public final class Hotel {
         return this.addressLine1;
     }
 
-    public String getCity() {
-        return this.city;
-    }
-
-    public int getCountryId() {
-        return this.countryId;
+    public int getCityId() {
+        return this.cityId;
     }
 
     public String getEmail() {
@@ -58,10 +48,6 @@ public final class Hotel {
 
     public String getName() {
         return this.name;
-    }
-
-    public String getPostalCode() {
-        return this.postalCode;
     }
 
     public String getUrl() {
