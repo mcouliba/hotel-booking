@@ -1,0 +1,788 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1954CC73EBBBC0ED0405E2A9 /* Pods_redhathotelTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B78D58D24DBF87A407DF6B18 /* Pods_redhathotelTests.framework */; };
+		99DC181E41B477517C2B38F0 /* Pods_redhathotelUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94B474DAA6DA806EBBE3D913 /* Pods_redhathotelUITests.framework */; };
+		AA7261618C7AEFBF1790DBF8 /* Pods_redhathotel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D19006CDFED627026D240D6E /* Pods_redhathotel.framework */; };
+		ECC1A00C207E96BC00D7DEA2 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC1A00B207E96BC00D7DEA2 /* LoginViewController.swift */; };
+		ECC1A012207EB66C00D7DEA2 /* QRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC1A011207EB66C00D7DEA2 /* QRCodeViewController.swift */; };
+		ECC1A014208542CB00D7DEA2 /* ReservationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC1A013208542CB00D7DEA2 /* ReservationsViewController.swift */; };
+		ECC1A01A20867EE900D7DEA2 /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC1A01920867EE900D7DEA2 /* TestData.swift */; };
+		ECC1A0222086973500D7DEA2 /* ReservationsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC1A0212086973500D7DEA2 /* ReservationsTableViewCell.swift */; };
+		ECFBD7F2207D28E600B087B5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECFBD7F1207D28E600B087B5 /* AppDelegate.swift */; };
+		ECFBD7F7207D28E600B087B5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ECFBD7F5207D28E600B087B5 /* Main.storyboard */; };
+		ECFBD7F9207D28E600B087B5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ECFBD7F8207D28E600B087B5 /* Assets.xcassets */; };
+		ECFBD7FC207D28E600B087B5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ECFBD7FA207D28E600B087B5 /* LaunchScreen.storyboard */; };
+		ECFBD807207D28E600B087B5 /* redhathotelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECFBD806207D28E600B087B5 /* redhathotelTests.swift */; };
+		ECFBD812207D28E600B087B5 /* redhathotelUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECFBD811207D28E600B087B5 /* redhathotelUITests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		ECFBD803207D28E600B087B5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = ECFBD7E6207D28E600B087B5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = ECFBD7ED207D28E600B087B5;
+			remoteInfo = redhathotel;
+		};
+		ECFBD80E207D28E600B087B5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = ECFBD7E6207D28E600B087B5 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = ECFBD7ED207D28E600B087B5;
+			remoteInfo = redhathotel;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		6DE718C8FBA7A432D8141F95 /* Pods-redhathotelUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-redhathotelUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-redhathotelUITests/Pods-redhathotelUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		9136151603B5CC34BADB40AD /* Pods-redhathotel.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-redhathotel.release.xcconfig"; path = "Pods/Target Support Files/Pods-redhathotel/Pods-redhathotel.release.xcconfig"; sourceTree = "<group>"; };
+		94B474DAA6DA806EBBE3D913 /* Pods_redhathotelUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_redhathotelUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A357197A588274AE448D1FFD /* Pods-redhathotelTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-redhathotelTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-redhathotelTests/Pods-redhathotelTests.debug.xcconfig"; sourceTree = "<group>"; };
+		B78D58D24DBF87A407DF6B18 /* Pods_redhathotelTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_redhathotelTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CACF2D722E94E6FBE65A77E0 /* Pods-redhathotel.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-redhathotel.debug.xcconfig"; path = "Pods/Target Support Files/Pods-redhathotel/Pods-redhathotel.debug.xcconfig"; sourceTree = "<group>"; };
+		CD918AFDDF01241F1F0319CD /* Pods-redhathotelTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-redhathotelTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-redhathotelTests/Pods-redhathotelTests.release.xcconfig"; sourceTree = "<group>"; };
+		D19006CDFED627026D240D6E /* Pods_redhathotel.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_redhathotel.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E69676C26B893940ED992728 /* Pods-redhathotelUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-redhathotelUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-redhathotelUITests/Pods-redhathotelUITests.release.xcconfig"; sourceTree = "<group>"; };
+		ECC1A00B207E96BC00D7DEA2 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		ECC1A011207EB66C00D7DEA2 /* QRCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeViewController.swift; sourceTree = "<group>"; };
+		ECC1A013208542CB00D7DEA2 /* ReservationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationsViewController.swift; sourceTree = "<group>"; };
+		ECC1A01920867EE900D7DEA2 /* TestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
+		ECC1A0212086973500D7DEA2 /* ReservationsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationsTableViewCell.swift; sourceTree = "<group>"; };
+		ECFBD7EE207D28E600B087B5 /* redhathotel.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = redhathotel.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		ECFBD7F1207D28E600B087B5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		ECFBD7F6207D28E600B087B5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		ECFBD7F8207D28E600B087B5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		ECFBD7FB207D28E600B087B5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		ECFBD7FD207D28E600B087B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ECFBD802207D28E600B087B5 /* redhathotelTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = redhathotelTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		ECFBD806207D28E600B087B5 /* redhathotelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = redhathotelTests.swift; sourceTree = "<group>"; };
+		ECFBD808207D28E600B087B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ECFBD80D207D28E600B087B5 /* redhathotelUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = redhathotelUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		ECFBD811207D28E600B087B5 /* redhathotelUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = redhathotelUITests.swift; sourceTree = "<group>"; };
+		ECFBD813207D28E600B087B5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		ECFBD7EB207D28E600B087B5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA7261618C7AEFBF1790DBF8 /* Pods_redhathotel.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ECFBD7FF207D28E600B087B5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1954CC73EBBBC0ED0405E2A9 /* Pods_redhathotelTests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ECFBD80A207D28E600B087B5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				99DC181E41B477517C2B38F0 /* Pods_redhathotelUITests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		39E1579B54023A571D481C64 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				CACF2D722E94E6FBE65A77E0 /* Pods-redhathotel.debug.xcconfig */,
+				9136151603B5CC34BADB40AD /* Pods-redhathotel.release.xcconfig */,
+				A357197A588274AE448D1FFD /* Pods-redhathotelTests.debug.xcconfig */,
+				CD918AFDDF01241F1F0319CD /* Pods-redhathotelTests.release.xcconfig */,
+				6DE718C8FBA7A432D8141F95 /* Pods-redhathotelUITests.debug.xcconfig */,
+				E69676C26B893940ED992728 /* Pods-redhathotelUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		874A0F4EDD5C4AD67ACE9B45 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D19006CDFED627026D240D6E /* Pods_redhathotel.framework */,
+				B78D58D24DBF87A407DF6B18 /* Pods_redhathotelTests.framework */,
+				94B474DAA6DA806EBBE3D913 /* Pods_redhathotelUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		ECFBD7E5207D28E600B087B5 = {
+			isa = PBXGroup;
+			children = (
+				ECFBD7F0207D28E600B087B5 /* redhathotel */,
+				ECFBD805207D28E600B087B5 /* redhathotelTests */,
+				ECFBD810207D28E600B087B5 /* redhathotelUITests */,
+				ECFBD7EF207D28E600B087B5 /* Products */,
+				39E1579B54023A571D481C64 /* Pods */,
+				874A0F4EDD5C4AD67ACE9B45 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		ECFBD7EF207D28E600B087B5 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				ECFBD7EE207D28E600B087B5 /* redhathotel.app */,
+				ECFBD802207D28E600B087B5 /* redhathotelTests.xctest */,
+				ECFBD80D207D28E600B087B5 /* redhathotelUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		ECFBD7F0207D28E600B087B5 /* redhathotel */ = {
+			isa = PBXGroup;
+			children = (
+				ECFBD7F1207D28E600B087B5 /* AppDelegate.swift */,
+				ECFBD7F5207D28E600B087B5 /* Main.storyboard */,
+				ECFBD7F8207D28E600B087B5 /* Assets.xcassets */,
+				ECFBD7FA207D28E600B087B5 /* LaunchScreen.storyboard */,
+				ECFBD7FD207D28E600B087B5 /* Info.plist */,
+				ECC1A00B207E96BC00D7DEA2 /* LoginViewController.swift */,
+				ECC1A011207EB66C00D7DEA2 /* QRCodeViewController.swift */,
+				ECC1A013208542CB00D7DEA2 /* ReservationsViewController.swift */,
+				ECC1A01920867EE900D7DEA2 /* TestData.swift */,
+				ECC1A0212086973500D7DEA2 /* ReservationsTableViewCell.swift */,
+			);
+			path = redhathotel;
+			sourceTree = "<group>";
+		};
+		ECFBD805207D28E600B087B5 /* redhathotelTests */ = {
+			isa = PBXGroup;
+			children = (
+				ECFBD806207D28E600B087B5 /* redhathotelTests.swift */,
+				ECFBD808207D28E600B087B5 /* Info.plist */,
+			);
+			path = redhathotelTests;
+			sourceTree = "<group>";
+		};
+		ECFBD810207D28E600B087B5 /* redhathotelUITests */ = {
+			isa = PBXGroup;
+			children = (
+				ECFBD811207D28E600B087B5 /* redhathotelUITests.swift */,
+				ECFBD813207D28E600B087B5 /* Info.plist */,
+			);
+			path = redhathotelUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		ECFBD7ED207D28E600B087B5 /* redhathotel */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ECFBD816207D28E600B087B5 /* Build configuration list for PBXNativeTarget "redhathotel" */;
+			buildPhases = (
+				BA420C48A598BDA2DC2D8DD6 /* [CP] Check Pods Manifest.lock */,
+				ECFBD7EA207D28E600B087B5 /* Sources */,
+				ECFBD7EB207D28E600B087B5 /* Frameworks */,
+				ECFBD7EC207D28E600B087B5 /* Resources */,
+				3267D0D0EEB26E462FAB469B /* [CP] Embed Pods Frameworks */,
+				0680E667ECF3A6DEC3D4945E /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = redhathotel;
+			productName = redhathotel;
+			productReference = ECFBD7EE207D28E600B087B5 /* redhathotel.app */;
+			productType = "com.apple.product-type.application";
+		};
+		ECFBD801207D28E600B087B5 /* redhathotelTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ECFBD819207D28E600B087B5 /* Build configuration list for PBXNativeTarget "redhathotelTests" */;
+			buildPhases = (
+				103CB1081D76100DEDC1BC84 /* [CP] Check Pods Manifest.lock */,
+				ECFBD7FE207D28E600B087B5 /* Sources */,
+				ECFBD7FF207D28E600B087B5 /* Frameworks */,
+				ECFBD800207D28E600B087B5 /* Resources */,
+				0C2C245CCEB937169919E90A /* [CP] Embed Pods Frameworks */,
+				B7144EC7D7A8A87E9174683B /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				ECFBD804207D28E600B087B5 /* PBXTargetDependency */,
+			);
+			name = redhathotelTests;
+			productName = redhathotelTests;
+			productReference = ECFBD802207D28E600B087B5 /* redhathotelTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		ECFBD80C207D28E600B087B5 /* redhathotelUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = ECFBD81C207D28E600B087B5 /* Build configuration list for PBXNativeTarget "redhathotelUITests" */;
+			buildPhases = (
+				60438FC1F323F35816B3B641 /* [CP] Check Pods Manifest.lock */,
+				ECFBD809207D28E600B087B5 /* Sources */,
+				ECFBD80A207D28E600B087B5 /* Frameworks */,
+				ECFBD80B207D28E600B087B5 /* Resources */,
+				9C2C123920DE9F831ADDA8FB /* [CP] Embed Pods Frameworks */,
+				05E94B158F9013F2A6E1C96D /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				ECFBD80F207D28E600B087B5 /* PBXTargetDependency */,
+			);
+			name = redhathotelUITests;
+			productName = redhathotelUITests;
+			productReference = ECFBD80D207D28E600B087B5 /* redhathotelUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		ECFBD7E6207D28E600B087B5 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0920;
+				LastUpgradeCheck = 0920;
+				ORGANIZATIONNAME = "Ted Jones - Red Hat";
+				TargetAttributes = {
+					ECFBD7ED207D28E600B087B5 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
+					ECFBD801207D28E600B087B5 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = ECFBD7ED207D28E600B087B5;
+					};
+					ECFBD80C207D28E600B087B5 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+						TestTargetID = ECFBD7ED207D28E600B087B5;
+					};
+				};
+			};
+			buildConfigurationList = ECFBD7E9207D28E600B087B5 /* Build configuration list for PBXProject "redhathotel" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = ECFBD7E5207D28E600B087B5;
+			productRefGroup = ECFBD7EF207D28E600B087B5 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				ECFBD7ED207D28E600B087B5 /* redhathotel */,
+				ECFBD801207D28E600B087B5 /* redhathotelTests */,
+				ECFBD80C207D28E600B087B5 /* redhathotelUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		ECFBD7EC207D28E600B087B5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ECFBD7FC207D28E600B087B5 /* LaunchScreen.storyboard in Resources */,
+				ECFBD7F9207D28E600B087B5 /* Assets.xcassets in Resources */,
+				ECFBD7F7207D28E600B087B5 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ECFBD800207D28E600B087B5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ECFBD80B207D28E600B087B5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		05E94B158F9013F2A6E1C96D /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-redhathotelUITests/Pods-redhathotelUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		0680E667ECF3A6DEC3D4945E /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-redhathotel/Pods-redhathotel-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		0C2C245CCEB937169919E90A /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-redhathotelTests/Pods-redhathotelTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		103CB1081D76100DEDC1BC84 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-redhathotelTests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3267D0D0EEB26E462FAB469B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-redhathotel/Pods-redhathotel-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Bolts/Bolts.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKLoginKit/FBSDKLoginKit.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Bolts.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKLoginKit.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-redhathotel/Pods-redhathotel-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		60438FC1F323F35816B3B641 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-redhathotelUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9C2C123920DE9F831ADDA8FB /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-redhathotelUITests/Pods-redhathotelUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B7144EC7D7A8A87E9174683B /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-redhathotelTests/Pods-redhathotelTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		BA420C48A598BDA2DC2D8DD6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-redhathotel-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		ECFBD7EA207D28E600B087B5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ECC1A012207EB66C00D7DEA2 /* QRCodeViewController.swift in Sources */,
+				ECC1A00C207E96BC00D7DEA2 /* LoginViewController.swift in Sources */,
+				ECC1A0222086973500D7DEA2 /* ReservationsTableViewCell.swift in Sources */,
+				ECC1A014208542CB00D7DEA2 /* ReservationsViewController.swift in Sources */,
+				ECFBD7F2207D28E600B087B5 /* AppDelegate.swift in Sources */,
+				ECC1A01A20867EE900D7DEA2 /* TestData.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ECFBD7FE207D28E600B087B5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ECFBD807207D28E600B087B5 /* redhathotelTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		ECFBD809207D28E600B087B5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				ECFBD812207D28E600B087B5 /* redhathotelUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		ECFBD804207D28E600B087B5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = ECFBD7ED207D28E600B087B5 /* redhathotel */;
+			targetProxy = ECFBD803207D28E600B087B5 /* PBXContainerItemProxy */;
+		};
+		ECFBD80F207D28E600B087B5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = ECFBD7ED207D28E600B087B5 /* redhathotel */;
+			targetProxy = ECFBD80E207D28E600B087B5 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		ECFBD7F5207D28E600B087B5 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				ECFBD7F6207D28E600B087B5 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		ECFBD7FA207D28E600B087B5 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				ECFBD7FB207D28E600B087B5 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		ECFBD814207D28E600B087B5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		ECFBD815207D28E600B087B5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		ECFBD817207D28E600B087B5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CACF2D722E94E6FBE65A77E0 /* Pods-redhathotel.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7LLT65DGJS;
+				INFOPLIST_FILE = redhathotel/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.redhat.hotel.redhathotel;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		ECFBD818207D28E600B087B5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9136151603B5CC34BADB40AD /* Pods-redhathotel.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7LLT65DGJS;
+				INFOPLIST_FILE = redhathotel/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.redhat.hotel.redhathotel;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		ECFBD81A207D28E600B087B5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A357197A588274AE448D1FFD /* Pods-redhathotelTests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7LLT65DGJS;
+				INFOPLIST_FILE = redhathotelTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.redhat.hotel.redhathotelTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/redhathotel.app/redhathotel";
+			};
+			name = Debug;
+		};
+		ECFBD81B207D28E600B087B5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CD918AFDDF01241F1F0319CD /* Pods-redhathotelTests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7LLT65DGJS;
+				INFOPLIST_FILE = redhathotelTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.redhat.hotel.redhathotelTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/redhathotel.app/redhathotel";
+			};
+			name = Release;
+		};
+		ECFBD81D207D28E600B087B5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6DE718C8FBA7A432D8141F95 /* Pods-redhathotelUITests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7LLT65DGJS;
+				INFOPLIST_FILE = redhathotelUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.redhat.hotel.redhathotelUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = redhathotel;
+			};
+			name = Debug;
+		};
+		ECFBD81E207D28E600B087B5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E69676C26B893940ED992728 /* Pods-redhathotelUITests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 7LLT65DGJS;
+				INFOPLIST_FILE = redhathotelUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.redhat.hotel.redhathotelUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = redhathotel;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		ECFBD7E9207D28E600B087B5 /* Build configuration list for PBXProject "redhathotel" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ECFBD814207D28E600B087B5 /* Debug */,
+				ECFBD815207D28E600B087B5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		ECFBD816207D28E600B087B5 /* Build configuration list for PBXNativeTarget "redhathotel" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ECFBD817207D28E600B087B5 /* Debug */,
+				ECFBD818207D28E600B087B5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		ECFBD819207D28E600B087B5 /* Build configuration list for PBXNativeTarget "redhathotelTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ECFBD81A207D28E600B087B5 /* Debug */,
+				ECFBD81B207D28E600B087B5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		ECFBD81C207D28E600B087B5 /* Build configuration list for PBXNativeTarget "redhathotelUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ECFBD81D207D28E600B087B5 /* Debug */,
+				ECFBD81E207D28E600B087B5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = ECFBD7E6207D28E600B087B5 /* Project object */;
+}
