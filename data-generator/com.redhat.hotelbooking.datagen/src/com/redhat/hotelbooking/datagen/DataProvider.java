@@ -47,7 +47,7 @@ public final class DataProvider {
 
     public static class Settings {
 
-        public LocalDate oldestMembershipDate = LocalDate.now().minusYears( 10 );
+        public boolean generateRoomNotAvailableRecord = false;
         public LocalDate firstReservationDate = LocalDate.now();
         public int maxNumHotelsPerCityToGenerate = 2;
         public int numDaysAvailabilityPerRoom = 60;
@@ -55,6 +55,7 @@ public final class DataProvider {
         public int numReservationsToGenerate = 100;
         public int numRoomConfigsToGenerate = 100;
         public int numRoomsPerHotel = 50;
+        public LocalDate oldestMembershipDate = LocalDate.now().minusYears( 10 );
 
         // The following are used to create the database record IDs.
         // hotel chain ID = 1
@@ -153,11 +154,15 @@ public final class DataProvider {
         for ( final Room room : rooms ) {
             for ( int i = 0; i < this.settings.numDaysAvailabilityPerRoom; ++i ) {
                 final LocalDate day = this.settings.firstReservationDate.plusDays( i );
-                final RoomAvailability availability = new RoomAvailability( this.settings.roomAvailabilityStartId++,
+                final RoomAvailability availability = new RoomAvailability( this.settings.roomAvailabilityStartId,
                                                                             room.getId(),
                                                                             this.random.next(),
                                                                             Timestamp.valueOf( day.atStartOfDay() ) );
-                availabilities.add( availability );
+
+                if ( availability.isAvailable() || this.settings.generateRoomNotAvailableRecord ) {
+                    availabilities.add( availability );
+                    ++this.settings.roomAvailabilityStartId;
+                }
             }
         }
 
@@ -296,6 +301,7 @@ public final class DataProvider {
                                                    addressLine1,
                                                    city.getId(),
                                                    email,
+                                                   roundRate( this.random.next( 2.5f, 4.0f ) ),
                                                    url );
                     hotels.add( hotel );
                 }

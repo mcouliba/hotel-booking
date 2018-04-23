@@ -35,6 +35,7 @@ public final class HotelStore implements DomainStore {
         HOTEL_CHAIN_ID,
         ID,
         NAME,
+        STARS,
         URL;
 
         public String toCreateStatement() {
@@ -60,6 +61,9 @@ public final class HotelStore implements DomainStore {
                 case NAME:
                     builder.append( "CHARACTER VARYING(256) NOT NULL" );
                     break;
+                case STARS:
+                    builder.append( "DECIMAL(3,2) NOT NULL" );
+                    break;
                 case URL:
                     builder.append( "CHARACTER VARYING(256) NOT NULL" );
                     break;
@@ -82,6 +86,7 @@ public final class HotelStore implements DomainStore {
                                                                           Column.ADDRESS_LINE_1.name(),
                                                                           Column.CITY_ID.name(),
                                                                           Column.EMAIL.name(),
+                                                                          Column.STARS.name(),
                                                                           Column.URL.name() );
 
     private static final String CREATE_TABLE_STMT
@@ -92,6 +97,7 @@ public final class HotelStore implements DomainStore {
           + "\t" + Column.ADDRESS_LINE_1.toCreateStatement() + ",\n"
           + "\t" + Column.CITY_ID.toCreateStatement() + ",\n"
           + "\t" + Column.EMAIL.toCreateStatement() + ",\n"
+          + "\t" + Column.STARS.toCreateStatement() + ",\n"
           + "\t" + Column.URL.toCreateStatement() + ",\n"
           + "\tPRIMARY KEY ( " + DomainStore.addQuotes( Column.ID.name() ) + " ),\n"
           + "\t" + DomainStore.createForeignKeyConstraint( HOTEL_CHAIN_FK_NAME,
@@ -132,6 +138,7 @@ public final class HotelStore implements DomainStore {
                                                      toDdl( hotel.getAddressLine1() ),
                                                      toDdl( hotel.getCityId() ),
                                                      toDdl( hotel.getEmail() ),
+                                                     toDdl( hotel.getStars() ),
                                                      toDdl( hotel.getUrl() ) );
             ddl.append( insertStmt ).append( '\n' );
         }
