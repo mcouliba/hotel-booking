@@ -8,6 +8,7 @@ public final class Hotel {
     private final int hotelChainId;
     private final int id;
     private final String name;
+    private final double stars;
     private final String url;
 
     public Hotel( final int id,
@@ -16,6 +17,7 @@ public final class Hotel {
                   final String addressLine1,
                   final int cityId,
                   final String email,
+                  final double stars,
                   final String url ) {
         this.addressLine1 = addressLine1;
         this.cityId = cityId;
@@ -23,6 +25,7 @@ public final class Hotel {
         this.hotelChainId = hotelChainId;
         this.id = id;
         this.name = name;
+        this.stars = stars;
         this.url = url;
     }
 
@@ -48,6 +51,10 @@ public final class Hotel {
 
     public String getName() {
         return this.name;
+    }
+
+    public double getStars() {
+        return this.stars;
     }
 
     public String getUrl() {
