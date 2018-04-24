@@ -37,7 +37,7 @@
 				y.name
 			FROM 
 				Monolith.hotel as h inner join Monolith.city as c on (h.city_id = c.id)
-				                    inner join Monolity.country as y on (c.country_id = y.id);
+				                    inner join Monolith.country as y on (c.country_id = y.id);
 
 		
 		]]></metadata>
