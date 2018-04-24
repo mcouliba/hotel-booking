@@ -16,11 +16,12 @@
 			id integer NOT NULL,
 			name string(256) NOT NULL,
 			stars decimal NOT NULL,
-			price integer NOT NULL,
-			city_name string(256) NOT NULL,
-			country_name string(256) NOT NULL,
+			email string(256) NOT NULL,
+			url string(256) NOT NULL,
 			address string(256) NOT NULL,
-			available_rooms integer NOT NULL,
+			city string(256) NOT NULL,
+			postal_code string(256) NOT NULL,
+			country string(256) NOT NULL,
 			CONSTRAINT hotel_pk PRIMARY KEY(id)
 		) 
 		AS
@@ -28,16 +29,15 @@
 				h.id,
 				h.name,
 				h.stars,
-				h.price,
-				h.city_name,
-				h.country_name,
-				h.address,
-				COUNT(r.id) as available_rooms
+				h.email,
+				h.url,
+				h.address_line_1,
+				c.name,
+				c.postal_code,
+				y.name
 			FROM 
-				Monolith.hotel h LEFT OUTER JOIN Monolith.room r 
-					ON h.id = r.hotel_id
-			GROUP BY 
-				h.id, h.name, h.stars, h.price, h.city_name, h.country_name, h.address;
+				Monolith.hotel as h inner join Monolith.city as c on (h.city_id = c.id)
+				                    inner join Monolity.country as y on (c.country_id = y.id);
 
 		CREATE VIEW user(
 			email string(256) NOT NULL,
@@ -124,9 +124,7 @@
 				                          inner join Monolith.room_config as rc on (r.room_config_id = rc.id)
 				                          inner join Monolith.hotel as h on (r.hotel_id = h.id)
 				                          inner join Monolith.city as hc on (h.city_id = hc.id)
-				                          inner join Monolity.country as hy on (hc.country_id = hy.id)
-			GROUP BY 
-				c.name, r.checkin;
+				                          inner join Monolity.country as hy on (hc.country_id = hy.id);
 		]]></metadata>
 	</model>
 </vdb>
