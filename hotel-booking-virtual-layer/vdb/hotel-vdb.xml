@@ -39,7 +39,7 @@
                 Monolith.hotel as h inner join Monolith.city as c on (h.city_id = c.id)
                                     inner join Monolith.country as y on (c.country_id = y.id);
 
-        CREATE VIEW user(
+        CREATE VIEW customer(
             id integer NOT NULL,
             email string(256) NOT NULL,
             password string(256) NOT NULL,
