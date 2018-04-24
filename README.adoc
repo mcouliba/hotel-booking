@@ -151,7 +151,8 @@ The following are the data model entities:
 	.. name, 
 	.. address, 
 	.. city, 
-	.. email, and 
+	.. email,
+	.. stars, and 
 	.. URL.
 . Room Configuration - a room configurations. Each record has the following properties:
 	.. has separate living area indicator, 
@@ -221,6 +222,7 @@ There are settings in two different places:
 |Setting                       |Default Value|
 |oldestMembershipDate          |The date data was generated minus 10 years|  
 |firstReservationDate          |The date data was generated|
+|generateRoomNotAvailableRecord|false|
 |maxNumHotelsPerCityToGenerate |2|
 |numDaysAvailabilityPerRoom    |60|
 |numCustomersToGenerate        |50|
