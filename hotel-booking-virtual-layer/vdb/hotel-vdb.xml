@@ -121,12 +121,12 @@
             FROM
                 Monolith.reservation as r inner join Monolith.customer as c on (r.customer_id = c.id)
                                           inner join Monolith.city as cc on (c.city_id = cc.id)
-                                          inner join Monolity.country as cy on (cc.country_id = cy.id)
+                                          inner join Monolith.country as cy on (cc.country_id = cy.id)
                                           inner join Monolith.room rm on (r.room_id = rm.id)
                                           inner join Monolith.room_config as rc on (r.room_config_id = rc.id)
                                           inner join Monolith.hotel as h on (r.hotel_id = h.id)
                                           inner join Monolith.city as hc on (h.city_id = hc.id)
-                                          inner join Monolity.country as hy on (hc.country_id = hy.id);
+                                          inner join Monolith.country as hy on (hc.country_id = hy.id);
         ]]></metadata>
     </model>
 </vdb>
