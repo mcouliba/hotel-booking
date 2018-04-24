@@ -57,7 +57,7 @@
             id integer NOT NULL,
             checkin date NOT NULL,
             checkout date NOT NULL,
-            daily_rate double NOT NULL,
+            daily_rate bigdecimal NOT NULL,
             status string(256) NOT NULL,
             cust_name string(256) NOT NULL,
             cust_email string(256) NOT NULL,
