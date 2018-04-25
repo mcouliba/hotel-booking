@@ -137,6 +137,11 @@ The following are the data model entities:
 	.. date became a member, 
 	.. address, and
 	.. city.
+. Acceptance - a customer's acceptance to the releasing of personal data for various statements. Each record has the following properties:
+    .. customer,
+    .. statement 1 acceptance flag,
+    .. statement 2 acceptance flag,
+    .. statement 3 acceptance flag.
 . Payment Information - a customer's payment information. Each record has the following properties:
 	.. customer, 
 	.. credit card number, 

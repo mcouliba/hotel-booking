@@ -29,6 +29,7 @@ import java.util.Collections;
 import java.util.List;
 
 import com.redhat.hotelbooking.datagen.DataProvider.Settings;
+import com.redhat.hotelbooking.datagen.domain.Acceptance;
 import com.redhat.hotelbooking.datagen.domain.City;
 import com.redhat.hotelbooking.datagen.domain.Country;
 import com.redhat.hotelbooking.datagen.domain.Customer;
@@ -40,6 +41,7 @@ import com.redhat.hotelbooking.datagen.domain.Reservation;
 import com.redhat.hotelbooking.datagen.domain.Room;
 import com.redhat.hotelbooking.datagen.domain.RoomAvailability;
 import com.redhat.hotelbooking.datagen.domain.RoomConfig;
+import com.redhat.hotelbooking.datagen.store.AcceptanceStore;
 import com.redhat.hotelbooking.datagen.store.CityStore;
 import com.redhat.hotelbooking.datagen.store.CountryStore;
 import com.redhat.hotelbooking.datagen.store.CustomerStore;
@@ -79,6 +81,7 @@ public final class DataModelGenerator {
         }
     }
 
+    private final AcceptanceStore acceptanceTable;
     private final CityStore cityTable;
     private final CountryStore countryTable;
     private final CustomerStore customerTable;
@@ -113,6 +116,9 @@ public final class DataModelGenerator {
 
         this.paymentInfoTable = new PaymentInfoStore();
         this.createTableOrdering.add( this.paymentInfoTable );
+
+        this.acceptanceTable = new AcceptanceStore();
+        this.createTableOrdering.add( this.acceptanceTable );
 
         this.hotelChainTable = new HotelChainStore();
         this.createTableOrdering.add( this.hotelChainTable );
@@ -217,6 +223,9 @@ public final class DataModelGenerator {
 
         final List< PaymentInfo > paymentInfos = this.dataProvider.generatePaymentInfos( customers );
         builder.append( this.paymentInfoTable.getInsertStatements( paymentInfos ) );
+
+        final List< Acceptance > acceptances = this.dataProvider.generateAcceptances( customers );
+        builder.append( this.acceptanceTable.getInsertStatements( acceptances ) );
 
         final List< HotelChain > hotelChains = this.dataProvider.generateHotelChains();
         builder.append( this.hotelChainTable.getInsertStatements( hotelChains ) );
