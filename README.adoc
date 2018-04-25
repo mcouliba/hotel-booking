@@ -38,7 +38,7 @@ $ oc rsync sql/ <POD_NAME>:/opt/app-root/src
 
 $ oc rsh <POD_NAME> 
 
-sh-4.2$ PGPASSWORD=$POSTGRESQL_PASSWORD psql -h monolithdb $POSTGRESQL_DATABASE $POSTGRESQL_USER -f MonolithDB_PostgreSQL.sql
+sh-4.2$ PGPASSWORD=$POSTGRESQL_PASSWORD psql -h monolithdb $POSTGRESQL_DATABASE $POSTGRESQL_USER -f hotel-booking.sql
 
 sh-4.2$  exit
 

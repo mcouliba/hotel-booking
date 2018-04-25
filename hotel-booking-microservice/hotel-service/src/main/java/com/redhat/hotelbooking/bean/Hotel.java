@@ -22,26 +22,28 @@ public class Hotel {
     private Integer id;
     private String name;
     private Double stars;
-    private Integer price;
-    private String cityName;
-    private String countryName;
+    private String email;
+    private String url;
     private String address;
-    private Integer available_rooms;
+    private String city;
+    private String postal_code;
+    private String country;
 
     protected Hotel(){}
     /**
     This is the constructor for the database object.
     **/
-    public Hotel(Integer id, String name, Double stars, Integer price,
-                 String cityName, String countryName, String address, Integer available_rooms) {
+    public Hotel(Integer id, String name, Double stars, String email,
+                 String url, String address, String city, String postal_code, String country) {
         this.id = id;
         this.name = name;
         this.stars = stars;
-        this.price = price;
-        this.cityName = cityName;
-        this.countryName = countryName;
+        this.email = email;
+        this.url = url;
         this.address = address;
-        this.available_rooms = available_rooms;
+        this.city = city;
+        this.postal_code = postal_code;
+        this.country = country;
     }
 
     public Integer getId() {
@@ -68,28 +70,20 @@ public class Hotel {
         this.stars = stars;
     }
 
-    public Integer getPrice() {
-        return price;
+    public String getEmail() {
+        return email;
     }
 
-    public void setPrice(Integer price) {
-        this.price = price;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public String getCity_name() {
-        return cityName;
+    public String getUrl() {
+        return url;
     }
 
-    public void setCity_name(String cityName) {
-        this.cityName = cityName;
-    }
-
-    public String getCountry_name() {
-        return countryName;
-    }
-
-    public void setCountry_name(String countryName) {
-        this.countryName = countryName;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public String getAddress() {
@@ -100,11 +94,27 @@ public class Hotel {
         this.address = address;
     }
 
-    public Integer getAvailable_rooms() {
-        return available_rooms;
+    public String getCity() {
+        return city;
     }
 
-    public void setAvailable_rooms(Integer available_rooms) {
-        this.available_rooms = available_rooms;
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getPostal_code() {
+        return postal_code;
+    }
+
+    public void setPostal_code(String postal_code) {
+        this.postal_code = postal_code;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 }
