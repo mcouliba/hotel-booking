@@ -12,7 +12,35 @@
     <model name="DataServiceLayer" type="VIRTUAL" visible="true">
         <metadata type="DDL"><![CDATA[
 
-        CREATE VIEW reservation(
+    	CREATE VIEW reservation(
+            id integer NOT NULL,
+            customer_id integer NOT NULL,
+            hotel_name string(256) NOT NULL,
+            hotel_city string(256) NOT NULL,
+            hotel_country string(256) NOT NULL,
+            checkin date NOT NULL,
+            checkout date NOT NULL,
+            status string(256) NOT NULL,
+            CONSTRAINT user_pk PRIMARY KEY(id)
+        )
+        AS
+            SELECT
+                r.id,
+                r.customer_id,
+                h.name,
+                hc.name,
+                hy.name,
+                r.checkin,
+                r.checkout,
+                r.status
+            FROM
+                Monolith.reservation as r
+	            inner join Monolith.room rm on (r.room_id = rm.id)
+              	inner join Monolith.hotel as h on (rm.hotel_id = h.id)
+              	inner join Monolith.city as hc on (h.city_id = hc.id)
+              	inner join Monolith.country as hy on (hc.country_id = hy.id);
+
+        CREATE VIEW reservation_full(
             id integer NOT NULL,
             checkin date NOT NULL,
             checkout date NOT NULL,
@@ -79,13 +107,13 @@
                 rc.smoking
             FROM
                 Monolith.reservation as r inner join Monolith.customer as c on (r.customer_id = c.id)
-                                          inner join Monolith.city as cc on (c.city_id = cc.id)
-                                          inner join Monolith.country as cy on (cc.country_id = cy.id)
-                                          inner join Monolith.room rm on (r.room_id = rm.id)
-                                          inner join Monolith.room_config as rc on (rm.room_config_id = rc.id)
-                                          inner join Monolith.hotel as h on (rm.hotel_id = h.id)
-                                          inner join Monolith.city as hc on (h.city_id = hc.id)
-                                          inner join Monolith.country as hy on (hc.country_id = hy.id);
+	              inner join Monolith.city as cc on (c.city_id = cc.id)
+	              inner join Monolith.country as cy on (cc.country_id = cy.id)
+	              inner join Monolith.room rm on (r.room_id = rm.id)
+	              inner join Monolith.room_config as rc on (rm.room_config_id = rc.id)
+	              inner join Monolith.hotel as h on (rm.hotel_id = h.id)
+	              inner join Monolith.city as hc on (h.city_id = hc.id)
+	              inner join Monolith.country as hy on (hc.country_id = hy.id);
         ]]></metadata>
     </model>
 </vdb>

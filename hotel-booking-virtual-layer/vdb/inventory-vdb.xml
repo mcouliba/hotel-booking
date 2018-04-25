@@ -2,27 +2,29 @@
 <vdb name="inventory" version="1">
 
   <description>Inventory VDB</description>
+      <model name="Monolith" visible="false">
+        <property name="importer.useFullSchemaName" value="false"/>
+        <property name="importer.TableTypes" value="TABLE" />
+        <property name="importer.importKeys" value="false"/>
+        <property name="importer.schemapattern" value="public"/>
+        <source name="monolithdb" translator-name="postgresql" connection-jndi-name="java:/monolithdb"/>
+    </model>
+    <model name="DataServiceLayer" type="VIRTUAL" visible="true">
+        <metadata type="DDL"><![CDATA[
 
-<model name="DataServiceLayer" type="VIRTUAL" visible="true">
-	<metadata type="DDL"><![CDATA[
-
-	CREATE VIEW room(
-			id integer NOT NULL,
-			description string(256) NOT NULL,
-			type string(256) NOT NULL,
-			room_number integer NOT NULL,
-			max_capacity integer NOT NULL,
-			hotel_id integer NOT NULL,
-			CONSTRAINT room_pk PRIMARY KEY(id)
-		) 
-		AS
-			SELECT 
-				1 as id,
-				'description' as description,
-				'King' as room_type,
-				666 as room_number,
-				2 as max_capacity,
-				157176 as hotel_id;
-	]]></metadata>
-</model>
+        CREATE VIEW hotel_inventory(
+            hotel_id integer NOT NULL,
+            room_total_number integer NOT NULL,
+            room_available_number integer NOT NULL,
+            CONSTRAINT hotel_inventory_pk PRIMARY KEY(hotel_id)
+        )
+        AS
+            SELECT
+                h.id as hotel_id,
+                count(rm.id) as room_total_number,
+                0 as room_available_number
+            FROM
+                Monolith.hotel as h left join room rm on (h.id = rm.hotel_id) group by h.id;
+        ]]></metadata>
+    </model>
 </vdb>
