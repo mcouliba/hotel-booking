@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.redhat.hotelbooking.datagen.domain.Acceptance;
 import com.redhat.hotelbooking.datagen.domain.City;
 import com.redhat.hotelbooking.datagen.domain.Country;
 import com.redhat.hotelbooking.datagen.domain.Customer;
@@ -145,6 +146,20 @@ public final class DataProvider {
 
     public DataProvider( final Settings settings ) {
         this.settings = settings == null ? new Settings() : settings;
+    }
+
+    public List< Acceptance > generateAcceptances( final List< Customer > customers ) {
+        final List< Acceptance > acceptances = new ArrayList<>( customers.size() );
+
+        for ( final Customer customer: customers ) {
+            final City city = City.find( customer.getCityId() );
+            final Country country = Country.find( city.getCountryId() );
+            final boolean accept = !Country.isEuMember( country );
+            final Acceptance acceptance = new Acceptance( customer.getId(), accept, accept, accept );
+            acceptances.add( acceptance );
+        }
+
+        return acceptances;
     }
 
     public List< RoomAvailability > generateAvailabilities( final List< Room > rooms ) {
@@ -330,7 +345,7 @@ public final class DataProvider {
                                                              creditCardType,
                                                              Timestamp.valueOf( expirationDate.atStartOfDay() ),
                                                              securityCode );
-            paymentInfos.add(  paymentInfo );
+            paymentInfos.add( paymentInfo );
             ++i;
         }
 

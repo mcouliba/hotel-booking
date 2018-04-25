@@ -65,6 +65,16 @@ public final class City {
         }
     );
 
+    public static City find( final int id ) {
+        for ( final City city : CITIES ) {
+            if ( city.getId() == id ) {
+                return city;
+            }
+        }
+
+        throw new RuntimeException( "A city with an ID of '" + id + "' does not exist" );
+    }
+
     private final int countryId;
     private final int id;
     private final String name;

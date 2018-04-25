@@ -52,6 +52,23 @@ public final class Country {
         }
     );
 
+    public static Country find( final int id ) {
+        for ( final Country country : COUNTRIES ) {
+            if ( country.getId() == id ) {
+                return country;
+            }
+        }
+
+        throw new RuntimeException( "A country with an ID of '" + id + "' does not exist" );
+    }
+
+    public static boolean isEuMember( final Country country ) {
+        return country == CZECH_REPUBLIC
+               || country == FRANCE
+               || country == GERMANY
+               || country == SPAIN;
+    }
+
     private final int id;
     private final String isoCountryCode;
     private final String isoCurrencyCode;
