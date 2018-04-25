@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<vdb name="customer" version="1">
+
+  <description>Customer VDB</description>
+      <model name="Monolith" visible="false">
+        <property name="importer.useFullSchemaName" value="false"/>
+        <property name="importer.TableTypes" value="TABLE" />
+        <property name="importer.importKeys" value="false"/>
+        <property name="importer.schemapattern" value="public"/>
+        <source name="monolithdb" translator-name="postgresql" connection-jndi-name="java:/monolithdb"/>
+    </model>
+    <model name="DataServiceLayer" type="VIRTUAL" visible="true">
+        <metadata type="DDL"><![CDATA[
+
+        CREATE VIEW customer(
+            id integer NOT NULL,
+            email string(256) NOT NULL,
+            password string(256) NOT NULL,
+            CONSTRAINT user_pk PRIMARY KEY(id)
+        )
+        AS
+            SELECT
+                c.id,
+                c.email,
+                c.password
+            FROM
+                Monolith.customer c;
+        ]]></metadata>
+    </model>
+</vdb>
