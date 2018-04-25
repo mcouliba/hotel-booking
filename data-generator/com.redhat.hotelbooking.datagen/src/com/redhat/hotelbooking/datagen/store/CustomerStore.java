@@ -30,60 +30,95 @@ public final class CustomerStore implements DomainStore {
     public enum Column {
 
         ADDRESS_LINE_1,
-        CITY,
+        CITY_ID,
         EMAIL,
         ID,
         MEMBER_SINCE,
         NAME,
-        POSTAL_CODE,
-        REWARDS_ID
+        PASSWORD,
+        REWARDS_ID;
+
+        public String toCreateStatement() {
+            final StringBuilder builder = new StringBuilder();
+            builder.append( DomainStore.addQuotes( this.toString() ) ).append( " " );
+
+            switch ( this ) {
+                case ADDRESS_LINE_1:
+                    builder.append( "CHARACTER VARYING(256) NOT NULL" );
+                    break;
+                case CITY_ID:
+                    builder.append( "INTEGER NOT NULL" );
+                    break;
+                case EMAIL:
+                    builder.append( "CHARACTER VARYING(256) NOT NULL" );
+                    break;
+                case ID:
+                    builder.append( "INTEGER NOT NULL" );
+                    break;
+                case MEMBER_SINCE:
+                    builder.append( "DATE NOT NULL" );
+                    break;
+                case NAME:
+                    builder.append( "CHARACTER VARYING(256) NOT NULL" );
+                    break;
+                case PASSWORD:
+                    builder.append( "CHARACTER VARYING(256) NOT NULL" );
+                    break;
+                case REWARDS_ID:
+                    builder.append( "CHARACTER VARYING(256) NOT NULL" );
+                    break;
+                default:
+                    throw new RuntimeException();
+            }
+
+            return builder.toString();
+        }
 
     }
 
     public static final String TABLE_NAME = "CUSTOMER";
+    public static final String CITY_FK_NAME = "CITY_FK";
 
-    // @formatter:off
+    private static final String COLUMNS = DomainStore.toColumnsStatement( Column.ID.name(),
+                                                                          Column.NAME.name(),
+                                                                          Column.EMAIL.name(),
+                                                                          Column.PASSWORD.name(),
+                                                                          Column.ADDRESS_LINE_1.name(),
+                                                                          Column.CITY_ID.name(),
+                                                                          Column.MEMBER_SINCE.name(),
+                                                                          Column.REWARDS_ID.name() );
 
-    private static final String COLUMNS = "\"" + Column.ID + "\", "
-                                          + '"' + Column.NAME + "\", "
-                                          + '"' + Column.EMAIL + "\", "
-                                          + '"' + Column.REWARDS_ID + "\", "
-                                          + '"' + Column.MEMBER_SINCE + "\", "
-                                          + '"' + Column.ADDRESS_LINE_1 + "\", "
-                                          + '"' + Column.CITY + "\", "
-                                          + '"' + Column.POSTAL_CODE + '\"';
+    private static final String CREATE_TABLE_STMT
+        = "CREATE TABLE " + DomainStore.addQuotes( TABLE_NAME ) + " (\n"
+          + "\t" + Column.ID.toCreateStatement() + ",\n"
+          + "\t" + Column.NAME.toCreateStatement() + ",\n"
+          + "\t" + Column.EMAIL.toCreateStatement() + ",\n"
+          + "\t" + Column.PASSWORD.toCreateStatement() + ",\n"
+          + "\t" + Column.ADDRESS_LINE_1.toCreateStatement() + ",\n"
+          + "\t" + Column.CITY_ID.toCreateStatement() + ",\n"
+          + "\t" + Column.MEMBER_SINCE.toCreateStatement() + ",\n"
+          + "\t" + Column.REWARDS_ID.toCreateStatement() + ",\n"
+          + "\tPRIMARY KEY ( " + DomainStore.addQuotes( Column.ID.name() ) + " ),\n"
+          + "\t" + DomainStore.createForeignKeyConstraint( CITY_FK_NAME,
+                                                           Column.CITY_ID.toString(),
+                                                           CityStore.TABLE_NAME,
+                                                           CityStore.Column.ID.toString() ) + "\n"
+          + ");";
 
-    private static final String CREATE_TABLE_STMT = "CREATE TABLE \"" + TABLE_NAME + "\" (\n"
-                                                    + "\t\"" + Column.ID + "\" INTEGER NOT NULL,\n"
-                                                    + "\t\"" + Column.NAME + "\" STRING NOT NULL,\n"
-                                                    + "\t\"" + Column.EMAIL + "\" STRING NOT NULL,\n"
-                                                    + "\t\"" + Column.REWARDS_ID + "\" STRING NOT NULL,\n"
-                                                    + "\t\"" + Column.MEMBER_SINCE + "\" DATE NOT NULL,\n"
-                                                    + "\t\"" + Column.ADDRESS_LINE_1 + "\" STRING NOT NULL,\n"
-                                                    + "\t\"" + Column.CITY + "\" STRING NOT NULL,\n"
-                                                    + "\t\"" + Column.POSTAL_CODE + "\" STRING NOT NULL,\n"
-                                                    + "\tPRIMARY KEY ( \"" + Column.ID + "\" )\n"
-                                                    + ");";
-
-    private static final String INSERT_STMT = "INSERT INTO \""
-                                              + TABLE_NAME
-                                              + "\" ( "
+    private static final String INSERT_STMT = "INSERT INTO "
+                                              + DomainStore.addQuotes( TABLE_NAME )
+                                              + " ( "
                                               + COLUMNS
                                               + " ) "
                                               + DomainStore.createValuesStatement( Column.values().length );
-
-    // @formatter:on
 
     public CustomerStore() {
         // nothing to do
     }
 
+    @Override
     public String getCreateTableStatement() {
         return CREATE_TABLE_STMT;
-    }
-
-    public String getDropStatement() {
-        return getDropStatement( TABLE_NAME );
     }
 
     public String getInsertStatements( final List< Customer > customers ) {
@@ -91,21 +126,24 @@ public final class CustomerStore implements DomainStore {
         ddl.append( "\n--" ).append( TABLE_NAME ).append( "\n\n" );
 
         for ( final Customer customer : customers ) {
-            // @formatter:off
             final String insertStmt = String.format( INSERT_STMT,
                                                      toDdl( customer.getId() ),
                                                      toDdl( customer.getName() ),
                                                      toDdl( customer.getEmail() ),
-                                                     toDdl( customer.getRewardsId() ),
-                                                     toDdl( customer.getMemberSince() ),
+                                                     toDdl( customer.getPassword() ),
                                                      toDdl( customer.getAddressLine1() ),
-                                                     toDdl( customer.getCity() ),
-                                                     toDdl( customer.getPostalCode() ) );
-            // @formatter:on
+                                                     toDdl( customer.getCityId() ),
+                                                     toDdl( customer.getMemberSince() ),
+                                                     toDdl( customer.getRewardsId() ) );
             ddl.append( insertStmt ).append( '\n' );
         }
 
         return ddl.toString();
+    }
+
+    @Override
+    public String getTableName() {
+        return CustomerStore.TABLE_NAME;
     }
 
 }

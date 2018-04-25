@@ -34,7 +34,37 @@ public final class RoomStore implements DomainStore {
         ID,
         RATE,
         ROOM_CONFIG_ID,
-        ROOM_NUMBER
+        ROOM_NUMBER;
+
+        public String toCreateStatement() {
+            final StringBuilder builder = new StringBuilder();
+            builder.append( DomainStore.addQuotes( this.toString() ) ).append( " " );
+
+            switch ( this ) {
+                case FLOOR:
+                    builder.append( "INTEGER NOT NULL" );
+                    break;
+                case HOTEL_ID:
+                    builder.append( "INTEGER NOT NULL" );
+                    break;
+                case ID:
+                    builder.append( "INTEGER NOT NULL" );
+                    break;
+                case RATE:
+                    builder.append( "DECIMAL(7,2) NOT NULL" );
+                    break;
+                case ROOM_CONFIG_ID:
+                    builder.append( "INTEGER NOT NULL" );
+                    break;
+                case ROOM_NUMBER:
+                    builder.append( "CHARACTER VARYING(256) NOT NULL" );
+                    break;
+                default:
+                    throw new RuntimeException();
+            }
+
+            return builder.toString();
+        }
 
     }
 
@@ -42,53 +72,46 @@ public final class RoomStore implements DomainStore {
     public static final String HOTEL_FK_NAME = "HOTEL_FK";
     public static final String ROOM_CONFIG_FK_NAME = "ROOM_CONFIG_FK";
 
-    // @formatter:off
-
-    private static final String COLUMNS = "\"" + Column.ID + "\", "
-                                          + '"' + Column.HOTEL_ID + "\", "
-                                          + '"' + Column.ROOM_CONFIG_ID + "\", "
-                                          + '"' + Column.ROOM_NUMBER + "\", "
-                                          + '"' + Column.FLOOR + "\", "
-                                          + '"' + Column.RATE + '\"';
+    private static final String COLUMNS = DomainStore.toColumnsStatement( Column.ID.name(),
+                                                                          Column.HOTEL_ID.name(),
+                                                                          Column.ROOM_CONFIG_ID.name(),
+                                                                          Column.ROOM_NUMBER.name(),
+                                                                          Column.FLOOR.name(),
+                                                                          Column.RATE.name() );
 
     private static final String CREATE_TABLE_STMT
-        = "CREATE TABLE \"" + TABLE_NAME + "\" (\n"
-          + "\t\"" + Column.ID + "\" INTEGER NOT NULL,\n"
-          + "\t\"" + Column.HOTEL_ID + "\" INTEGER NOT NULL,\n"
-          + "\t\"" + Column.ROOM_CONFIG_ID + "\" INTEGER NOT NULL,\n"
-          + "\t\"" + Column.ROOM_NUMBER + "\" STRING NOT NULL,\n"
-          + "\t\"" + Column.FLOOR + "\" INTEGER NOT NULL,\n"
-          + "\t\"" + Column.RATE + "\" DECIMAL(7,2) NOT NULL,\n"
-          + "\tPRIMARY KEY ( \"" + Column.ID + "\" ),\n"
+        = "CREATE TABLE " + DomainStore.addQuotes( TABLE_NAME ) + " (\n"
+          + "\t" + Column.ID.toCreateStatement() + ",\n"
+          + "\t" + Column.HOTEL_ID.toCreateStatement() + ",\n"
+          + "\t" + Column.ROOM_CONFIG_ID.toCreateStatement() + ",\n"
+          + "\t" + Column.ROOM_NUMBER.toCreateStatement() + ",\n"
+          + "\t" + Column.FLOOR.toCreateStatement() + ",\n"
+          + "\t" + Column.RATE.toCreateStatement() + ",\n"
+          + "\tPRIMARY KEY ( " + DomainStore.addQuotes( Column.ID.name() ) + " ),\n"
           + "\t" + DomainStore.createForeignKeyConstraint( HOTEL_FK_NAME,
                                                            Column.HOTEL_ID.toString(),
                                                            HotelStore.TABLE_NAME,
                                                            HotelStore.Column.ID.toString() ) + ",\n"
           + "\t" + DomainStore.createForeignKeyConstraint( ROOM_CONFIG_FK_NAME,
-                                                           Column.ROOM_NUMBER.toString(),
+                                                           Column.ROOM_CONFIG_ID.toString(),
                                                            RoomConfigStore.TABLE_NAME,
                                                            RoomConfigStore.Column.ID.toString() ) + "\n"
           + ");";
 
-    private static final String INSERT_STMT = "INSERT INTO \""
-                                              + TABLE_NAME
-                                              + "\" ( "
+    private static final String INSERT_STMT = "INSERT INTO "
+                                              + DomainStore.addQuotes( TABLE_NAME )
+                                              + " ( "
                                               + COLUMNS
                                               + " ) "
                                               + DomainStore.createValuesStatement( Column.values().length );
-
-    // @formatter:on
 
     public RoomStore() {
         // nothing to do
     }
 
+    @Override
     public String getCreateTableStatement() {
         return CREATE_TABLE_STMT;
-    }
-
-    public String getDropStatement() {
-        return getDropStatement( TABLE_NAME );
     }
 
     public String getInsertStatements( final List< Room > rooms ) {
@@ -96,7 +119,6 @@ public final class RoomStore implements DomainStore {
         ddl.append( "\n--" ).append( TABLE_NAME ).append( "\n\n" );
 
         for ( final Room room : rooms ) {
-            // @formatter:off
             final String insertStmt = String.format( INSERT_STMT,
                                                      toDdl( room.getId() ),
                                                      toDdl( room.getHotelId() ),
@@ -104,13 +126,13 @@ public final class RoomStore implements DomainStore {
                                                      toDdl( room.getRoomNumber() ),
                                                      toDdl( room.getFloor() ),
                                                      toDdl( room.getRate() ) );
-            // @formatter:on
             ddl.append( insertStmt ).append( '\n' );
         }
 
         return ddl.toString();
     }
 
+    @Override
     public String getTableName() {
         return TABLE_NAME;
     }

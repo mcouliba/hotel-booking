@@ -21,34 +21,34 @@
  */
 package com.redhat.hotelbooking.datagen.domain;
 
-import java.util.Date;
+import java.sql.Timestamp;
 
 public final class Customer {
 
     private final String addressLine1;
-    private final String city;
+    private final int cityId;
     private final String email;
     private final int id;
-    private final Date memberSince;
+    private final Timestamp memberSince;
     private final String name;
-    private final String postalCode;
+    private final String pswd;
     private final String rewardsId;
 
     public Customer( final int id,
                      final String name,
                      final String email,
+                     final String pswd,
                      final String addressLine1,
-                     final String city,
-                     final String postalCode,
-                     final Date memberSince,
+                     final int cityId,
+                     final Timestamp memberSince,
                      final String rewardsId ) {
         this.addressLine1 = addressLine1;
-        this.city = city;
+        this.cityId = cityId;
         this.email = email;
         this.id = id;
         this.memberSince = memberSince;
         this.name = name;
-        this.postalCode = postalCode;
+        this.pswd = pswd;
         this.rewardsId = rewardsId;
     }
 
@@ -56,8 +56,8 @@ public final class Customer {
         return this.addressLine1;
     }
 
-    public String getCity() {
-        return this.city;
+    public int getCityId() {
+        return this.cityId;
     }
 
     public String getEmail() {
@@ -68,7 +68,7 @@ public final class Customer {
         return this.id;
     }
 
-    public Date getMemberSince() {
+    public Timestamp getMemberSince() {
         return this.memberSince;
     }
 
@@ -76,8 +76,8 @@ public final class Customer {
         return this.name;
     }
 
-    public String getPostalCode() {
-        return this.postalCode;
+    public String getPassword() {
+        return this.pswd;
     }
 
     public String getRewardsId() {

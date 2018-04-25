@@ -1,0 +1,6 @@
+framework module Pods_redhathotelTests {
+  umbrella header "Pods-redhathotelTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

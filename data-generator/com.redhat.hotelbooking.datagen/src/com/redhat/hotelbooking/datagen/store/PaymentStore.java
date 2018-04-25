@@ -23,37 +23,59 @@ package com.redhat.hotelbooking.datagen.store;
 
 import java.util.List;
 
-import com.redhat.hotelbooking.datagen.domain.Country;
+import com.redhat.hotelbooking.datagen.domain.Payment;
 
-public final class TransactionStore implements DomainStore {
+public final class PaymentStore implements DomainStore {
 
     public enum Column {
 
         AMOUNT,
         ID,
         PAYMENT_INFO_ID,
-        RESERVATION_ID
+        RESERVATION_ID;
+
+        public String toCreateStatement() {
+            final StringBuilder builder = new StringBuilder();
+            builder.append( DomainStore.addQuotes( this.toString() ) ).append( " " );
+
+            switch ( this ) {
+                case AMOUNT:
+                    builder.append( "DECIMAL(8,2) NOT NULL" );
+                    break;
+                case ID:
+                    builder.append( "INTEGER NOT NULL" );
+                    break;
+                case PAYMENT_INFO_ID:
+                    builder.append( "INTEGER NOT NULL" );
+                    break;
+                case RESERVATION_ID:
+                    builder.append( "INTEGER NOT NULL" );
+                    break;
+                default:
+                    throw new RuntimeException();
+            }
+
+            return builder.toString();
+        }
 
     }
 
-    public static final String TABLE_NAME = "TRANSACTION";
+    public static final String TABLE_NAME = "PAYMENT";
     public static final String PAYMENT_INFO_FK_NAME = "PAYMENT_INFO_FK";
     public static final String RESERVATION_FK_NAME = "RESERVATION_FK";
 
-    // @formatter:off
-
-    private static final String COLUMNS = "\"" + Column.ID + "\", "
-                                          + '"' + Column.RESERVATION_ID + "\", "
-                                          + '"' + Column.PAYMENT_INFO_ID + "\", "
-                                          + '"' + Column.AMOUNT + '\"';
+    private static final String COLUMNS = DomainStore.toColumnsStatement( Column.ID.name(),
+                                                                          Column.RESERVATION_ID.name(),
+                                                                          Column.PAYMENT_INFO_ID.name(),
+                                                                          Column.AMOUNT.name() );
 
     private static final String CREATE_TABLE_STMT
-        = "CREATE TABLE \"" + TABLE_NAME + "\" (\n"
-          + "\t\"" + Column.ID + "\" INTEGER NOT NULL,\n"
-          + "\t\"" + Column.RESERVATION_ID + "\" INTEGER NOT NULL,\n"
-          + "\t\"" + Column.PAYMENT_INFO_ID + "\" INTEGER NOT NULL,\n"
-          + "\t\"" + Column.AMOUNT + "\" DECIMAL(8,2) NOT NULL,\n"
-          + "\tPRIMARY KEY ( \"" + Column.ID + "\" ),\n"
+        = "CREATE TABLE " + DomainStore.addQuotes( TABLE_NAME ) + " (\n"
+          + "\t" + Column.ID.toCreateStatement() + ",\n"
+          + "\t" + Column.RESERVATION_ID.toCreateStatement() + ",\n"
+          + "\t" + Column.PAYMENT_INFO_ID.toCreateStatement() + ",\n"
+          + "\t" + Column.AMOUNT.toCreateStatement() + ",\n"
+          + "\tPRIMARY KEY ( " + DomainStore.addQuotes( Column.ID.name() ) + " ),\n"
           + "\t" + DomainStore.createForeignKeyConstraint( RESERVATION_FK_NAME,
                                                            Column.RESERVATION_ID.toString(),
                                                            ReservationStore.TABLE_NAME,
@@ -62,45 +84,43 @@ public final class TransactionStore implements DomainStore {
                                                            Column.PAYMENT_INFO_ID.toString(),
                                                            PaymentInfoStore.TABLE_NAME,
                                                            PaymentInfoStore.Column.ID.toString() ) + "\n"
-                                                    + ");";
+          + ");";
 
-    private static final String INSERT_STMT = "INSERT INTO \""
-                                              + TABLE_NAME
-                                              + "\" ( "
+    private static final String INSERT_STMT = "INSERT INTO "
+                                              + DomainStore.addQuotes( TABLE_NAME )
+                                              + " ( "
                                               + COLUMNS
                                               + " ) "
                                               + DomainStore.createValuesStatement( Column.values().length );
 
-    // @formatter:on
-
-    public TransactionStore() {
+    public PaymentStore() {
         // nothing to do
     }
 
+    @Override
     public String getCreateTableStatement() {
         return CREATE_TABLE_STMT;
     }
 
-    public String getDropStatement() {
-        return getDropStatement( TABLE_NAME );
-    }
-
-    public String getInsertStatements( final List< Country > countries ) {
+    public String getInsertStatements( final List< Payment > payments ) {
         final StringBuilder ddl = new StringBuilder();
         ddl.append( "\n--" ).append( TABLE_NAME ).append( "\n\n" );
 
-        for ( final Country country : countries ) {
-            // @formatter:off
+        for ( final Payment payment : payments ) {
             final String insertStmt = String.format( INSERT_STMT,
-                                                     toDdl( country.getId() ),
-                                                     toDdl( country.getName() ),
-                                                     toDdl( country.getIsoCountryCode() ),
-                                                     toDdl( country.getIsoCurrencyCode() ) );
-            // @formatter:on
+                                                     toDdl( payment.getId() ),
+                                                     toDdl( payment.getReservationId() ),
+                                                     toDdl( payment.getPaymentInfoId() ),
+                                                     toDdl( payment.getAmount() ) );
             ddl.append( insertStmt ).append( '\n' );
         }
 
         return ddl.toString();
+    }
+
+    @Override
+    public String getTableName() {
+        return PaymentStore.TABLE_NAME;
     }
 
 }

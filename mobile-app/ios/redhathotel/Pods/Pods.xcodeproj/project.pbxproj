@@ -1,0 +1,688 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		03E1FB82129BD3DADCC3DE5530800FFD /* Pods-redhathotelTests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 786670EC9D6A61394084C4A3DBACC80E /* Pods-redhathotelTests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4147B59530E0A65E70875D7243BBE1BC /* Pods-redhathotel-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 141E8E02930D29DDED7B001506040A43 /* Pods-redhathotel-dummy.m */; };
+		589985E29E15C45430DCB2349F3B1D3B /* Pods-redhathotel-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 762D82FFA48A2002362A44C97B088C6E /* Pods-redhathotel-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		68AAA829CC845091FCC08F24A6CC2BFF /* Pods-redhathotelUITests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 55015990DBEFC399FB46F379F82D3909 /* Pods-redhathotelUITests-dummy.m */; };
+		A7D938D2EE4AAC1511DA5B97ED449C4C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
+		D5AED92DC4AB4A3810247FBB33D0B88B /* Pods-redhathotelTests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = C8283903B78CB1C3E08DE9894381966A /* Pods-redhathotelTests-dummy.m */; };
+		F24D44D40BC929400985FEB5775ACBBF /* Pods-redhathotelUITests-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 335D63E60A9E846612173B696DCCFDFA /* Pods-redhathotelUITests-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		FA954DAAEFD3C70E3AEF2962A2BCA7D9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
+		FE8FEED7E98043EC2FC016BE43C7568C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		12E5B3744FD2D97599978F4CC884F39F /* Pods-redhathotelTests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-redhathotelTests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		141E8E02930D29DDED7B001506040A43 /* Pods-redhathotel-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-redhathotel-dummy.m"; sourceTree = "<group>"; };
+		21950F2B1001288B37ABECDBFCBBDB10 /* Pods-redhathotel-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-redhathotel-acknowledgements.markdown"; sourceTree = "<group>"; };
+		335D63E60A9E846612173B696DCCFDFA /* Pods-redhathotelUITests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-redhathotelUITests-umbrella.h"; sourceTree = "<group>"; };
+		4A4679896D540B1A903462729CC2641F /* Pods-redhathotelUITests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-redhathotelUITests-resources.sh"; sourceTree = "<group>"; };
+		50D62C3DF4941E6864080E55833E10B9 /* Pods-redhathotelUITests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-redhathotelUITests-acknowledgements.markdown"; sourceTree = "<group>"; };
+		519FA881D2A49382B3FADC2E0ECDA251 /* Pods_redhathotelTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_redhathotelTests.framework; path = "Pods-redhathotelTests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		53BB46B36F9354239C53FEC4D204897B /* Pods-redhathotelUITests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-redhathotelUITests.modulemap"; sourceTree = "<group>"; };
+		55015990DBEFC399FB46F379F82D3909 /* Pods-redhathotelUITests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-redhathotelUITests-dummy.m"; sourceTree = "<group>"; };
+		5BE4A08CE229D61F006BCF87C2C06011 /* Pods-redhathotel.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-redhathotel.debug.xcconfig"; sourceTree = "<group>"; };
+		6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS10.3.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		6718FDC081270DAF6412A9233A9C8175 /* Pods-redhathotelTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-redhathotelTests.release.xcconfig"; sourceTree = "<group>"; };
+		6DC96458218E0866E11A7E52889B56BE /* Pods-redhathotel.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-redhathotel.modulemap"; sourceTree = "<group>"; };
+		762D82FFA48A2002362A44C97B088C6E /* Pods-redhathotel-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-redhathotel-umbrella.h"; sourceTree = "<group>"; };
+		786670EC9D6A61394084C4A3DBACC80E /* Pods-redhathotelTests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-redhathotelTests-umbrella.h"; sourceTree = "<group>"; };
+		79344D8E191CE82EF4A1AC5827E8FD28 /* Pods-redhathotel.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-redhathotel.release.xcconfig"; sourceTree = "<group>"; };
+		7C1095097DD49F319460A9DF749B46DA /* Pods-redhathotel-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-redhathotel-resources.sh"; sourceTree = "<group>"; };
+		93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		A0750798DEAC203C9B1E24FA799833E2 /* Pods-redhathotelUITests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-redhathotelUITests-acknowledgements.plist"; sourceTree = "<group>"; };
+		AF503D6941F4D61DB51C30330FE07379 /* Pods-redhathotelUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-redhathotelUITests.release.xcconfig"; sourceTree = "<group>"; };
+		B22D0FDFA9689EE0B9885894D20A7B70 /* Pods-redhathotelTests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-redhathotelTests-frameworks.sh"; sourceTree = "<group>"; };
+		BA21F5788E48B5BEDCA57F30FADBAB70 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BC0AF823F2D8D6F347DF2CE7D752D9EA /* Pods_redhathotelUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_redhathotelUITests.framework; path = "Pods-redhathotelUITests.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BCE9654BB6C0CEA23589EEFB1C899EA6 /* Pods-redhathotelUITests-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-redhathotelUITests-frameworks.sh"; sourceTree = "<group>"; };
+		C8283903B78CB1C3E08DE9894381966A /* Pods-redhathotelTests-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-redhathotelTests-dummy.m"; sourceTree = "<group>"; };
+		CA2AE0DC9C83AE5CDBC7A8CFB9285B96 /* Pods-redhathotelTests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-redhathotelTests.modulemap"; sourceTree = "<group>"; };
+		CBEFD453693AA815894F4B1B03C92A1B /* Pods-redhathotelTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-redhathotelTests.debug.xcconfig"; sourceTree = "<group>"; };
+		CC4E6F4535B5CE79FE89EDE04C658993 /* Pods-redhathotelTests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-redhathotelTests-acknowledgements.plist"; sourceTree = "<group>"; };
+		D82F59F97D38B0B9386E0EE0A7FE89FF /* Pods-redhathotelTests-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-redhathotelTests-resources.sh"; sourceTree = "<group>"; };
+		D89EB2E8792F021995847DF5FDD1B7B8 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DB5737448BE5BA461F6B042CD5D7ED06 /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E3301BCCDFA2972F0FA899C173C2D211 /* Pods_redhathotel.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_redhathotel.framework; path = "Pods-redhathotel.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		EE6021FBB08F51ADD1802FAD9750CA4C /* Pods-redhathotelUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-redhathotelUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		F0ADF78EA46DFF243CABE45C2EFBDE2E /* Pods-redhathotel-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-redhathotel-acknowledgements.plist"; sourceTree = "<group>"; };
+		F5CD444B1BC20FC802A787D532BA1666 /* Pods-redhathotel-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-redhathotel-frameworks.sh"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		BF606AD3951ADBA29945FFAFD066B2F8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A7D938D2EE4AAC1511DA5B97ED449C4C /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		D2A580A2E5A34D5516D99AD653C42F63 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA954DAAEFD3C70E3AEF2962A2BCA7D9 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E38444B7BB055784F6679CBF011F8468 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FE8FEED7E98043EC2FC016BE43C7568C /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		486506CC7C0B2EE312009C4B30AB34FA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E3301BCCDFA2972F0FA899C173C2D211 /* Pods_redhathotel.framework */,
+				519FA881D2A49382B3FADC2E0ECDA251 /* Pods_redhathotelTests.framework */,
+				BC0AF823F2D8D6F347DF2CE7D752D9EA /* Pods_redhathotelUITests.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		7BE0BBD5E3954E6C0F0A72CEFAA8B7E8 /* Targets Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				D719ED7F7A2AB7DF23E6A78222C41225 /* Pods-redhathotel */,
+				87A8FC3A3E457C677801E86BB02976F0 /* Pods-redhathotelTests */,
+				D95F359086AF1DC75373A8E928A3D438 /* Pods-redhathotelUITests */,
+			);
+			name = "Targets Support Files";
+			sourceTree = "<group>";
+		};
+		7DB346D0F39D3F0E887471402A8071AB = {
+			isa = PBXGroup;
+			children = (
+				93A4A3777CF96A4AAC1D13BA6DCCEA73 /* Podfile */,
+				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
+				486506CC7C0B2EE312009C4B30AB34FA /* Products */,
+				7BE0BBD5E3954E6C0F0A72CEFAA8B7E8 /* Targets Support Files */,
+			);
+			sourceTree = "<group>";
+		};
+		87A8FC3A3E457C677801E86BB02976F0 /* Pods-redhathotelTests */ = {
+			isa = PBXGroup;
+			children = (
+				BA21F5788E48B5BEDCA57F30FADBAB70 /* Info.plist */,
+				CA2AE0DC9C83AE5CDBC7A8CFB9285B96 /* Pods-redhathotelTests.modulemap */,
+				12E5B3744FD2D97599978F4CC884F39F /* Pods-redhathotelTests-acknowledgements.markdown */,
+				CC4E6F4535B5CE79FE89EDE04C658993 /* Pods-redhathotelTests-acknowledgements.plist */,
+				C8283903B78CB1C3E08DE9894381966A /* Pods-redhathotelTests-dummy.m */,
+				B22D0FDFA9689EE0B9885894D20A7B70 /* Pods-redhathotelTests-frameworks.sh */,
+				D82F59F97D38B0B9386E0EE0A7FE89FF /* Pods-redhathotelTests-resources.sh */,
+				786670EC9D6A61394084C4A3DBACC80E /* Pods-redhathotelTests-umbrella.h */,
+				CBEFD453693AA815894F4B1B03C92A1B /* Pods-redhathotelTests.debug.xcconfig */,
+				6718FDC081270DAF6412A9233A9C8175 /* Pods-redhathotelTests.release.xcconfig */,
+			);
+			name = "Pods-redhathotelTests";
+			path = "Target Support Files/Pods-redhathotelTests";
+			sourceTree = "<group>";
+		};
+		BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D35AF013A5F0BAD4F32504907A52519E /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D35AF013A5F0BAD4F32504907A52519E /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				6604A7D69453B4569E4E4827FB9155A9 /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		D719ED7F7A2AB7DF23E6A78222C41225 /* Pods-redhathotel */ = {
+			isa = PBXGroup;
+			children = (
+				D89EB2E8792F021995847DF5FDD1B7B8 /* Info.plist */,
+				6DC96458218E0866E11A7E52889B56BE /* Pods-redhathotel.modulemap */,
+				21950F2B1001288B37ABECDBFCBBDB10 /* Pods-redhathotel-acknowledgements.markdown */,
+				F0ADF78EA46DFF243CABE45C2EFBDE2E /* Pods-redhathotel-acknowledgements.plist */,
+				141E8E02930D29DDED7B001506040A43 /* Pods-redhathotel-dummy.m */,
+				F5CD444B1BC20FC802A787D532BA1666 /* Pods-redhathotel-frameworks.sh */,
+				7C1095097DD49F319460A9DF749B46DA /* Pods-redhathotel-resources.sh */,
+				762D82FFA48A2002362A44C97B088C6E /* Pods-redhathotel-umbrella.h */,
+				5BE4A08CE229D61F006BCF87C2C06011 /* Pods-redhathotel.debug.xcconfig */,
+				79344D8E191CE82EF4A1AC5827E8FD28 /* Pods-redhathotel.release.xcconfig */,
+			);
+			name = "Pods-redhathotel";
+			path = "Target Support Files/Pods-redhathotel";
+			sourceTree = "<group>";
+		};
+		D95F359086AF1DC75373A8E928A3D438 /* Pods-redhathotelUITests */ = {
+			isa = PBXGroup;
+			children = (
+				DB5737448BE5BA461F6B042CD5D7ED06 /* Info.plist */,
+				53BB46B36F9354239C53FEC4D204897B /* Pods-redhathotelUITests.modulemap */,
+				50D62C3DF4941E6864080E55833E10B9 /* Pods-redhathotelUITests-acknowledgements.markdown */,
+				A0750798DEAC203C9B1E24FA799833E2 /* Pods-redhathotelUITests-acknowledgements.plist */,
+				55015990DBEFC399FB46F379F82D3909 /* Pods-redhathotelUITests-dummy.m */,
+				BCE9654BB6C0CEA23589EEFB1C899EA6 /* Pods-redhathotelUITests-frameworks.sh */,
+				4A4679896D540B1A903462729CC2641F /* Pods-redhathotelUITests-resources.sh */,
+				335D63E60A9E846612173B696DCCFDFA /* Pods-redhathotelUITests-umbrella.h */,
+				EE6021FBB08F51ADD1802FAD9750CA4C /* Pods-redhathotelUITests.debug.xcconfig */,
+				AF503D6941F4D61DB51C30330FE07379 /* Pods-redhathotelUITests.release.xcconfig */,
+			);
+			name = "Pods-redhathotelUITests";
+			path = "Target Support Files/Pods-redhathotelUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		97DB2323E85687DAE7CA8A479FFBE2AC /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				589985E29E15C45430DCB2349F3B1D3B /* Pods-redhathotel-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A624C52057AFB3C8013BCD5DB2EDFE9D /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				03E1FB82129BD3DADCC3DE5530800FFD /* Pods-redhathotelTests-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F4CBB4CEA2A77800CC8AF1F597D8E7F1 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F24D44D40BC929400985FEB5775ACBBF /* Pods-redhathotelUITests-umbrella.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		2E848AA481931FF1F609507C55B73BB3 /* Pods-redhathotelUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 154714EA64C8FF1FC824C3147A6980FB /* Build configuration list for PBXNativeTarget "Pods-redhathotelUITests" */;
+			buildPhases = (
+				779751E7D8CB0D2BAA133E0C53B61F15 /* Sources */,
+				E38444B7BB055784F6679CBF011F8468 /* Frameworks */,
+				F4CBB4CEA2A77800CC8AF1F597D8E7F1 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Pods-redhathotelUITests";
+			productName = "Pods-redhathotelUITests";
+			productReference = BC0AF823F2D8D6F347DF2CE7D752D9EA /* Pods_redhathotelUITests.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		9B21D0E82ACFC8B0C876C0D9503C3DF3 /* Pods-redhathotel */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C8173904F9D9E98512CD26E0245037E3 /* Build configuration list for PBXNativeTarget "Pods-redhathotel" */;
+			buildPhases = (
+				36B6FCA9C9B663A9A8A1BD7E0B721A2C /* Sources */,
+				D2A580A2E5A34D5516D99AD653C42F63 /* Frameworks */,
+				97DB2323E85687DAE7CA8A479FFBE2AC /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Pods-redhathotel";
+			productName = "Pods-redhathotel";
+			productReference = E3301BCCDFA2972F0FA899C173C2D211 /* Pods_redhathotel.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		9E82FCFAE1D5F399EF6E0D3279A4B3ED /* Pods-redhathotelTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C590B8F29C0D0098105949DE4B685CED /* Build configuration list for PBXNativeTarget "Pods-redhathotelTests" */;
+			buildPhases = (
+				415574F84A16F1E3638C20CEFD46448B /* Sources */,
+				BF606AD3951ADBA29945FFAFD066B2F8 /* Frameworks */,
+				A624C52057AFB3C8013BCD5DB2EDFE9D /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Pods-redhathotelTests";
+			productName = "Pods-redhathotelTests";
+			productReference = 519FA881D2A49382B3FADC2E0ECDA251 /* Pods_redhathotelTests.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D41D8CD98F00B204E9800998ECF8427E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0930;
+				LastUpgradeCheck = 0930;
+			};
+			buildConfigurationList = 2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
+			productRefGroup = 486506CC7C0B2EE312009C4B30AB34FA /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				9B21D0E82ACFC8B0C876C0D9503C3DF3 /* Pods-redhathotel */,
+				9E82FCFAE1D5F399EF6E0D3279A4B3ED /* Pods-redhathotelTests */,
+				2E848AA481931FF1F609507C55B73BB3 /* Pods-redhathotelUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		36B6FCA9C9B663A9A8A1BD7E0B721A2C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4147B59530E0A65E70875D7243BBE1BC /* Pods-redhathotel-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		415574F84A16F1E3638C20CEFD46448B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D5AED92DC4AB4A3810247FBB33D0B88B /* Pods-redhathotelTests-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		779751E7D8CB0D2BAA133E0C53B61F15 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				68AAA829CC845091FCC08F24A6CC2BFF /* Pods-redhathotelUITests-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		03436F81C8E1655B64FD3C188C33AFEC /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5BE4A08CE229D61F006BCF87C2C06011 /* Pods-redhathotel.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-redhathotel/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-redhathotel/Pods-redhathotel.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_redhathotel;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		0CB67D3D6BAB6856F49455A7AD3E7C5B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6718FDC081270DAF6412A9233A9C8175 /* Pods-redhathotelTests.release.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-redhathotelTests/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-redhathotelTests/Pods-redhathotelTests.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_redhathotelTests;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		1B5AA41E657B60F4D19CAC6E267400B5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 79344D8E191CE82EF4A1AC5827E8FD28 /* Pods-redhathotel.release.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-redhathotel/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-redhathotel/Pods-redhathotel.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_redhathotel;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		257B464CC0924E2641F0AF2A44A4945C /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AF503D6941F4D61DB51C30330FE07379 /* Pods-redhathotelUITests.release.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-redhathotelUITests/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-redhathotelUITests/Pods-redhathotelUITests.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_redhathotelUITests;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		2EC90BF86165C7F566E906A0577A7240 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EE6021FBB08F51ADD1802FAD9750CA4C /* Pods-redhathotelUITests.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-redhathotelUITests/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-redhathotelUITests/Pods-redhathotelUITests.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_redhathotelUITests;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		323A24856F1A4871A780301AF5C02A2A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_DEBUG=1",
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Debug;
+		};
+		858200933102BB25D91F166821125A5C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = CBEFD453693AA815894F4B1B03C92A1B /* Pods-redhathotelTests.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "Target Support Files/Pods-redhathotelTests/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MACH_O_TYPE = staticlib;
+				MODULEMAP_FILE = "Target Support Files/Pods-redhathotelTests/Pods-redhathotelTests.modulemap";
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.${PRODUCT_NAME:rfc1034identifier}";
+				PRODUCT_NAME = Pods_redhathotelTests;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		CA33F186435244FD0FD5B7325332656C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGNING_REQUIRED = NO;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"POD_CONFIGURATION_RELEASE=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = NO_SIGNING/;
+				STRIP_INSTALLED_PRODUCT = NO;
+				SYMROOT = "${SRCROOT}/../build";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		154714EA64C8FF1FC824C3147A6980FB /* Build configuration list for PBXNativeTarget "Pods-redhathotelUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2EC90BF86165C7F566E906A0577A7240 /* Debug */,
+				257B464CC0924E2641F0AF2A44A4945C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		2D8E8EC45A3A1A1D94AE762CB5028504 /* Build configuration list for PBXProject "Pods" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				323A24856F1A4871A780301AF5C02A2A /* Debug */,
+				CA33F186435244FD0FD5B7325332656C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C590B8F29C0D0098105949DE4B685CED /* Build configuration list for PBXNativeTarget "Pods-redhathotelTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				858200933102BB25D91F166821125A5C /* Debug */,
+				0CB67D3D6BAB6856F49455A7AD3E7C5B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C8173904F9D9E98512CD26E0245037E3 /* Build configuration list for PBXNativeTarget "Pods-redhathotel" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				03436F81C8E1655B64FD3C188C33AFEC /* Debug */,
+				1B5AA41E657B60F4D19CAC6E267400B5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+}

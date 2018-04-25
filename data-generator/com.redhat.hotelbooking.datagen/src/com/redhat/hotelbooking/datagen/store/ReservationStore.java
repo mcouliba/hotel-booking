@@ -34,7 +34,41 @@ public final class ReservationStore implements DomainStore {
         CUSTOMER_ID,
         DAILY_RATE,
         ID,
-        ROOM_ID
+        ROOM_ID,
+        STATUS;
+
+        public String toCreateStatement() {
+            final StringBuilder builder = new StringBuilder();
+            builder.append( DomainStore.addQuotes( this.toString() ) ).append( " " );
+
+            switch ( this ) {
+                case CHECKIN:
+                    builder.append( "DATE NOT NULL" );
+                    break;
+                case CHECKOUT:
+                    builder.append( "DATE NOT NULL" );
+                    break;
+                case CUSTOMER_ID:
+                    builder.append( "INTEGER NOT NULL" );
+                    break;
+                case DAILY_RATE:
+                    builder.append( "DECIMAL(7,2) NOT NULL" );
+                    break;
+                case ID:
+                    builder.append( "INTEGER NOT NULL" );
+                    break;
+                case ROOM_ID:
+                    builder.append( "INTEGER NOT NULL" );
+                    break;
+                case STATUS:
+                    builder.append( "CHARACTER VARYING(256) NOT NULL" );
+                    break;
+                default:
+                    throw new RuntimeException();
+            }
+
+            return builder.toString();
+        }
 
     }
 
@@ -42,24 +76,24 @@ public final class ReservationStore implements DomainStore {
     public static final String CUSTOMER_FK_NAME = "CUSTOMER_FK";
     public static final String ROOM_FK_NAME = "ROOM_FK";
 
-    // @formatter:off
-
-    private static final String COLUMNS = "\"" + Column.ID + "\", "
-                                          + '"' + Column.CUSTOMER_ID + "\", "
-                                          + '"' + Column.ROOM_ID + "\", "
-                                          + '"' + Column.CHECKIN + "\", "
-                                          + '"' + Column.CHECKOUT + "\", "
-                                          + '"' + Column.DAILY_RATE + '\"';
+    private static final String COLUMNS = DomainStore.toColumnsStatement( Column.ID.name(),
+                                                                          Column.CUSTOMER_ID.name(),
+                                                                          Column.ROOM_ID.name(),
+                                                                          Column.CHECKIN.name(),
+                                                                          Column.CHECKOUT.name(),
+                                                                          Column.DAILY_RATE.name(),
+                                                                          Column.STATUS.name() );
 
     private static final String CREATE_TABLE_STMT
-        = "CREATE TABLE \"" + TABLE_NAME + "\" (\n"
-          + "\t\"" + Column.ID + "\" INTEGER NOT NULL,\n"
-          + "\t\"" + Column.CUSTOMER_ID + "\" INTEGER NOT NULL,\n"
-          + "\t\"" + Column.ROOM_ID + "\" INTEGER NOT NULL,\n"
-          + "\t\"" + Column.CHECKIN + "\" DATE NOT NULL,\n"
-          + "\t\"" + Column.CHECKOUT + "\" DATE NOT NULL,\n"
-          + "\t\"" + Column.DAILY_RATE + "\" DECIMAL(7,2) NOT NULL,\n"
-          + "\tPRIMARY KEY ( \"" + Column.ID + "\" ),\n"
+        = "CREATE TABLE " + DomainStore.addQuotes( TABLE_NAME )+ " (\n"
+          + "\t" + Column.ID.toCreateStatement() + ",\n"
+          + "\t" + Column.CUSTOMER_ID.toCreateStatement() + ",\n"
+          + "\t" + Column.ROOM_ID.toCreateStatement() + ",\n"
+          + "\t" + Column.CHECKIN.toCreateStatement() + ",\n"
+          + "\t" + Column.CHECKOUT.toCreateStatement() + ",\n"
+          + "\t" + Column.DAILY_RATE.toCreateStatement() + ",\n"
+          + "\t" + Column.STATUS.toCreateStatement() + ",\n"
+          + "\tPRIMARY KEY ( " + DomainStore.addQuotes( Column.ID.name() ) + " ),\n"
           + "\t" + DomainStore.createForeignKeyConstraint( CUSTOMER_FK_NAME,
                                                            Column.CUSTOMER_ID.toString(),
                                                            CustomerStore.TABLE_NAME,
@@ -70,25 +104,20 @@ public final class ReservationStore implements DomainStore {
                                                            RoomStore.Column.ID.toString() ) + "\n"
           + ");";
 
-    private static final String INSERT_STMT = "INSERT INTO \""
-                                              + TABLE_NAME
-                                              + "\" ( "
+    private static final String INSERT_STMT = "INSERT INTO "
+                                              + DomainStore.addQuotes( TABLE_NAME )
+                                              + " ( "
                                               + COLUMNS
                                               + " ) "
                                               + DomainStore.createValuesStatement( Column.values().length );
-
-    // @formatter:on
 
     public ReservationStore() {
         // nothing to do
     }
 
+    @Override
     public String getCreateTableStatement() {
         return CREATE_TABLE_STMT;
-    }
-
-    public String getDropStatement() {
-        return getDropStatement( TABLE_NAME );
     }
 
     public String getInsertStatements( final List< Reservation > reservations ) {
@@ -96,19 +125,23 @@ public final class ReservationStore implements DomainStore {
         ddl.append( "\n--" ).append( TABLE_NAME ).append( "\n\n" );
 
         for ( final Reservation reservation : reservations ) {
-            // @formatter:off
             final String insertStmt = String.format( INSERT_STMT,
                                                      toDdl( reservation.getId() ),
                                                      toDdl( reservation.getCustomerId() ),
                                                      toDdl( reservation.getRoomId() ),
                                                      toDdl( reservation.getCheckin() ),
                                                      toDdl( reservation.getCheckout() ),
-                                                     toDdl( reservation.getDailyRate() ) );
-            // @formatter:on
+                                                     toDdl( reservation.getDailyRate() ),
+                                                     toDdl( reservation.getStatus().name() ) );
             ddl.append( insertStmt ).append( '\n' );
         }
 
         return ddl.toString();
+    }
+
+    @Override
+    public String getTableName() {
+        return ReservationStore.TABLE_NAME;
     }
 
 }

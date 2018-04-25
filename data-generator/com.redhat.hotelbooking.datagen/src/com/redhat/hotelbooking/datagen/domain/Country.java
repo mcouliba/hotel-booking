@@ -21,7 +21,36 @@
  */
 package com.redhat.hotelbooking.datagen.domain;
 
+import java.util.Arrays;
+import java.util.List;
+
 public final class Country {
+
+    public static final Country AUSTRALIA = new Country( 101, "Australia", "AUS", "AUD" );
+    public static final Country CANADA = new Country( 102, "Canada", "CAN", "CAD" );
+    public static final Country CHINA = new Country( 103, "China", "CHN", "CNY" );
+    public static final Country CZECH_REPUBLIC = new Country( 104, "Czech Republic", "CZE", "CZK" );
+    public static final Country FRANCE = new Country( 105, "France", "FRA", "FRF" );
+    public static final Country GERMANY = new Country( 106, "Germany", "DEU", "DEM" );
+    public static final Country JAPAN = new Country( 107, "Japan", "JPN", "JPY" );
+    public static final Country PERU = new Country( 108, "Peru", "PER", "PEN" );
+    public static final Country SPAIN = new Country( 109, "Spain", "ESP", "ESP" );
+    public static final Country UNITED_STATES = new Country( 110, "United States", "USA", "USD" );
+
+    public static final List< Country > COUNTRIES = Arrays.asList(
+        new Country[] {
+            AUSTRALIA,
+            CANADA,
+            CHINA,
+            CZECH_REPUBLIC,
+            FRANCE,
+            GERMANY,
+            JAPAN,
+            PERU,
+            SPAIN,
+            UNITED_STATES
+        }
+    );
 
     private final int id;
     private final String isoCountryCode;

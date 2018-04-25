@@ -21,17 +21,17 @@
  */
 package com.redhat.hotelbooking.datagen.domain;
 
-public final class Transaction {
+public final class Payment {
 
     private final double amount;
     private final int id;
     private final int paymentInfoId;
     private final int reservationId;
 
-    public Transaction( final int id,
-                        final int paymentInfoId,
-                        final int reservationId,
-                        final double amount ) {
+    public Payment( final int id,
+                    final int paymentInfoId,
+                    final int reservationId,
+                    final double amount ) {
         this.amount = amount;
         this.id = id;
         this.paymentInfoId = paymentInfoId;

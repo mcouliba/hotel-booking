@@ -34,56 +34,79 @@ public final class PaymentInfoStore implements DomainStore {
         CUSTOMER_ID,
         EXPIRATION_DATE,
         ID,
-        SECURITY_CODE
+        SECURITY_CODE;
+
+        public String toCreateStatement() {
+            final StringBuilder builder = new StringBuilder();
+            builder.append( DomainStore.addQuotes( this.toString() ) ).append( " " );
+
+            switch ( this ) {
+                case CREDIT_CARD_NUMBER:
+                    builder.append( "CHARACTER VARYING(256) NOT NULL" );
+                    break;
+                case CREDIT_CARD_TYPE:
+                    builder.append( "CHARACTER VARYING(256) NOT NULL" );
+                    break;
+                case CUSTOMER_ID:
+                    builder.append( "INTEGER NOT NULL" );
+                    break;
+                case EXPIRATION_DATE:
+                    builder.append( "DATE NOT NULL" );
+                    break;
+                case ID:
+                    builder.append( "INTEGER NOT NULL" );
+                    break;
+                case SECURITY_CODE:
+                    builder.append( "INTEGER NOT NULL" );
+                    break;
+                default:
+                    throw new RuntimeException();
+            }
+
+            return builder.toString();
+        }
 
     }
 
     public static final String TABLE_NAME = "PAYMENT_INFO";
     public static final String CUSTOMER_FK_NAME = "CUSTOMER_FK";
 
-    // @formatter:off
-
-    private static final String COLUMNS = "\"" + Column.ID + "\", "
-                                          + '"' + Column.CUSTOMER_ID + "\", "
-                                          + '"' + Column.CREDIT_CARD_NUMBER + "\", "
-                                          + '"' + Column.CREDIT_CARD_TYPE + "\", "
-                                          + '"' + Column.EXPIRATION_DATE + "\", "
-                                          + '"' + Column.SECURITY_CODE + '\"';
+    private static final String COLUMNS = DomainStore.toColumnsStatement( Column.ID.name(),
+                                                                          Column.CUSTOMER_ID.name(),
+                                                                          Column.CREDIT_CARD_NUMBER.name(),
+                                                                          Column.CREDIT_CARD_TYPE.name(),
+                                                                          Column.EXPIRATION_DATE.name(),
+                                                                          Column.SECURITY_CODE.name() );
 
     private static final String CREATE_TABLE_STMT
-        = "CREATE TABLE \"" + TABLE_NAME + "\" (\n"
-          + "\t\"" + Column.ID + "\" INTEGER NOT NULL,\n"
-          + "\t\"" + Column.CUSTOMER_ID + "\" INTEGER NOT NULL,\n"
-          + "\t\"" + Column.CREDIT_CARD_NUMBER + "\" INTEGER NOT NULL,\n"
-          + "\t\"" + Column.CREDIT_CARD_TYPE + "\" STRING NOT NULL,\n"
-          + "\t\"" + Column.EXPIRATION_DATE + "\" DATE NOT NULL,\n"
-          + "\t\"" + Column.SECURITY_CODE + "\" INTEGER NOT NULL,\n"
-          + "\tPRIMARY KEY ( \"" + Column.ID + "\" ),\n"
+        = "CREATE TABLE " + DomainStore.addQuotes( TABLE_NAME ) + " (\n"
+          + "\t" + Column.ID.toCreateStatement() + ",\n"
+          + "\t" + Column.CUSTOMER_ID.toCreateStatement() + ",\n"
+          + "\t" + Column.CREDIT_CARD_NUMBER.toCreateStatement() + ",\n"
+          + "\t" + Column.CREDIT_CARD_TYPE.toCreateStatement() + ",\n"
+          + "\t" + Column.EXPIRATION_DATE.toCreateStatement() + ",\n"
+          + "\t" + Column.SECURITY_CODE.toCreateStatement() + ",\n"
+          + "\tPRIMARY KEY ( " + DomainStore.addQuotes( Column.ID.name() ) + " ),\n"
           + "\t" + DomainStore.createForeignKeyConstraint( CUSTOMER_FK_NAME,
                                                            Column.CUSTOMER_ID.toString(),
                                                            CustomerStore.TABLE_NAME,
                                                            CustomerStore.Column.ID.toString() ) + "\n"
           + ");";
 
-    private static final String INSERT_STMT = "INSERT INTO \""
-                                              + TABLE_NAME
-                                              + "\" ( "
+    private static final String INSERT_STMT = "INSERT INTO "
+                                              + DomainStore.addQuotes( TABLE_NAME )
+                                              + " ( "
                                               + COLUMNS
                                               + " ) "
                                               + DomainStore.createValuesStatement( Column.values().length );
-
-    // @formatter:on
 
     public PaymentInfoStore() {
         // nothing to do
     }
 
+    @Override
     public String getCreateTableStatement() {
         return CREATE_TABLE_STMT;
-    }
-
-    public String getDropStatement() {
-        return getDropStatement( TABLE_NAME );
     }
 
     public String getInsertStatements( final List< PaymentInfo > paymentInfos ) {
@@ -91,19 +114,22 @@ public final class PaymentInfoStore implements DomainStore {
         ddl.append( "\n--" ).append( TABLE_NAME ).append( "\n\n" );
 
         for ( final PaymentInfo paymentInfo : paymentInfos ) {
-            // @formatter:off
             final String insertStmt = String.format( INSERT_STMT,
                                                      toDdl( paymentInfo.getId() ),
                                                      toDdl( paymentInfo.getCustomerId() ),
                                                      toDdl( paymentInfo.getCreditCardNumber() ),
-                                                     toDdl( paymentInfo.getCreditCardType() ),
+                                                     toDdl( paymentInfo.getCreditCardType().name() ),
                                                      toDdl( paymentInfo.getExpirationDate() ),
                                                      toDdl( paymentInfo.getSecurityCode() ) );
-            // @formatter:on
             ddl.append( insertStmt ).append( '\n' );
         }
 
         return ddl.toString();
+    }
+
+    @Override
+    public String getTableName() {
+        return PaymentInfoStore.TABLE_NAME;
     }
 
 }
