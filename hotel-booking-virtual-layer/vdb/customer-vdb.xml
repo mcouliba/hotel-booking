@@ -15,16 +15,18 @@
         CREATE VIEW customer(
             id integer NOT NULL,
             email string(256) NOT NULL,
-            password string(256) NOT NULL,
-            CONSTRAINT user_pk PRIMARY KEY(id)
+            country string(256) NOT NULL,
+            CONSTRAINT customer_pk PRIMARY KEY(id)
         )
         AS
             SELECT
                 c.id,
                 c.email,
-                c.password
+                co.name as country
             FROM
-                Monolith.customer c;
+                Monolith.customer c
+                inner join Monolith.city as ci on (c.city_id = ci.id)
+                inner join Monolith.country as co on (ci.country_id = co.id);
         ]]></metadata>
     </model>
 </vdb>
