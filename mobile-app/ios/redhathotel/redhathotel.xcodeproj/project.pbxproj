@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1954CC73EBBBC0ED0405E2A9 /* Pods_redhathotelTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B78D58D24DBF87A407DF6B18 /* Pods_redhathotelTests.framework */; };
+		374B9B192092231D0086E356 /* PrefMgr.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374B9B182092231D0086E356 /* PrefMgr.swift */; };
 		99DC181E41B477517C2B38F0 /* Pods_redhathotelUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94B474DAA6DA806EBBE3D913 /* Pods_redhathotelUITests.framework */; };
 		AA7261618C7AEFBF1790DBF8 /* Pods_redhathotel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D19006CDFED627026D240D6E /* Pods_redhathotel.framework */; };
 		ECC1A00C207E96BC00D7DEA2 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC1A00B207E96BC00D7DEA2 /* LoginViewController.swift */; };
@@ -41,6 +42,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		374B9B182092231D0086E356 /* PrefMgr.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrefMgr.swift; sourceTree = "<group>"; };
 		6DE718C8FBA7A432D8141F95 /* Pods-redhathotelUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-redhathotelUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-redhathotelUITests/Pods-redhathotelUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		9136151603B5CC34BADB40AD /* Pods-redhathotel.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-redhathotel.release.xcconfig"; path = "Pods/Target Support Files/Pods-redhathotel/Pods-redhathotel.release.xcconfig"; sourceTree = "<group>"; };
 		94B474DAA6DA806EBBE3D913 /* Pods_redhathotelUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_redhathotelUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -151,6 +153,7 @@
 				ECFBD7FA207D28E600B087B5 /* LaunchScreen.storyboard */,
 				ECFBD7FD207D28E600B087B5 /* Info.plist */,
 				ECC1A00B207E96BC00D7DEA2 /* LoginViewController.swift */,
+				374B9B182092231D0086E356 /* PrefMgr.swift */,
 				ECC1A011207EB66C00D7DEA2 /* QRCodeViewController.swift */,
 				ECC1A013208542CB00D7DEA2 /* ReservationsViewController.swift */,
 				ECC1A01920867EE900D7DEA2 /* TestData.swift */,
@@ -474,6 +477,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				374B9B192092231D0086E356 /* PrefMgr.swift in Sources */,
 				ECC1A012207EB66C00D7DEA2 /* QRCodeViewController.swift in Sources */,
 				ECC1A00C207E96BC00D7DEA2 /* LoginViewController.swift in Sources */,
 				ECC1A0222086973500D7DEA2 /* ReservationsTableViewCell.swift in Sources */,
