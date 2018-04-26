@@ -22,7 +22,7 @@
             checkout date NOT NULL,
             status string(256) NOT NULL,
             CONSTRAINT user_pk PRIMARY KEY(id)
-        )
+        ) OPTIONS(UPDATABLE 'TRUE')
         AS
             SELECT
                 r.id,
@@ -39,6 +39,15 @@
               	inner join Monolith.hotel as h on (rm.hotel_id = h.id)
               	inner join Monolith.city as hc on (h.city_id = hc.id)
               	inner join Monolith.country as hy on (hc.country_id = hy.id);
+
+        CREATE TRIGGER ON reservation INSTEAD OF UPDATE AS 
+            FOR EACH ROW
+        BEGIN ATOMIC
+            IF(CHANGING.status)
+            BEGIN
+                UPDATE Monolith.reservation SET status = "NEW".status WHERE id = "OLD".id;
+            END
+        END;
 
         CREATE VIEW reservation_full(
             id integer NOT NULL,
