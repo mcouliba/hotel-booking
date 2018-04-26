@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Route
+metadata:
+  name: ${project.artifactId}
+  labels:
+    app: ${project.artifactId}
+    group: ${project.groupId}
+    provider: fabric8
+    version: ${project.version}
+spec:
+  port:
+    targetPort: 8080
+  to:
+    kind: Service
+    name: ${project.artifactId}
