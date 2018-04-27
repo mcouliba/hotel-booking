@@ -13,7 +13,7 @@
         <metadata type="DDL"><![CDATA[
 
     	CREATE VIEW reservation(
-            id integer NOT NULL,
+            id string(256) NOT NULL,
             customer_id integer NOT NULL,
             hotel_name string(256) NOT NULL,
             hotel_city string(256) NOT NULL,
@@ -49,8 +49,24 @@
             END
         END;
 
+        CREATE VIEW source_reservation(
+            id string(256) NOT NULL,
+            customer_id integer NOT NULL,
+            room_id integer NOT NULL,
+            checkin date NOT NULL,
+            checkout date NOT NULL,
+            daily_rate bigdecimal NOT NULL,
+            status string(256) NOT NULL,
+            CONSTRAINT source_reservation_pk PRIMARY KEY(id)
+        ) OPTIONS(UPDATABLE 'TRUE')
+        AS
+            SELECT
+                *
+            FROM
+                Monolith.reservation as r;
+
         CREATE VIEW reservation_full(
-            id integer NOT NULL,
+            id string(256) NOT NULL,
             checkin date NOT NULL,
             checkout date NOT NULL,
             daily_rate bigdecimal NOT NULL,
