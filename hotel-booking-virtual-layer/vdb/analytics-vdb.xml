@@ -18,6 +18,7 @@
             checkout date NOT NULL,
             daily_rate bigdecimal NOT NULL,
             status string(256) NOT NULL,
+            customer_id integer NOT NULL,
             cust_name string(256) NOT NULL,
             cust_email string(256) NOT NULL,
             cust_member_since date NOT NULL,
