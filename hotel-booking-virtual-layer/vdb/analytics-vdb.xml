@@ -193,10 +193,6 @@
             <mask order="0">LEFT(cust_name, 1) || '********'</mask>
         </permission>
         <permission>
-            <resource-name>DataServiceLayer.personalData.cust_email</resource-name>
-            <mask order="0">LEFT(cust_email, 1) || '********' || SUBSTRING(cust_email,LOCATE('@',cust_email))</mask>
-        </permission>
-        <permission>
             <resource-name>DataServiceLayer.personalData.cust_address</resource-name>
             <mask order="0">'********'</mask>
         </permission>
