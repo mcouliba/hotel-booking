@@ -111,10 +111,18 @@
         </permission>
         <permission>
             <resource-name>DataServiceLayer.personalData.cust_name</resource-name>
-            <mask order="0">LEFT(cust_name, 1) || '********'</mask>
+            <mask order="0">'********'</mask>
+        </permission>
+        <permission>
+            <resource-name>DataServiceLayer.personalData.cust_email</resource-name>
+            <mask order="0">'********'</mask>
         </permission>
         <permission>
             <resource-name>DataServiceLayer.personalData.cust_address</resource-name>
+            <mask order="0">'********'</mask>
+        </permission>
+        <permission>
+            <resource-name>DataServiceLayer.personalData.cust_country</resource-name>
             <mask order="0">'********'</mask>
         </permission>
         <permission>
@@ -133,6 +141,26 @@
         <permission>
             <resource-name>DataServiceLayer.personalData</resource-name>
             <condition>statement_1 = true</condition>
+        </permission>
+        <permission>
+            <resource-name>DataServiceLayer.personalData.cust_name</resource-name>
+            <mask order="0">LEFT(cust_name, 1) || '********'</mask>
+        </permission>
+        <permission>
+            <resource-name>DataServiceLayer.personalData.cust_email</resource-name>
+            <mask order="0">LEFT(cust_email, 1) || '********' || SUBSTRING(cust_email,LOCATE('@',cust_email))</mask>
+        </permission>
+        <permission>
+            <resource-name>DataServiceLayer.personalData.cust_address</resource-name>
+            <mask order="0">'********'</mask>
+        </permission>
+        <permission>
+            <resource-name>DataServiceLayer.personalData.statement_2</resource-name>
+            <mask order="0">'********'</mask>
+        </permission>
+        <permission>
+            <resource-name>DataServiceLayer.personalData.statement_3</resource-name>
+            <mask order="0">'********'</mask>
         </permission>
         <permission>
             <resource-name>DataServiceLayer</resource-name>
@@ -159,6 +187,26 @@
         <permission>
             <resource-name>DataServiceLayer.personalData</resource-name>
             <condition>statement_2 = true</condition>
+        </permission>
+        <permission>
+            <resource-name>DataServiceLayer.personalData.cust_name</resource-name>
+            <mask order="0">LEFT(cust_name, 1) || '********'</mask>
+        </permission>
+        <permission>
+            <resource-name>DataServiceLayer.personalData.cust_email</resource-name>
+            <mask order="0">LEFT(cust_email, 1) || '********' || SUBSTRING(cust_email,LOCATE('@',cust_email))</mask>
+        </permission>
+        <permission>
+            <resource-name>DataServiceLayer.personalData.cust_address</resource-name>
+            <mask order="0">'********'</mask>
+        </permission>
+        <permission>
+            <resource-name>DataServiceLayer.personalData.statement_1</resource-name>
+            <mask order="0">'********'</mask>
+        </permission>
+        <permission>
+            <resource-name>DataServiceLayer.personalData.statement_3</resource-name>
+            <mask order="0">'********'</mask>
         </permission>
         <permission>
             <resource-name>DataServiceLayer</resource-name>
@@ -194,6 +242,22 @@
         <permission>
             <resource-name>DataServiceLayer.personalData</resource-name>
             <condition>statement_3 = true</condition>
+        </permission>
+        <permission>
+            <resource-name>DataServiceLayer.personalData.cust_name</resource-name>
+            <mask order="0">LEFT(cust_name, 1) || '********'</mask>
+        </permission>
+        <permission>
+            <resource-name>DataServiceLayer.personalData.cust_email</resource-name>
+            <mask order="0">LEFT(cust_email, 1) || '********' || SUBSTRING(cust_email,LOCATE('@',cust_email))</mask>
+        </permission>
+        <permission>
+            <resource-name>DataServiceLayer.personalData.statement_1</resource-name>
+            <mask order="0">'********'</mask>
+        </permission>
+        <permission>
+            <resource-name>DataServiceLayer.personalData.statement_2</resource-name>
+            <mask order="0">'********'</mask>
         </permission>
         <permission>
             <resource-name>sysadmin</resource-name>
