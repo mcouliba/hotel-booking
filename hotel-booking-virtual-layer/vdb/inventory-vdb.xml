@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<vdb name="hotel" version="1">
+<vdb name="inventory" version="1">
 
-  <description>Hotel VDB</description>
+  <description>Inventory VDB</description>
       <model name="Monolith" visible="false">
         <property name="importer.useFullSchemaName" value="false"/>
         <property name="importer.TableTypes" value="TABLE" />
