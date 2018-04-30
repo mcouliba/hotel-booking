@@ -1,46 +1,43 @@
 package com.redhat.hotelbooking.bean;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Column;
-import javax.persistence.Id;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 /**
 The hotel object will be stored in a table with the name "hotel"
 **/
-@Table(name="reservation", schema="DataServiceLayer")
+@Table(name="sourceReservation", schema="DataServiceLayer")
 /**
 The Reservation class defines a hotel object for storage in a relational database system.
 **/
-public class Reservation {
+public class SourceReservation {
 
     @Id
+    @GeneratedValue(generator = "teiid-uuid")
+    @GenericGenerator(name = "teiid-uuid", strategy = "uuid")
     private String id;
-
-    @Column(name="customer_id")
     private Integer customerId;
-    private String hotel_name;
-    private String hotel_city;
-    private String hotel_country;
+    private Integer roomId;
     private Date checkin;
     private Date checkout;
+    private Double dailyRate;
     private String status;
 
-    protected Reservation(){}
+    protected SourceReservation(){}
     /**
     This is the constructor for the database object.
     **/
-    public Reservation(String id, Integer customerId, String hotel_name, String hotel_city, String hotel_country,
-                       Date checkin, Date checkout, String status) {
+    public SourceReservation(String id, Integer customerId, Integer roomId,
+                             Date checkin, Date checkout, Double dailyRate, String status) {
         this.id = id;
         this.customerId = customerId;
-        this.hotel_name = hotel_name;
-        this.hotel_city = hotel_city;
-        this.hotel_country = hotel_country;
+        this.roomId = roomId;
         this.checkin = checkin;
         this.checkout = checkout;
+        this.dailyRate = dailyRate;
         this.status = status;
     }
 
@@ -60,28 +57,12 @@ public class Reservation {
         this.customerId = customerId;
     }
 
-    public String getHotel_name() {
-        return hotel_name;
+    public Integer getRoomId() {
+        return roomId;
     }
 
-    public void setHotel_name(String hotel_name) {
-        this.hotel_name = hotel_name;
-    }
-
-    public String getHotel_city() {
-        return hotel_city;
-    }
-
-    public void setHotel_city(String hotel_city) {
-        this.hotel_city = hotel_city;
-    }
-
-    public String getHotel_country() {
-        return hotel_country;
-    }
-
-    public void setHotel_country(String hotel_country) {
-        this.hotel_country = hotel_country;
+    public void setRoomId(Integer roomId) {
+        this.roomId = roomId;
     }
 
     public Date getCheckin() {
@@ -98,6 +79,14 @@ public class Reservation {
 
     public void setCheckout(Date checkout) {
         this.checkout = checkout;
+    }
+
+    public Double getDailyRate() {
+        return dailyRate;
+    }
+
+    public void setDailyRate(Double dailyRate) {
+        this.dailyRate = dailyRate;
     }
 
     public String getStatus() {

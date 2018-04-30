@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<vdb name="reporting" version="1">
+
+  <description>Analytics VDB</description>
+      <model name="Monolith" visible="false">
+        <property name="importer.useFullSchemaName" value="false"/>
+        <property name="importer.TableTypes" value="TABLE" />
+        <property name="importer.importKeys" value="false"/>
+        <property name="importer.schemapattern" value="public"/>
+        <source name="monolithdb" translator-name="postgresql" connection-jndi-name="java:/monolithdb"/>
+    </model>
+    <model name="DataServiceLayer" type="VIRTUAL" visible="true">
+        <metadata type="DDL"><![CDATA[
+
+        CREATE VIEW personalData(
+            id string(256) NOT NULL,
+            checkin date NOT NULL,
+            checkout date NOT NULL,
+            daily_rate bigdecimal NOT NULL,
+            status string(256) NOT NULL,
+            customer_id integer NOT NULL,
+            cust_name string(256) NOT NULL,
+            cust_email string(256) NOT NULL,
+            cust_member_since date NOT NULL,
+            cust_rewards_id string(256) NOT NULL,
+            cust_address string(256) NOT NULL,
+            cust_city string(256) NOT NULL,
+            cust_postal_code string(256) NOT NULL,
+            cust_country string(256) NOT NULL,
+            hotel_name string(256) NOT NULL,
+            hotel_address string(256) NOT NULL,
+            hotel_city string(256) NOT NULL,
+            hotel_postal_code string(256) NOT NULL,
+            hotel_country string(256) NOT NULL,
+            room_number string(256) NOT NULL,
+            room_floor integer NOT NULL,
+            living_area boolean NOT NULL,
+            microwave boolean NOT NULL,
+            num_adjoining_rooms integer NOT NULL,
+            num_double_beds integer NOT NULL,
+            num_king_beds integer NOT NULL,
+            num_pets integer NOT NULL,
+            num_pullouts integer NOT NULL,
+            num_queen_beds integer NOT NULL,
+            refrigerator boolean NOT NULL,
+            smoking boolean NOT NULL,
+            statement_1 boolean NOT NULL,
+            statement_2 boolean NOT NULL,
+            statement_3 boolean NOT NULL,
+            CONSTRAINT personalData_pk PRIMARY KEY(id)
+        )
+        AS
+            SELECT
+                r.id,
+                r.checkin,
+                r.checkout,
+                r.daily_rate,
+                r.status,
+                r.customer_id,
+                c.name,
+                c.email,
+                c.member_since,
+                c.rewards_id,
+                c.address_line_1,
+                cc.name,
+                cc.postal_code,
+                cy.name,
+                h.name,
+                h.address_line_1,
+                hc.name,
+                hc.postal_code,
+                hy.name,
+                rm.room_number,
+                rm.floor,
+                rc.living_area,
+                rc.microwave,
+                rc.num_adjoining_rooms,
+                rc.num_double_beds,
+                rc.num_king_beds,
+                rc.num_pets,
+                rc.num_pullouts,
+                rc.num_queen_beds,
+                rc.refrigerator,
+                rc.smoking,
+                a.statement_1,
+                a.statement_2,
+                a.statement_3
+            FROM
+                Monolith.reservation as r 
+                  inner join Monolith.customer as c on (r.customer_id = c.id)
+                  inner join Monolith.city as cc on (c.city_id = cc.id)
+                  inner join Monolith.country as cy on (cc.country_id = cy.id)
+                  inner join Monolith.room rm on (r.room_id = rm.id)
+                  inner join Monolith.room_config as rc on (rm.room_config_id = rc.id)
+                  inner join Monolith.hotel as h on (rm.hotel_id = h.id)
+                  inner join Monolith.city as hc on (h.city_id = hc.id)
+                  inner join Monolith.country as hy on (hc.country_id = hy.id)
+                  inner join Monolith.acceptance as a on (a.customer_id = c.id);
+        ]]></metadata>
+    </model>
+    <data-role allow-create-temporary-tables="false" any-authenticated="false" grant-all="false" name="Data Role ADMIN">
+        <description/>
+        <permission>
+            <resource-name>DataServiceLayer</resource-name>
+            <allow-create>false</allow-create>
+            <allow-read>true</allow-read>
+            <allow-update>false</allow-update>
+            <allow-delete>false</allow-delete>
+            <allow-execute>false</allow-execute>
+            <allow-alter>false</allow-alter>
+        </permission>
+        <permission>
+            <resource-name>DataServiceLayer.personalData.cust_name</resource-name>
+            <mask order="0">'********'</mask>
+        </permission>
+        <permission>
+            <resource-name>DataServiceLayer.personalData.cust_email</resource-name>
+            <mask order="0">'********'</mask>
+        </permission>
+        <permission>
+            <resource-name>DataServiceLayer.personalData.cust_address</resource-name>
+            <mask order="0">'********'</mask>
+        </permission>
+        <permission>
+            <resource-name>DataServiceLayer.personalData.cust_country</resource-name>
+            <mask order="0">'********'</mask>
+        </permission>
+        <permission>
+            <resource-name>sysadmin</resource-name>
+            <allow-create>false</allow-create>
+            <allow-read>false</allow-read>
+            <allow-update>false</allow-update>
+            <allow-delete>false</allow-delete>
+            <allow-execute>false</allow-execute>
+            <allow-alter>false</allow-alter>
+        </permission>
+        <mapped-role-name>admin</mapped-role-name>
+    </data-role>
+    <data-role allow-create-temporary-tables="false" any-authenticated="false" grant-all="false" name="Data Role ANALYST1">
+        <description/>
+        <permission>
+            <resource-name>DataServiceLayer.personalData</resource-name>
+            <condition>statement_1 = true</condition>
+        </permission>
+        <permission>
+            <resource-name>DataServiceLayer.personalData.cust_name</resource-name>
+            <mask order="0">LEFT(cust_name, 1) || '********'</mask>
+        </permission>
+        <permission>
+            <resource-name>DataServiceLayer.personalData.cust_email</resource-name>
+            <mask order="0">LEFT(cust_email, 1) || '********' || SUBSTRING(cust_email,LOCATE('@',cust_email))</mask>
+        </permission>
+        <permission>
+            <resource-name>DataServiceLayer.personalData.cust_address</resource-name>
+            <mask order="0">'********'</mask>
+        </permission>
+        <permission>
+            <resource-name>DataServiceLayer.personalData.statement_2</resource-name>
+            <mask order="0">false</mask>
+        </permission>
+        <permission>
+            <resource-name>DataServiceLayer.personalData.statement_3</resource-name>
+            <mask order="0">false</mask>
+        </permission>
+        <permission>
+            <resource-name>DataServiceLayer</resource-name>
+            <allow-create>false</allow-create>
+            <allow-read>true</allow-read>
+            <allow-update>false</allow-update>
+            <allow-delete>false</allow-delete>
+            <allow-execute>false</allow-execute>
+            <allow-alter>false</allow-alter>
+        </permission>
+        <permission>
+            <resource-name>sysadmin</resource-name>
+            <allow-create>false</allow-create>
+            <allow-read>false</allow-read>
+            <allow-update>false</allow-update>
+            <allow-delete>false</allow-delete>
+            <allow-execute>false</allow-execute>
+            <allow-alter>false</allow-alter>
+        </permission>
+        <mapped-role-name>analyst1</mapped-role-name>
+    </data-role>
+    <data-role allow-create-temporary-tables="false" any-authenticated="false" grant-all="false" name="Data Role ANALYST2">
+        <description/>
+        <permission>
+            <resource-name>DataServiceLayer.personalData</resource-name>
+            <condition>statement_2 = true</condition>
+        </permission>
+        <permission>
+            <resource-name>DataServiceLayer.personalData.cust_name</resource-name>
+            <mask order="0">LEFT(cust_name, 1) || '********'</mask>
+        </permission>
+        <permission>
+            <resource-name>DataServiceLayer.personalData.cust_address</resource-name>
+            <mask order="0">'********'</mask>
+        </permission>
+        <permission>
+            <resource-name>DataServiceLayer.personalData.statement_1</resource-name>
+            <mask order="0">false</mask>
+        </permission>
+        <permission>
+            <resource-name>DataServiceLayer.personalData.statement_3</resource-name>
+            <mask order="0">false</mask>
+        </permission>
+        <permission>
+            <resource-name>DataServiceLayer</resource-name>
+            <allow-create>false</allow-create>
+            <allow-read>true</allow-read>
+            <allow-update>false</allow-update>
+            <allow-delete>false</allow-delete>
+            <allow-execute>false</allow-execute>
+            <allow-alter>false</allow-alter>
+        </permission>
+        <permission>
+            <resource-name>sysadmin</resource-name>
+            <allow-create>false</allow-create>
+            <allow-read>false</allow-read>
+            <allow-update>false</allow-update>
+            <allow-delete>false</allow-delete>
+            <allow-execute>false</allow-execute>
+            <allow-alter>false</allow-alter>
+        </permission>
+        <mapped-role-name>analyst2</mapped-role-name>
+    </data-role>
+    <data-role allow-create-temporary-tables="false" any-authenticated="false" grant-all="false" name="Data Role ANALYST3">
+        <description/>
+        <permission>
+            <resource-name>DataServiceLayer</resource-name>
+            <allow-create>false</allow-create>
+            <allow-read>true</allow-read>
+            <allow-update>false</allow-update>
+            <allow-delete>false</allow-delete>
+            <allow-execute>false</allow-execute>
+            <allow-alter>false</allow-alter>
+        </permission>
+        <permission>
+            <resource-name>DataServiceLayer.personalData</resource-name>
+            <condition>statement_3 = true</condition>
+        </permission>
+        <permission>
+            <resource-name>DataServiceLayer.personalData.cust_name</resource-name>
+            <mask order="0">LEFT(cust_name, 1) || '********'</mask>
+        </permission>
+        <permission>
+            <resource-name>DataServiceLayer.personalData.cust_email</resource-name>
+            <mask order="0">LEFT(cust_email, 1) || '********' || SUBSTRING(cust_email,LOCATE('@',cust_email))</mask>
+        </permission>
+        <permission>
+            <resource-name>DataServiceLayer.personalData.statement_1</resource-name>
+            <mask order="0">false</mask>
+        </permission>
+        <permission>
+            <resource-name>DataServiceLayer.personalData.statement_2</resource-name>
+            <mask order="0">false</mask>
+        </permission>
+        <permission>
+            <resource-name>sysadmin</resource-name>
+            <allow-create>false</allow-create>
+            <allow-read>false</allow-read>
+            <allow-update>false</allow-update>
+            <allow-delete>false</allow-delete>
+            <allow-execute>false</allow-execute>
+            <allow-alter>false</allow-alter>
+        </permission>
+        <mapped-role-name>analyst3</mapped-role-name>
+    </data-role>
+</vdb>
