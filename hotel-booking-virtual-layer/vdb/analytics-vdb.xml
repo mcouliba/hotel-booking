@@ -156,11 +156,11 @@
         </permission>
         <permission>
             <resource-name>DataServiceLayer.personalData.statement_2</resource-name>
-            <mask order="0">'********'</mask>
+            <mask order="0">false</mask>
         </permission>
         <permission>
             <resource-name>DataServiceLayer.personalData.statement_3</resource-name>
-            <mask order="0">'********'</mask>
+            <mask order="0">false</mask>
         </permission>
         <permission>
             <resource-name>DataServiceLayer</resource-name>
@@ -198,11 +198,11 @@
         </permission>
         <permission>
             <resource-name>DataServiceLayer.personalData.statement_1</resource-name>
-            <mask order="0">'********'</mask>
+            <mask order="0">false</mask>
         </permission>
         <permission>
             <resource-name>DataServiceLayer.personalData.statement_3</resource-name>
-            <mask order="0">'********'</mask>
+            <mask order="0">false</mask>
         </permission>
         <permission>
             <resource-name>DataServiceLayer</resource-name>
@@ -249,11 +249,11 @@
         </permission>
         <permission>
             <resource-name>DataServiceLayer.personalData.statement_1</resource-name>
-            <mask order="0">'********'</mask>
+            <mask order="0">false</mask>
         </permission>
         <permission>
             <resource-name>DataServiceLayer.personalData.statement_2</resource-name>
-            <mask order="0">'********'</mask>
+            <mask order="0">false</mask>
         </permission>
         <permission>
             <resource-name>sysadmin</resource-name>
