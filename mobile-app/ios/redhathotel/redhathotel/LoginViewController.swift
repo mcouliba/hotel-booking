@@ -9,25 +9,33 @@
 import UIKit
 
 class LoginViewController: UIViewController {
-
+    
     @IBOutlet weak var username: UITextField!
     
     @IBOutlet weak var password: UITextField!
     
     @IBOutlet weak var signinButton: UIButton!
     
+    let GDPRCountries = [ "Czech Republic", "France", "Germany", "Spain" ]
+    
+    var userId = 0
+    
+    var email = String()
+    
+    var country = String()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
+    
     @IBAction func signinButtonSelected(_ sender: Any) {
         
         let userNameText = username.text
@@ -59,72 +67,65 @@ class LoginViewController: UIViewController {
         
         view.addSubview( loginActivityMonitor )
         
-        // Sign in
-//        let url = URL(string: "authentication URL")
-//        var request = URLRequest(url: url!)
-//
-//        request.addValue("application/json", forHTTPHeaderField: "content-type")
-//        request.addValue("application/json", forHTTPHeaderField: "Accept")
-//
-//        let postString = ["userName": userNameText!, "userPassword": passwordText!] as [String: String]
-//
-//        do {
-//            request.httpBody = try JSONSerialization.data(withJSONObject: postString, options:.prettyPrinted)
-//        } catch let error {
-//            print(error.localizedDescription)
-//            displayDialog(title: "Error", message: "Something went wrong.")
-//            return
-//        }
+        let errorMessage = "User name and/or password is incorrect. Please try again."
+        let errorMessageTitle = "Error"
         
-        // TODO: remove indicator
+        // Define base URL
+        let baseUrl = "http://customer-service-hotelbooking.apps.46.4.112.21.xip.io/customer/authenticate"
+        // Add parameter
+        let urlWithParams = baseUrl + "?email=\(userNameText!)"
+        // Create URL Ibject
+        let myUrl = URL(string: urlWithParams);
         
-//        let task = URLSession.shared.dataTask(with: request) { (data: Data?, response: URLResponse?, error: Error?) in
-//            self.removeActivityIndicator(activityIndicator: loginActivityMonitor)
-//
-//            if error != nil
-//            {
-//                self.displayDialog(title: "Error", message: "Could not perform request.")
-//                print("error=\(String(describing: error))")
-//                return
-//            }
-//
-//            do {
-//                let json = try JSONSerialization.jsonObject(with: data!, options: .mutableContainers) as? NSDictionary
-//
-//                if let parseJSON = json {
-//
-//                    //get auth token? Check if empty and throw error/return. Else go to MyReservations page
+        // Create URL Request
+        var request = URLRequest(url:myUrl!);
         
-         self.removeActivityIndicator(activityIndicator: loginActivityMonitor)
-                    DispatchQueue.main.async {
-                        let reservationsPage = self.storyboard?.instantiateViewController(withIdentifier: "ReservationsViewController") as! ReservationsViewController
-                        
-                        let appDelegate = UIApplication.shared.delegate
-                        // replace sign in page
-                        appDelegate?.window??.rootViewController = reservationsPage
-                        
-                        
-                        
-//                    }
-//
-//
-//                } else {
-//                    self.removeActivityIndicator(activityIndicator: loginActivityMonitor)
-//
-//                    self.displayDialog(title: "Error", message: "Could not perform request")
-//                    print(error)
-//                }
-//
-//            } catch {
-//
-//                self.removeActivityIndicator(activityIndicator: loginActivityMonitor)
-//
-//                self.displayDialog(title: "Error", message: "Could not perform request")
-//                print(error)
-//            }
+        // Set request HTTP method to GET. It could be POST as well
+        request.httpMethod = "GET"
+        
+        // Excute HTTP Request
+        let task = URLSession.shared.dataTask(with: request) {
+            data, response, error in
+            
+            // Check for error
+            if error != nil
+            {
+                self.removeActivityIndicator( activityIndicator: loginActivityMonitor )
+                self.displayDialog( title: "Error", message: errorMessage )
+                return
+            }
+            
+            // Print out response string
+            let responseString = NSString(data: data!, encoding: String.Encoding.utf8.rawValue)
+            if (responseString == nil) {
+                self.removeActivityIndicator( activityIndicator: loginActivityMonitor )
+                print("password failed")
+                self.displayDialog(title: errorMessageTitle, message: errorMessage)
+            }
+            
+            // Convert server json response to NSDictionary
+            do {
+                if let convertedJsonIntoDict = try JSONSerialization.jsonObject(with: data!, options: []) as? NSDictionary {
+                    
+                    // Print out dictionary
+                    print(convertedJsonIntoDict)
+                    
+                    // Get value by key
+                    self.userId = (convertedJsonIntoDict["id"] as? Int)!
+                    self.country = (convertedJsonIntoDict["country"] as? String)!
+                    self.email = (convertedJsonIntoDict["email"] as? String)!
+                    self.removeActivityIndicator( activityIndicator: loginActivityMonitor )
+                    self.nextScreen()
+                }
+            } catch let error as NSError {
+                self.displayDialog(title: errorMessageTitle, message: errorMessage)
+                self.removeActivityIndicator( activityIndicator: loginActivityMonitor )
+                print(error.localizedDescription)
+            }
+            
         }
-//
-//        task.resume()
+        
+        task.resume()
         
     }
     
@@ -152,6 +153,26 @@ class LoginViewController: UIViewController {
         DispatchQueue.main.async {
             activityIndicator.stopAnimating()
             activityIndicator.removeFromSuperview()
+        }
+    }
+    
+    
+    func nextScreen() {
+        
+       // let appDelegate = UIApplication.shared.delegate
+        
+        DispatchQueue.main.async {
+            if PrefMgr.shared.askForAcceptance && self.GDPRCountries.contains( self.country ) {
+                let acceptanceController = self.storyboard?.instantiateViewController( withIdentifier: AcceptanceController.storyboardId ) as! AcceptanceController
+                acceptanceController.user_email = self.email
+                acceptanceController.userId = self.userId
+                self.present(acceptanceController, animated: true, completion:  nil)
+            } else {
+                let reservationsPage = self.storyboard?.instantiateViewController(withIdentifier: "ReservationsViewController") as! ReservationsViewController
+                reservationsPage.user_email = self.email
+                reservationsPage.userId = self.userId
+                self.present(reservationsPage, animated: true, completion:  nil)
+            }
         }
     }
 }
