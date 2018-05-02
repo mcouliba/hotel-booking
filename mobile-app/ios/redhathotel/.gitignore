@@ -16,6 +16,8 @@ DerivedData/
 *.perspectivev3
 !default.perspectivev3
 xcuserdata/
+mobile-app/ios/redhathotel/redhathotel.xcworkspace/xcuserdata/*
+redhathotel.xcworkspace/xcuserdata/*
 
 ## Other
 *.moved-aside
