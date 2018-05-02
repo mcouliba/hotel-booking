@@ -15,7 +15,10 @@ class ReservationsTableViewCell: UITableViewCell {
 
     @IBOutlet weak var hotelName: UILabel!
     @IBOutlet weak var datesLabel: UILabel!
-    @IBOutlet weak var keyButton: UIButton!
+    @IBOutlet weak var actionLabel: UILabel!
+    
+    var reservationId = String()
+    var status = String()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -27,6 +30,5 @@ class ReservationsTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-
-
+    
 }
