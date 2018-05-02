@@ -1,1 +1,1 @@
-# inventory-service
+# hotel-service

@@ -6,6 +6,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-public interface ReservationRepository extends PagingAndSortingRepository<Reservation, Integer> {
+public interface ReservationRepository extends PagingAndSortingRepository<Reservation, String> {
     Page<Reservation> findByCustomerId(Pageable pageable, Integer customerid);
 }

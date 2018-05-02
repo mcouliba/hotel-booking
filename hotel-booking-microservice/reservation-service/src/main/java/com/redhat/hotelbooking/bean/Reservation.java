@@ -1,9 +1,6 @@
 package com.redhat.hotelbooking.bean;
 
-import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Table;
 import javax.persistence.Column;
 import javax.persistence.Id;
@@ -20,7 +17,7 @@ The Reservation class defines a hotel object for storage in a relational databas
 public class Reservation {
 
     @Id
-    private Integer id;
+    private String id;
 
     @Column(name="customer_id")
     private Integer customerId;
@@ -35,7 +32,7 @@ public class Reservation {
     /**
     This is the constructor for the database object.
     **/
-    public Reservation(Integer id, Integer customerId, String hotel_name, String hotel_city, String hotel_country,
+    public Reservation(String id, Integer customerId, String hotel_name, String hotel_city, String hotel_country,
                        Date checkin, Date checkout, String status) {
         this.id = id;
         this.customerId = customerId;
@@ -47,11 +44,11 @@ public class Reservation {
         this.status = status;
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
