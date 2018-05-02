@@ -88,11 +88,7 @@ $ cd booking-state-service
 $ mvn clean fabric8:deploy -Popenshift -DskipTests
 $ cd ..
 
-$ cd hotel-service
-$ mvn clean fabric8:deploy -Popenshift -DskipTests
-$ cd ..
-
-$ cd hotel-service-v2
+$ cd customer-service
 $ mvn clean fabric8:deploy -Popenshift -DskipTests
 $ cd ..
 
@@ -100,20 +96,38 @@ $ cd inventory-service
 $ mvn clean fabric8:deploy -Popenshift -DskipTests
 $ cd ..
 
-$ cd ..
-----
-
-To set up a A/B deployment for 'hotel-service':
-
-[source,bash,options="nowrap",subs="attributes+"]
-----
-$ cd hotel-booking-microservice
-
-$ cd hotel-service-v2
+$ cd reservation-service
 $ mvn clean fabric8:deploy -Popenshift -DskipTests
 $ cd ..
 
-$ oc set route-backends hotel-service hotel-service=50 hotel-service-v2=50
+$ cd ..
+----
+
+
+== Web Application
+To initialize the Web App :
+
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ cd hotel-booking-web-app
+
+$ mv .nodeshift_v1 .nodeshift
+$ npm run openshift
+
+$ cd ..
+----
+
+To set up a A/B deployment:
+
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ cd hotel-booking-web-app
+
+$ vi package.json #Change the "name" parameter to "hotel-booking-web-app-v2"
+$ vi src/components/ListView/RoomListView.js #Replace "abtesting hidden" by "abtesting"
+$ npm run openshift
+
+$ oc set route-backends hotel-booking-web-app hotel-booking-web-app=25 hotel-booking-web-app-v2=75
 
 $ cd ..
 ----
