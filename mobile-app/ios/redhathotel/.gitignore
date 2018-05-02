@@ -16,11 +16,13 @@ DerivedData/
 *.perspectivev3
 !default.perspectivev3
 xcuserdata/
+xcuserdata/*
+redhathotel.xcworkspace/xcuserdata/*
 
 ## Other
 *.moved-aside
 *.xcuserstate
-
+i
 ## Obj-C/Swift specific
 *.hmap
 *.ipa
