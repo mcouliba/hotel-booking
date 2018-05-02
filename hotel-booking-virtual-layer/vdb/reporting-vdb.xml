@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <vdb name="reporting" version="1">
 
-  <description>Analytics VDB</description>
+  <description>Reporting VDB</description>
       <model name="Monolith" visible="false">
         <property name="importer.useFullSchemaName" value="false"/>
         <property name="importer.TableTypes" value="TABLE" />

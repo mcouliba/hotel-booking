@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Deployment
+metadata:
+  name: ${project.artifactId}
+  labels:
+    app: ${project.artifactId}
+    group: ${project.groupId}
+    provider: fabric8
+    version: ${project.version}
+spec:
+  template:
+    spec:
+      containers:
+        - env:
+            - name: VIRTUALLAYER_USERNAME
+              valueFrom:
+                 secretKeyRef:
+                   name: virtuallayer-secret
+                   key: username
+            - name: VIRTUALLAYER_PASSWORD
+              valueFrom:
+                 secretKeyRef:
+                   name: virtuallayer-secret
+                   key: password
+            - name: VDB_NAME
+              value: "customer"
+            - name: JAVA_OPTIONS
+              value: "-Dspring.profiles.active=openshift"
