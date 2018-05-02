@@ -11,6 +11,8 @@
 		374B9B192092231D0086E356 /* PrefMgr.swift in Sources */ = {isa = PBXBuildFile; fileRef = 374B9B182092231D0086E356 /* PrefMgr.swift */; };
 		99DC181E41B477517C2B38F0 /* Pods_redhathotelUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 94B474DAA6DA806EBBE3D913 /* Pods_redhathotelUITests.framework */; };
 		AA7261618C7AEFBF1790DBF8 /* Pods_redhathotel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D19006CDFED627026D240D6E /* Pods_redhathotel.framework */; };
+		EC70DA96209277EB00A814AB /* AcceptanceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC70DA95209277EB00A814AB /* AcceptanceController.swift */; };
+		EC99FE0D2098B5ED00365E82 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC99FE0C2098B5ED00365E82 /* WebViewController.swift */; };
 		ECC1A00C207E96BC00D7DEA2 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC1A00B207E96BC00D7DEA2 /* LoginViewController.swift */; };
 		ECC1A012207EB66C00D7DEA2 /* QRCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC1A011207EB66C00D7DEA2 /* QRCodeViewController.swift */; };
 		ECC1A014208542CB00D7DEA2 /* ReservationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ECC1A013208542CB00D7DEA2 /* ReservationsViewController.swift */; };
@@ -52,6 +54,8 @@
 		CD918AFDDF01241F1F0319CD /* Pods-redhathotelTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-redhathotelTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-redhathotelTests/Pods-redhathotelTests.release.xcconfig"; sourceTree = "<group>"; };
 		D19006CDFED627026D240D6E /* Pods_redhathotel.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_redhathotel.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E69676C26B893940ED992728 /* Pods-redhathotelUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-redhathotelUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-redhathotelUITests/Pods-redhathotelUITests.release.xcconfig"; sourceTree = "<group>"; };
+		EC70DA95209277EB00A814AB /* AcceptanceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AcceptanceController.swift; sourceTree = "<group>"; };
+		EC99FE0C2098B5ED00365E82 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		ECC1A00B207E96BC00D7DEA2 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		ECC1A011207EB66C00D7DEA2 /* QRCodeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeViewController.swift; sourceTree = "<group>"; };
 		ECC1A013208542CB00D7DEA2 /* ReservationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationsViewController.swift; sourceTree = "<group>"; };
@@ -158,6 +162,8 @@
 				ECC1A013208542CB00D7DEA2 /* ReservationsViewController.swift */,
 				ECC1A01920867EE900D7DEA2 /* TestData.swift */,
 				ECC1A0212086973500D7DEA2 /* ReservationsTableViewCell.swift */,
+				EC70DA95209277EB00A814AB /* AcceptanceController.swift */,
+				EC99FE0C2098B5ED00365E82 /* WebViewController.swift */,
 			);
 			path = redhathotel;
 			sourceTree = "<group>";
@@ -252,11 +258,12 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "Ted Jones - Red Hat";
 				TargetAttributes = {
 					ECFBD7ED207D28E600B087B5 = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 0930;
 						ProvisioningStyle = Automatic;
 					};
 					ECFBD801207D28E600B087B5 = {
@@ -477,8 +484,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EC70DA96209277EB00A814AB /* AcceptanceController.swift in Sources */,
 				374B9B192092231D0086E356 /* PrefMgr.swift in Sources */,
 				ECC1A012207EB66C00D7DEA2 /* QRCodeViewController.swift in Sources */,
+				EC99FE0D2098B5ED00365E82 /* WebViewController.swift in Sources */,
 				ECC1A00C207E96BC00D7DEA2 /* LoginViewController.swift in Sources */,
 				ECC1A0222086973500D7DEA2 /* ReservationsTableViewCell.swift in Sources */,
 				ECC1A014208542CB00D7DEA2 /* ReservationsViewController.swift in Sources */,
@@ -552,6 +561,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -559,6 +569,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -609,6 +620,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -616,6 +628,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -650,12 +663,14 @@
 			baseConfigurationReference = CACF2D722E94E6FBE65A77E0 /* Pods-redhathotel.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7LLT65DGJS;
 				INFOPLIST_FILE = redhathotel/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.redhat.hotel.redhathotel;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -666,6 +681,7 @@
 			baseConfigurationReference = 9136151603B5CC34BADB40AD /* Pods-redhathotel.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 7LLT65DGJS;
 				INFOPLIST_FILE = redhathotel/Info.plist;
