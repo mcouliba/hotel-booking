@@ -130,7 +130,7 @@ class QRCodeViewController: UIViewController {
     func checkIn() {
         
         //Create Activity Indicator
-        let reservationsActivityMonitor = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+        let reservationsActivityMonitor = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.white)
         
         // Position Activity Indicator in the center of the main view
         reservationsActivityMonitor.center = view.center
@@ -194,7 +194,11 @@ class QRCodeViewController: UIViewController {
                         return
                 }
                 if (resResponse == "true") {
-                    self.keyImage.image = UIImage(named: "qr-code")
+                    DispatchQueue.main.async
+                    {
+                        self.keyImage.image = UIImage(named: "qr-code")
+                            
+                    }
                     self.removeActivityIndicator( activityIndicator: reservationsActivityMonitor )
                     self.displayCheckedInDialog(title: "Checked in!", message: "Welcome to the Red Hat Hotel! Hold your digital key in front of your door scanner for entry.")
                 } else {
@@ -266,7 +270,7 @@ class QRCodeViewController: UIViewController {
             { (action:UIAlertAction!) in
                 DispatchQueue.main.async
                     {
-                        self.dismiss(animated: true, completion: nil)
+                       // self.dismiss(animated: true, completion: nil)
                         
                 }
             }
