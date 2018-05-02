@@ -162,7 +162,7 @@ class LoginViewController: UIViewController {
        // let appDelegate = UIApplication.shared.delegate
         
         DispatchQueue.main.async {
-            if PrefMgr.shared.askForAcceptance && self.GDPRCountries.contains( self.country ) {
+            if !PrefMgr.shared.askForAcceptance && self.GDPRCountries.contains( self.country ) {
                 let acceptanceController = self.storyboard?.instantiateViewController( withIdentifier: AcceptanceController.storyboardId ) as! AcceptanceController
                 acceptanceController.user_email = self.email
                 acceptanceController.userId = self.userId
