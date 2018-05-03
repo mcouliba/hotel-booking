@@ -260,10 +260,10 @@ There are settings in two different places:
 == Red Hat Hotel Mobile App
 The mobile application for this demo is written in Swift for iOs. It runs on iPad and iPhone devices and simulators. Because of the built-in integration with the web app running on OpenShift, it is best to run on an iPad to be able to see the web app on a larger screen.
 
-To run the app, download and install the latest version of *+xCode+* from https://developer.apple.com/xcode/. To launch the xcode project from your local cloned version of hotel-booking, click on https://github.com/mcouliba/hotel-booking/tree/master/mobile-app/ios/redhathotel/redhathotel.xcworkspace or open directly from the xcode IDE. With the project open in xcode, you should be able to run the app using the device of your choice in the xcode simulator by clicking the run button in the upper left of the xcode IDE.
+To run the app, download and install the latest version of *+xCode+* from https://developer.apple.com/xcode/. To launch the xcode project from your local cloned version of hotel-booking, click on {local repository location}/hotel-booking/mobile-app/ios/redhathotel/redhathotel.xcworkspace to launch it in xcode or open the file directly from the xcode IDE. With the project open in xcode, you should be able to run the app using the device of your choice in the xcode simulator by clicking the run button in the upper left of the xcode IDE.
 
 The first screen is the Login screen. This requires a user email from the customer table. The password can be anything you want. The user email will be checked against the customer table using the customer service in OpenShift. If the customer's country of residence is within the EU, the user will be prompted to accept or deny the GDPR permissions for data sharing. Selecting "Don't ask me again" in this dialog will prevent this prompt from coming up in future sessions.
 
 The next screen is the reservations screen which shows all reservations and their statuses. There is also a button to "Manage Reservations" at the top of the screen. This will allow you to login to the web app to create new reservations.
 
-You can also check-in or view your digital room key (a QR Code) for a reservation. From the "Room Key" view, you can also check out by clicking the "Check out" link at the top.
+You can also check-in or view your digital room key (a QR Code) for a reservation by clicking the "check in" or "room key" link in the reservation list. From the "Room Key" view, you can also check out by clicking the "Check out" link at the top.
