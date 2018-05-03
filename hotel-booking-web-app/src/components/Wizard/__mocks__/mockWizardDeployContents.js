@@ -22,10 +22,6 @@ class MockWizardDeployContents extends React.Component {
         <div className="wizard-pf-process blank-slate-pf">
           <div className="spinner spinner-lg blank-slate-pf-icon" />
           <h3 className="blank-slate-pf-main-action">Booking in progress</h3>
-          <p className="blank-slate-pf-secondary-action">
-            Lorem ipsum dolor sit amet, porta at suspendisse ac, ut wisi
-            vivamus, lorem sociosqu eget nunc amet.{' '}
-          </p>
         </div>
       );
     }
@@ -37,13 +33,6 @@ class MockWizardDeployContents extends React.Component {
         <h3 className="blank-slate-pf-main-action">
           Booking was successful
         </h3>
-        <p className="blank-slate-pf-secondary-action">
-          Lorem ipsum dolor sit amet, porta at suspendisse ac, ut wisi vivamus,
-          lorem sociosqu eget nunc amet.{' '}
-        </p>
-        <button type="button" className="btn btn-lg btn-primary">
-          View Booking
-        </button>
       </div>
     );
   }

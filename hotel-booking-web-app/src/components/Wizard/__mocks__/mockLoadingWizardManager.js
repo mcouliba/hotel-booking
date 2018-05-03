@@ -2,7 +2,7 @@ import React from 'react';
 import { bindMethods } from '../../../common/helpers';
 import {Button, Icon, Modal, Wizard } from 'patternfly-react';
 
-import { mockLoadingContents } from './mockWizardItems';
+import { loadingContents } from '../BookingWizardItems';
 
 export class MockLoadingWizardManager extends React.Component {
   constructor(props) {
@@ -44,7 +44,7 @@ export class MockLoadingWizardManager extends React.Component {
             </Modal.Header>
             <Modal.Body className="wizard-pf-body clearfix">
               <Wizard.Row>
-                <Wizard.Main>{mockLoadingContents()}</Wizard.Main>
+                <Wizard.Main>{loadingContents()}</Wizard.Main>
               </Wizard.Row>
             </Modal.Body>
             <Modal.Footer className="wizard-pf-footer">
@@ -94,7 +94,7 @@ export const mockLoadingWizardSource = `
         </Modal.Header>
         <Modal.Body className="wizard-pf-body clearfix">
           <Wizard.Row>
-            <Wizard.Main>{mockLoadingContents()}</Wizard.Main>
+            <Wizard.Main>{loadingContents()}</Wizard.Main>
           </Wizard.Row>
         </Modal.Body>
         <Modal.Footer className="wizard-pf-footer">

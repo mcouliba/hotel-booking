@@ -1,19 +1,20 @@
 import React from 'react';
 import WizardBase from './WizardBase';
 import { bindMethods } from '../../common/helpers';
+import { Redirect } from 'react-router';
 import {Button, Icon, Modal, Wizard } from 'patternfly-react';
 
-import { mockWizardItems } from './__mocks__/mockWizardItems';
+import { BookingWizardItems } from './BookingWizardItems';
 
 import {
   renderWizardSteps,
   renderWizardContents
-} from './__mocks__/mockWizardRenderers';
+} from './BookingWizardRenderers';
 
 export class BookingModalWizard extends WizardBase {
      constructor(props: any) {
         super(props);
-        bindMethods(this, ['open', 'close']);
+        bindMethods(this, ['open', 'close', 'endClose']);
     }
 
     async open() {
@@ -24,13 +25,20 @@ export class BookingModalWizard extends WizardBase {
     }
 
     close() {
-//        await this.setState({bookingState.selection.hotel_id : 0});
         this.setState({ showModal: false });
     }
 
+    endClose() {
+        this.setState({ redirect: true });
+    }
+
   render() {
-    const { room } = this.props;
+    const { room, customer } = this.props;
     const { showModal, activeStepIndex, activeSubStepIndex } = this.state;
+
+    if (this.state.redirect) {
+        return <Redirect to='/'/>;
+    };
 
     return (
       <div>
@@ -56,12 +64,12 @@ export class BookingModalWizard extends WizardBase {
               >
                 <Icon type="pf" name="close" />
               </button>
-              <Modal.Title>Booking Process</Modal.Title>
+              <Modal.Title>Validation</Modal.Title>
             </Modal.Header>
             <Modal.Body className="wizard-pf-body clearfix">
               <Wizard.Steps
                 steps={renderWizardSteps(
-                  mockWizardItems,
+                  BookingWizardItems,
                   activeStepIndex,
                   activeSubStepIndex,
                   this.onStepClick
@@ -70,11 +78,11 @@ export class BookingModalWizard extends WizardBase {
               <Wizard.Row>
                 <Wizard.Main>
                   {renderWizardContents(
-                    mockWizardItems,
+                    BookingWizardItems,
                     activeStepIndex,
                     activeSubStepIndex,
                     room,
-                    this.props.userid
+                    customer
                   )}
                 </Wizard.Main>
               </Wizard.Row>
@@ -101,18 +109,18 @@ export class BookingModalWizard extends WizardBase {
                     </Button>
                 )}
 
-              {(activeStepIndex === 0 || activeStepIndex === 1) && (
+              {(activeStepIndex === 0) && (
                 <Button bsStyle="primary" onClick={this.onNextButtonClick}>
                   Next<Icon type="fa" name="angle-right" />
                 </Button>
               )}
-              {activeStepIndex === 2 && (
-                  <Button bsStyle="primary" onClick={this.onBookButtonClick}>
+              {activeStepIndex === 1 && (
+                  <Button bsStyle="success" onClick={this.onBookButtonClick}>
                     Book!<Icon type="fa" name="angle-right" />
                   </Button>
                 )}
-              {activeStepIndex === 3 && (
-                  <Button bsStyle="primary" onClick={this.close}>
+              {activeStepIndex === 2 && (
+                  <Button bsStyle="primary" onClick={this.endClose}>
                     Close
                   </Button>
                 )}
@@ -159,7 +167,7 @@ export const ModalWizardSource = `
           <Wizard.Row>
             <Wizard.Sidebar
               items={renderSidebarItems(
-                mockWizardItems,
+                BookingWizardItems,
                 activeStepIndex,
                 activeSubStepIndex,
                 this.onSidebarItemClick,
@@ -167,7 +175,7 @@ export const ModalWizardSource = `
             />
             <Wizard.Main>
               {renderWizardContents(
-                mockWizardItems,
+                BookingWizardItems,
                 activeStepIndex,
                 activeSubStepIndex,
               )}

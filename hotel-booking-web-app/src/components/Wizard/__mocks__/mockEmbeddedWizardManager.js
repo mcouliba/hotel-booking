@@ -4,7 +4,7 @@ import { Button } from '../../Button';
 import { Icon } from '../../Icon';
 import { Wizard } from '../index';
 
-import { mockWizardItems } from './mockWizardItems';
+import { BookingWizardItems } from '../BookingWizardItems';
 
 import {
   renderWizardSteps,

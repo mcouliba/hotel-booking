@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { mockWizardItems } from '../Wizard/__mocks__/mockWizardItems';
+import { BookingWizardItems } from '../Wizard/BookingWizardItems';
 import { BookingModalWizard } from '../Wizard/BookingModalWizard';
 
 class RoomListView extends React.Component {
 
   render() {
-        const { rooms } = this.props;
+        const { rooms, customer } = this.props;
 
         return (
           <div className="list-group list-view-pf list-view-pf-view">
@@ -16,10 +16,10 @@ class RoomListView extends React.Component {
                   <div className="list-group-item-header">
                   <div className="list-view-pf-actions">
                     <BookingModalWizard
-                        steps={mockWizardItems}
-                        room={room}
+                        steps={BookingWizardItems}
+                        room={ room }
                         handleBookingState={this.props.handleBookingState}
-                        userid={this.props.userid}
+                        customer={ customer }
                     />
                   </div>
                   <div className="list-view-pf-main-info">
@@ -32,6 +32,48 @@ class RoomListView extends React.Component {
                           Room Number {room.hotelId}/{ room.room_number }
                         </div>
                       </div>
+                      <div className="list-view-pf-additional-info">
+                          {room.living_area && (
+                              <div className="list-view-pf-additional-info-item">
+                                  living area
+                              </div>
+                          )}
+                          {room.microwave && (
+                              <div className="list-view-pf-additional-info-item">
+                                  microwave
+                              </div>
+                          )}
+                          {room.num_double_beds > 0 && (
+                              <div className="list-view-pf-additional-info-item">
+                                  double bed
+                              </div>
+                          )}
+                          {room.num_king_beds > 0 && (
+                              <div className="list-view-pf-additional-info-item">
+                                  king bed
+                              </div>
+                          )}
+                          {room.num_queen_beds > 0 && (
+                              <div className="list-view-pf-additional-info-item">
+                                  queen bed
+                              </div>
+                          )}
+                          {room.microwave && (
+                              <div className="list-view-pf-additional-info-item">
+                                  pets
+                              </div>
+                          )}
+                          {room.refrigerator && (
+                              <div className="list-view-pf-additional-info-item">
+                                  refrigerator
+                              </div>
+                          )}
+                          {room.smoking && (
+                              <div className="list-view-pf-additional-info-item">
+                                  smoking
+                              </div>
+                          )}
+                        </div>
                     </div>
                   </div>
                 </div>

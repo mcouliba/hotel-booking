@@ -47,11 +47,11 @@ class WizardBase extends ComponentBase {
     onBookButtonClick() {
         // Go to the last step
         this.setState({
-            activeStepIndex: 3,
+            activeStepIndex: 2,
             activeSubStepIndex: 0
         });
 
-        functions.confirmReservation(this.props.userid);
+        functions.confirmReservation(this.props.customer.id);
     }
 
   onSidebarItemClick(stepIndex, subStepIndex) {

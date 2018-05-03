@@ -19,6 +19,7 @@ import java.util.logging.Logger;
 public class BookingStateRestAPI extends CacheAccessVerticle {
     public static final String BOOKINGSTATE_GET_API_ENDPOINT = "/getbookingstate/:id";
     public static final String BOOKINGSTATE_SET_SEARCH_API_ENDPOINT = "/bookingstate/setsearch";
+    public static final String BOOKINGSTATE_DELETE_API_ENDPOINT = "/deletebookingstate/:id";
 
     private final Logger logger = Logger.getLogger(BookingStateRestAPI.class.getName());
 
@@ -53,6 +54,7 @@ public class BookingStateRestAPI extends CacheAccessVerticle {
         router.route().handler(BodyHandler.create());
         router.get(BOOKINGSTATE_GET_API_ENDPOINT).handler(this::handleGetorCreate);
         router.post(BOOKINGSTATE_SET_SEARCH_API_ENDPOINT).handler(this::handleSetSearch);
+        router.delete(BOOKINGSTATE_DELETE_API_ENDPOINT).handler(this::handleDelete);
 
         vertx.createHttpServer()
             .requestHandler(router::accept)
@@ -71,10 +73,23 @@ public class BookingStateRestAPI extends CacheAccessVerticle {
                 .put("date_in", "")
                 .put("date_out", "");
 
+        JsonObject selectionHotelState = new JsonObject()
+                .put("id", "")
+                .put("name", "");
+
+        JsonObject selectionRoomState = new JsonObject()
+                .put("id", "")
+                .put("room_number", "");
+
+        JsonObject selection = new JsonObject()
+                .put("hotel", selectionHotelState)
+                .put("room", selectionRoomState);
+
         String bookingState = new JsonObject()
                 .put("id", id)
                 .put("state", "/")
                 .put("search", searchState)
+                .put("selection", selection)
                 .encode();
         return bookingState;
     }
@@ -123,6 +138,22 @@ public class BookingStateRestAPI extends CacheAccessVerticle {
         }
     }
 
+    private void handleDelete(RoutingContext rc) {
+        String id = rc.request().getParam("id");
+        logger.info("DeleteBooking State id=" + id);
+        HttpServerResponse response = rc.response();
+
+        defaultCache.removeAsync(id)
+            .whenComplete((s, tput) -> {
+                if (tput == null) {
+                    logger.info(String.format("Booking State Updated for [%s]", id));
+                    response.setStatusCode(HttpResponseStatus.OK.code()).end("Booking State Deleted");
+                } else {
+                    logger.log(Level.SEVERE, String.format("Failed to delete Booking State [%s]", id), tput);
+                    rc.fail(500);
+                }
+            });
+    }
    @Override
    protected Logger getLogger() {
       return logger;

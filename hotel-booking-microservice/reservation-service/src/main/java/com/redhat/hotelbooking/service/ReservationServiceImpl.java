@@ -33,6 +33,9 @@ class ReservationServiceImpl implements ReservationService {
     @Value("${BOOKING_STATE_SERVICE_GET_URL:http://booking-state-service:8080/getbookingstate}")
     private String BOOKING_STATE_SERVICE_GET_URL;
 
+    @Value("${BOOKING_STATE_SERVICE_DELETE_URL:http://booking-state-service:8080/deletebookingstate}")
+    private String BOOKING_STATE_SERVICE_DELETE_URL;
+
 	@Override
 	public Page<Reservation> findByCustomerId(Pageable pageable, Integer customerId) throws IOException {
 		return reservationRepository.findByCustomerId(pageable, customerId);
@@ -70,6 +73,8 @@ class ReservationServiceImpl implements ReservationService {
         SourceReservation newSourceReservation =
                 new SourceReservation("NA", customerId, roomId, checkin, checkout, dailyRate, "RESERVED");
 
-        return sourceReservationRepository.save(newSourceReservation);
+        SourceReservation result = sourceReservationRepository.save(newSourceReservation);
+        restTemplate.delete(BOOKING_STATE_SERVICE_DELETE_URL + "/" + customerId);
+        return result;
     }
 }

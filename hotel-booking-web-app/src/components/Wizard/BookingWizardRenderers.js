@@ -1,8 +1,8 @@
 import React from 'react';
-import MockWizardDeployContents from './mockWizardDeployContents';
+import MockWizardDeployContents from './__mocks__/mockWizardDeployContents';
 import { Wizard } from 'patternfly-react';
-import { mockWizardFormContents, wizardRoomSelectedContents } from './mockWizardItems';
-import MockWizardReviewStepsManager from './mockWizardReviewStepsManager';
+import { wizardCustomerDetailsContents } from './BookingWizardItems';
+import MockWizardReviewStepsManager from './__mocks__/mockWizardReviewStepsManager';
 
 export const renderWizardSteps = (
   wizardSteps,
@@ -71,11 +71,11 @@ export const renderWizardContents = (
   activeStepIndex,
   activeSubStepIndex,
   room,
-  userid
+  customer
 ) =>
   wizardSteps.map((step, stepIndex) =>
     step.subSteps.map((sub, subStepIndex) => {
-      if (stepIndex === 0 || stepIndex === 1) {
+      if (stepIndex === 0) {
         // render steps 1 and 2 mock contents
         return (
           <Wizard.Contents
@@ -85,11 +85,10 @@ export const renderWizardContents = (
             activeStepIndex={activeStepIndex}
             activeSubStepIndex={activeSubStepIndex}
           >
-            {(sub.subStep === '1.1') && wizardRoomSelectedContents(room)}
-            {(sub.subStep !== '1.1') && mockWizardFormContents(sub.contents.label1, sub.contents.label2)}
+            {wizardCustomerDetailsContents(room, customer)}
           </Wizard.Contents>
         );
-      } else if (stepIndex === 2 ) {
+      } else if (stepIndex === 1 ) {
         // render mock summary
         return (
           <Wizard.Contents
@@ -101,10 +100,10 @@ export const renderWizardContents = (
           >
             <MockWizardReviewStepsManager
                 steps={wizardSteps}
-                userid = {userid} />
+                userid={customer.id} />
           </Wizard.Contents>
         );
-      } else if (stepIndex === 3) {
+      } else if (stepIndex === 2) {
         // render mock progress
         return (
           <Wizard.Contents

@@ -9,15 +9,26 @@ export class RoomListPage extends PageBase {
     constructor(props: any) {
         super(props);
         this.state.rooms = [];
+        this.state.customer = {};
     }
 
     async componentWillMount() {
         await this.findRooms();
+        await this.getCustomerDetails();
     }
+
+    async getCustomerDetails() {
+        const response = await fetch(constants.get_customerdetails_url + this.props.credentials.customerid)
+                    .catch(e => console.log("Error when getting customer details"));
+//        const response = await functions.getCustomerDetails(this.props.credentials.customerid);
+        const json = await response.json();
+        await this.setState({customer : json});
+    };
 
     async findRooms() {
         const response = await fetch(constants.find_rooms_url + this.props.credentials.customerid)
             .catch(e => console.log("Error when finding rooms"));
+//        const response = await functions.findRooms(this.props.credentials.customerid);
         const json = await response.json();
         await this.setState({rooms : json.content});
     };
@@ -50,8 +61,8 @@ export class RoomListPage extends PageBase {
                           <br />
                           <RoomListView
                             rooms={ this.state.rooms }
+                            customer={ this.state.customer }
                             handleBookingState={this.handleRoomBookingState}
-                            userid={this.props.credentials.customerid}
                           />
                         </div>
                       </div>

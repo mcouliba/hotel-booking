@@ -134,11 +134,11 @@ class LoginPage extends React.Component<
             </div>
             <div className="col-sm-5 col-md-6 col-lg-7 details">
               <p>
-                <strong>Welcome to Red Hotels</strong>
+                <strong>Welcome to Red Hotel</strong>
               </p>
               <p>
-                The Hotel Booking demo showcases best approaches when
-                using Microservices
+                The Hotel Booking demo showcases Data Approaches when
+                using Microservices Architecture
               </p>
             </div>
           </div>

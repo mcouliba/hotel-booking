@@ -28,3 +28,5 @@ spec:
               value: "-Dspring.profiles.active=openshift"
             - name: BOOKING_STATE_SERVICE_GET_URL
               value: "http://booking-state-service-hotelbooking.apps.46.4.112.21.xip.io/getbookingstate"
+            - name: BOOKING_STATE_SERVICE_DELETE_URL
+              value: "http://booking-state-service-hotelbooking.apps.46.4.112.21.xip.io/deletebookingstate"

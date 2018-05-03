@@ -30,6 +30,14 @@ const functions = {
         const url = constants.authenticate_url + email;
         return functions.restUrlCall(url);
     }
+    , getCustomerDetails: async (customerid) => {
+        const url = constants.get_customerdetails_url + customerid;
+        return functions.restUrlCall(url);
+    }
+    , findRooms: async (customerid) => {
+        const url = constants.find_rooms_url + customerid;
+        return functions.restUrlCall(url);
+    }
 }
 
 export default functions;
