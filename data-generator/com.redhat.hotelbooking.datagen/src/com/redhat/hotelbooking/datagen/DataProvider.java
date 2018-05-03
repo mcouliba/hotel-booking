@@ -50,7 +50,8 @@ public final class DataProvider {
 
         public boolean generateRoomNotAvailableRecord = false;
         public LocalDate firstReservationDate = LocalDate.now();
-        public int maxNumHotelsPerCityToGenerate = 2;
+        public int maxNumHotelsPerCityToGenerate = 8;
+        public int minNumHotelsPerCityToGenerate = 4;
         public int numDaysAvailabilityPerRoom = 60;
         public int numCustomersToGenerate = 50;
         public int numReservationsToGenerate = 100;
@@ -291,7 +292,8 @@ public final class DataProvider {
             final String url = hotelChain.getName().toLowerCase().replace( " ", "" ) + ".com";
 
             for ( final City city : cities ) {
-                final int numHotels = this.random.next(  1,  this.settings.maxNumHotelsPerCityToGenerate );
+                final int numHotels = this.random.next(  this.settings.minNumHotelsPerCityToGenerate,
+                                                         this.settings.maxNumHotelsPerCityToGenerate );
 
                 for ( int i = 0; i < numHotels; ++i ) {
                     // obtain unique address
