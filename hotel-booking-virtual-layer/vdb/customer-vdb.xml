@@ -29,6 +29,7 @@
                 inner join Monolith.country as co on (ci.country_id = co.id);
 
         CREATE VIEW details(
+            id integer NOT NULL,
             fullname string(256) NOT NULL,
             email string(256) NOT NULL,
             address string(256) NOT NULL,
@@ -37,11 +38,12 @@
             credit_card_number string(256) NOT NULL,
             credit_card_type string(256) NOT NULL,
             expiration_date string(256) NOT NULL,
-            CONSTRAINT details_pk PRIMARY KEY(fullname)
+            CONSTRAINT details_pk PRIMARY KEY(id)
         )
         AS
             SELECT
-                cu."name" as fullname
+                cu.id
+                , cu."name" as fullname
                 , cu.email
                 , cu.address_line_1 || ', ' || ci.name as address
                 , member_since
