@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import ComponentBase from '../ComponentBase'
+import ComponentBase from '../ComponentBase';
 import { bindMethods } from '../../common/helpers';
 import functions from "../../core/functions";
 

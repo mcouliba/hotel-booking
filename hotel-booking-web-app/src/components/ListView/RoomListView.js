@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { BookingWizardItems } from '../Wizard/BookingWizardItems';
-import { BookingModalWizard } from '../Wizard/BookingModalWizard';
+import { ValidationWizardItems } from '../Wizard/ValidationWizardItems';
+import { ValidationWizardModal } from '../Wizard/ValidationWizardModal';
 
 class RoomListView extends React.Component {
 
@@ -15,8 +15,8 @@ class RoomListView extends React.Component {
 
                   <div className="list-group-item-header">
                   <div className="list-view-pf-actions">
-                    <BookingModalWizard
-                        steps={BookingWizardItems}
+                    <ValidationWizardModal
+                        steps={ValidationWizardItems}
                         room={ room }
                         handleBookingState={this.props.handleBookingState}
                         customer={ customer }
@@ -24,7 +24,7 @@ class RoomListView extends React.Component {
                   </div>
                   <div className="list-view-pf-main-info">
                     <div className="list-view-pf-left">
-                      <span className="glyphicon glyphicon-bed list-view-pf-icon-sm"></span>
+                      <span className="fa fa-bed list-view-pf-icon-sm"></span>
                     </div>
                     <div className="list-view-pf-body">
                       <div className="list-view-pf-description">
@@ -35,41 +35,49 @@ class RoomListView extends React.Component {
                       <div className="list-view-pf-additional-info">
                           {room.living_area && (
                               <div className="list-view-pf-additional-info-item">
+                                  <span className="fa fa-info-circle"></span>
                                   living area
                               </div>
                           )}
                           {room.microwave && (
                               <div className="list-view-pf-additional-info-item">
+                                 <span className="fa fa-info-circle"></span>
                                   microwave
                               </div>
                           )}
                           {room.num_double_beds > 0 && (
                               <div className="list-view-pf-additional-info-item">
+                                <span className="fa fa-info-circle"></span>
                                   double bed
                               </div>
                           )}
                           {room.num_king_beds > 0 && (
                               <div className="list-view-pf-additional-info-item">
+                                <span className="fa fa-info-circle"></span>
                                   king bed
                               </div>
                           )}
                           {room.num_queen_beds > 0 && (
                               <div className="list-view-pf-additional-info-item">
+                                <span className="fa fa-info-circle"></span>
                                   queen bed
                               </div>
                           )}
                           {room.microwave && (
                               <div className="list-view-pf-additional-info-item">
+                                <span className="fa fa-info-circle"></span>
                                   pets
                               </div>
                           )}
                           {room.refrigerator && (
                               <div className="list-view-pf-additional-info-item">
+                                <span className="fa fa-info-circle"></span>
                                   refrigerator
                               </div>
                           )}
                           {room.smoking && (
                               <div className="list-view-pf-additional-info-item">
+                                <span className="fa fa-info-circle"></span>
                                   smoking
                               </div>
                           )}

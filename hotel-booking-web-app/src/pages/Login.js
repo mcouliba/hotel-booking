@@ -55,12 +55,12 @@ class LoginPage extends React.Component<
   render() {
     return (
       <div>
-        <span>
-          <img style={{ height: 500 }} src={redhatHotelLogo} alt="logo" />
-        </span>
         <div className="container">
           <div className="row">
             <div className="col-sm-12">
+                <span>
+                  <img style={{ height: 500 }} src={redhatHotelLogo} alt="logo" />
+                </span>
             </div>
             <div className="col-sm-7 col-md-6 col-lg-5 login">
               <form className="form-horizontal" action="index.html">
