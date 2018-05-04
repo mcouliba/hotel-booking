@@ -36,34 +36,27 @@ public final class PaymentInfoStore implements DomainStore {
         ID,
         SECURITY_CODE;
 
-        public String toCreateStatement() {
-            final StringBuilder builder = new StringBuilder();
-            builder.append( DomainStore.addQuotes( this.toString() ) ).append( " " );
-
+        public String getCreateStatementTypeDefinition() {
             switch ( this ) {
                 case CREDIT_CARD_NUMBER:
-                    builder.append( "CHARACTER VARYING(256) NOT NULL" );
-                    break;
+                    return "CHARACTER VARYING(256) NOT NULL";
                 case CREDIT_CARD_TYPE:
-                    builder.append( "CHARACTER VARYING(256) NOT NULL" );
-                    break;
+                    return "CHARACTER VARYING(256) NOT NULL";
                 case CUSTOMER_ID:
-                    builder.append( "INTEGER NOT NULL" );
-                    break;
+                    return CustomerStore.Column.ID.getCreateStatementTypeDefinition();
                 case EXPIRATION_DATE:
-                    builder.append( "DATE NOT NULL" );
-                    break;
+                    return "DATE NOT NULL";
                 case ID:
-                    builder.append( "INTEGER NOT NULL" );
-                    break;
+                    return "INTEGER NOT NULL";
                 case SECURITY_CODE:
-                    builder.append( "INTEGER NOT NULL" );
-                    break;
+                    return "INTEGER NOT NULL";
                 default:
                     throw new RuntimeException();
             }
+        }
 
-            return builder.toString();
+        public String toCreateStatement() {
+            return DomainStore.addQuotes( toString() ) + " " + getCreateStatementTypeDefinition();
         }
 
     }

@@ -34,28 +34,23 @@ public final class PaymentStore implements DomainStore {
         PAYMENT_INFO_ID,
         RESERVATION_ID;
 
-        public String toCreateStatement() {
-            final StringBuilder builder = new StringBuilder();
-            builder.append( DomainStore.addQuotes( this.toString() ) ).append( " " );
-
+        public String getCreateStatementTypeDefinition() {
             switch ( this ) {
                 case AMOUNT:
-                    builder.append( "DECIMAL(8,2) NOT NULL" );
-                    break;
+                    return "DECIMAL(8,2) NOT NULL";
                 case ID:
-                    builder.append( "INTEGER NOT NULL" );
-                    break;
+                    return "INTEGER NOT NULL";
                 case PAYMENT_INFO_ID:
-                    builder.append( "INTEGER NOT NULL" );
-                    break;
+                    return PaymentInfoStore.Column.ID.getCreateStatementTypeDefinition();
                 case RESERVATION_ID:
-                    builder.append( "INTEGER NOT NULL" );
-                    break;
+                    return ReservationStore.Column.ID.getCreateStatementTypeDefinition();
                 default:
                     throw new RuntimeException();
             }
+        }
 
-            return builder.toString();
+        public String toCreateStatement() {
+            return DomainStore.addQuotes( toString() ) + " " + getCreateStatementTypeDefinition();
         }
 
     }

@@ -392,7 +392,7 @@ public final class DataProvider {
             final int numDays = this.random.next( 2, 9 );
             final LocalDate checkout = this.random.next( checkin.plusDays( 1 ), checkin.plusDays( numDays ) );
 
-            final Reservation reservation = new Reservation( i + this.settings.reservationStartId,
+            final Reservation reservation = new Reservation( Integer.toString( i + this.settings.reservationStartId ),
                                                              room.getId(),
                                                              customer.getId(),
                                                              Timestamp.valueOf( checkin.atStartOfDay() ),
