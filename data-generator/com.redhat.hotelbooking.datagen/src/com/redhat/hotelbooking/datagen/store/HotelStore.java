@@ -38,40 +38,31 @@ public final class HotelStore implements DomainStore {
         STARS,
         URL;
 
-        public String toCreateStatement() {
-            final StringBuilder builder = new StringBuilder();
-            builder.append( DomainStore.addQuotes( this.toString() ) ).append( " " );
-
+        public String getCreateStatementTypeDefinition() {
             switch ( this ) {
                 case ADDRESS_LINE_1:
-                    builder.append( "CHARACTER VARYING(256) NOT NULL" );
-                    break;
+                    return "CHARACTER VARYING(256) NOT NULL";
                 case CITY_ID:
-                    builder.append( "INTEGER NOT NULL" );
-                    break;
+                    return CityStore.Column.ID.getCreateStatementTypeDefinition();
                 case EMAIL:
-                    builder.append( "CHARACTER VARYING(256) NOT NULL" );
-                    break;
+                    return "CHARACTER VARYING(256) NOT NULL";
                 case HOTEL_CHAIN_ID:
-                    builder.append( "INTEGER NOT NULL" );
-                    break;
+                    return HotelChainStore.Column.ID.getCreateStatementTypeDefinition();
                 case ID:
-                    builder.append( "INTEGER NOT NULL" );
-                    break;
+                    return "INTEGER NOT NULL";
                 case NAME:
-                    builder.append( "CHARACTER VARYING(256) NOT NULL" );
-                    break;
+                    return "CHARACTER VARYING(256) NOT NULL";
                 case STARS:
-                    builder.append( "DECIMAL(3,2) NOT NULL" );
-                    break;
+                    return "DECIMAL(3,2) NOT NULL";
                 case URL:
-                    builder.append( "CHARACTER VARYING(256) NOT NULL" );
-                    break;
+                    return "CHARACTER VARYING(256) NOT NULL";
                 default:
                     throw new RuntimeException();
             }
+        }
 
-            return builder.toString();
+        public String toCreateStatement() {
+            return DomainStore.addQuotes( toString() ) + " " + getCreateStatementTypeDefinition();
         }
 
     }

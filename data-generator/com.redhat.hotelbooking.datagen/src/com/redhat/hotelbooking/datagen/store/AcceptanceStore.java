@@ -34,28 +34,23 @@ public final class AcceptanceStore implements DomainStore {
         STATEMENT_2,
         STATEMENT_3;
 
-        public String toCreateStatement() {
-            final StringBuilder builder = new StringBuilder();
-            builder.append( DomainStore.addQuotes( this.toString() ) ).append( " " );
-
+        public String getCreateStatementTypeDefinition() {
             switch ( this ) {
                 case CUSTOMER_ID:
-                    builder.append( "INTEGER NOT NULL" );
-                    break;
+                    return CustomerStore.Column.ID.getCreateStatementTypeDefinition();
                 case STATEMENT_1:
-                    builder.append( "BOOLEAN NOT NULL" );
-                    break;
+                    return "BOOLEAN NOT NULL";
                 case STATEMENT_2:
-                    builder.append( "BOOLEAN NOT NULL" );
-                    break;
+                    return "BOOLEAN NOT NULL";
                 case STATEMENT_3:
-                    builder.append( "BOOLEAN NOT NULL" );
-                    break;
+                    return "BOOLEAN NOT NULL";
                 default:
                     throw new RuntimeException();
             }
+        }
 
-            return builder.toString();
+        public String toCreateStatement() {
+            return DomainStore.addQuotes( toString() ) + " " + getCreateStatementTypeDefinition();
         }
 
     }

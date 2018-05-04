@@ -34,28 +34,23 @@ public final class CountryStore implements DomainStore {
         ISO_CURRENCY_CODE,
         NAME;
 
-        public String toCreateStatement() {
-            final StringBuilder builder = new StringBuilder();
-            builder.append( DomainStore.addQuotes( this.toString() ) ).append( " " );
-
+        public String getCreateStatementTypeDefinition() {
             switch ( this ) {
                 case ID:
-                    builder.append( "INTEGER NOT NULL" );
-                    break;
+                    return "INTEGER NOT NULL";
                 case ISO_COUNTRY_CODE:
-                    builder.append( "CHARACTER VARYING(256) NOT NULL" );
-                    break;
+                    return "CHARACTER VARYING(256) NOT NULL";
                 case ISO_CURRENCY_CODE:
-                    builder.append( "CHARACTER VARYING(256) NOT NULL" );
-                    break;
+                    return "CHARACTER VARYING(256) NOT NULL";
                 case NAME:
-                    builder.append( "CHARACTER VARYING(256) NOT NULL" );
-                    break;
+                    return "CHARACTER VARYING(256) NOT NULL";
                 default:
                     throw new RuntimeException();
             }
+        }
 
-            return builder.toString();
+        public String toCreateStatement() {
+            return DomainStore.addQuotes( toString() ) + " " + getCreateStatementTypeDefinition();
         }
 
     }

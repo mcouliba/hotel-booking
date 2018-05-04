@@ -41,49 +41,37 @@ public final class RoomConfigStore implements DomainStore {
         REFRIGERATOR,
         SMOKING;
 
-        public String toCreateStatement() {
-            final StringBuilder builder = new StringBuilder();
-            builder.append( DomainStore.addQuotes( this.toString() ) ).append( " " );
-
+        public String getCreateStatementTypeDefinition() {
             switch ( this ) {
                 case ID:
-                    builder.append( "INTEGER NOT NULL" );
-                    break;
+                    return "INTEGER NOT NULL";
                 case LIVING_AREA:
-                    builder.append( "BOOLEAN NOT NULL" );
-                    break;
+                    return "BOOLEAN NOT NULL";
                 case MICROWAVE:
-                    builder.append( "BOOLEAN NOT NULL" );
-                    break;
+                    return "BOOLEAN NOT NULL";
                 case NUM_ADJOINING_ROOMS:
-                    builder.append( "INTEGER NOT NULL" );
-                    break;
+                    return "INTEGER NOT NULL";
                 case NUM_DOUBLE_BEDS:
-                    builder.append( "INTEGER NOT NULL" );
-                    break;
+                    return "INTEGER NOT NULL";
                 case NUM_KING_BEDS:
-                    builder.append( "INTEGER NOT NULL" );
-                    break;
+                    return "INTEGER NOT NULL";
                 case NUM_PETS:
-                    builder.append( "INTEGER NOT NULL" );
-                    break;
+                    return "INTEGER NOT NULL";
                 case NUM_PULLOUTS:
-                    builder.append( "INTEGER NOT NULL" );
-                    break;
+                    return "INTEGER NOT NULL";
                 case NUM_QUEEN_BEDS:
-                    builder.append( "INTEGER NOT NULL" );
-                    break;
+                    return "INTEGER NOT NULL";
                 case REFRIGERATOR:
-                    builder.append( "BOOLEAN NOT NULL" );
-                    break;
+                    return "BOOLEAN NOT NULL";
                 case SMOKING:
-                    builder.append( "BOOLEAN NOT NULL" );
-                    break;
+                    return "BOOLEAN NOT NULL";
                 default:
                     throw new RuntimeException();
             }
+        }
 
-            return builder.toString();
+        public String toCreateStatement() {
+            return DomainStore.addQuotes( toString() ) + " " + getCreateStatementTypeDefinition();
         }
 
     }

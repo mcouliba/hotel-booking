@@ -37,37 +37,29 @@ public final class ReservationStore implements DomainStore {
         ROOM_ID,
         STATUS;
 
-        public String toCreateStatement() {
-            final StringBuilder builder = new StringBuilder();
-            builder.append( DomainStore.addQuotes( this.toString() ) ).append( " " );
-
+        public String getCreateStatementTypeDefinition() {
             switch ( this ) {
                 case CHECKIN:
-                    builder.append( "DATE NOT NULL" );
-                    break;
+                    return "DATE NOT NULL";
                 case CHECKOUT:
-                    builder.append( "DATE NOT NULL" );
-                    break;
+                    return "DATE NOT NULL";
                 case CUSTOMER_ID:
-                    builder.append( "INTEGER NOT NULL" );
-                    break;
+                    return CustomerStore.Column.ID.getCreateStatementTypeDefinition();
                 case DAILY_RATE:
-                    builder.append( "DECIMAL(7,2) NOT NULL" );
-                    break;
+                    return "DECIMAL(7,2) NOT NULL";
                 case ID:
-                    builder.append( "INTEGER NOT NULL" );
-                    break;
+                    return "CHARACTER VARYING(256) NOT NULL";
                 case ROOM_ID:
-                    builder.append( "INTEGER NOT NULL" );
-                    break;
+                    return RoomStore.Column.ID.getCreateStatementTypeDefinition();
                 case STATUS:
-                    builder.append( "CHARACTER VARYING(256) NOT NULL" );
-                    break;
+                    return "CHARACTER VARYING(256) NOT NULL";
                 default:
                     throw new RuntimeException();
             }
+        }
 
-            return builder.toString();
+        public String toCreateStatement() {
+            return DomainStore.addQuotes( toString() ) + " " + getCreateStatementTypeDefinition();
         }
 
     }

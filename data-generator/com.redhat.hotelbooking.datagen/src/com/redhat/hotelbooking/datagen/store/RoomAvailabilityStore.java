@@ -34,28 +34,23 @@ public final class RoomAvailabilityStore implements DomainStore {
         RELEVANT_DATE,
         ROOM_ID;
 
-        public String toCreateStatement() {
-            final StringBuilder builder = new StringBuilder();
-            builder.append( DomainStore.addQuotes( this.toString() ) ).append( " " );
-
+        public String getCreateStatementTypeDefinition() {
             switch ( this ) {
                 case AVAILABLE:
-                    builder.append( "BOOLEAN NOT NULL" );
-                    break;
+                    return "BOOLEAN NOT NULL";
                 case ID:
-                    builder.append( "INTEGER NOT NULL" );
-                    break;
+                    return "INTEGER NOT NULL";
                 case RELEVANT_DATE:
-                    builder.append( "DATE NOT NULL" );
-                    break;
+                    return "DATE NOT NULL";
                 case ROOM_ID:
-                    builder.append( "INTEGER NOT NULL" );
-                    break;
+                    return RoomStore.Column.ID.getCreateStatementTypeDefinition();
                 default:
                     throw new RuntimeException();
             }
+        }
 
-            return builder.toString();
+        public String toCreateStatement() {
+            return DomainStore.addQuotes( toString() ) + " " + getCreateStatementTypeDefinition();
         }
 
     }

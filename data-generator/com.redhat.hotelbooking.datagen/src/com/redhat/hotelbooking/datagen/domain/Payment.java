@@ -26,11 +26,11 @@ public final class Payment {
     private final double amount;
     private final int id;
     private final int paymentInfoId;
-    private final int reservationId;
+    private final String reservationId;
 
     public Payment( final int id,
                     final int paymentInfoId,
-                    final int reservationId,
+                    final String reservationId,
                     final double amount ) {
         this.amount = amount;
         this.id = id;
@@ -50,7 +50,7 @@ public final class Payment {
         return this.paymentInfoId;
     }
 
-    public int getReservationId() {
+    public String getReservationId() {
         return this.reservationId;
     }
 
