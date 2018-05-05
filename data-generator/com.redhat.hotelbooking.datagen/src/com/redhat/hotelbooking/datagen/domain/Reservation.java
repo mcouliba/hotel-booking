@@ -38,11 +38,11 @@ public final class Reservation {
     private final Timestamp checkout;
     private final int customerId;
     private final double dailyRate;
-    private final int id;
+    private final String id;
     private final int roomId;
     private final Status status;
 
-    public Reservation( final int id,
+    public Reservation( final String id,
                         final int roomId,
                         final int customerId,
                         final Timestamp checkin,
@@ -74,7 +74,7 @@ public final class Reservation {
         return this.dailyRate;
     }
 
-    public int getId() {
+    public String getId() {
         return this.id;
     }
 
