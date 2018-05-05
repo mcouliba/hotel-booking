@@ -11,7 +11,7 @@ import SafariServices
 
 class ReservationsViewController: UIViewController {
     
-    let url = "http://hotel-booking-react-app-hotelbooking.apps.46.4.112.21.xip.io/"
+    let url = "http://hotel-booking-web-app-hotelbooking.apps.46.4.112.21.xip.io/"
     
     @IBOutlet weak var tableVIew: UITableView!
     
