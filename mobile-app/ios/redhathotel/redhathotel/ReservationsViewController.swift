@@ -23,7 +23,7 @@ class ReservationsViewController: UIViewController {
     var reservationsArray: [ Reservation ] = [ Reservation ]()
     
     var currentStatus = String()
-    var currentReservationId = 0
+    var currentReservationId = String()
 
     @IBOutlet weak var signOutButton: UIButton!
     
@@ -110,7 +110,7 @@ class ReservationsViewController: UIViewController {
                 //looping through all the json objects in the array teams
                 for i in 0 ..< reservations.count{
                     let reservation = Reservation()
-                    reservation.reservationId = (reservations[i]["id"] as! NSString).integerValue
+                    reservation.reservationId = reservations[i]["id"] as! String
                     reservation.hotelName = reservations[i]["hotel_name"] as! String
                     reservation.city = reservations[i]["hotel_city"] as! String
                     reservation.country = reservations[i]["hotel_country"] as! String
@@ -231,7 +231,7 @@ extension ReservationsViewController: UITableViewDataSource {
 
         cell.datesLabel.text = checkinDateString + " to " + checkoutDateString
         cell.status = currentReservation.status
-        cell.reservationId = String(currentReservation.reservationId)
+        cell.reservationId = currentReservation.reservationId
         
         switch currentReservation.status {
         case "RESERVED":
@@ -259,7 +259,7 @@ extension ReservationsViewController: UITableViewDataSource {
 
 class Reservation: NSObject {
     
-    var reservationId = 0
+    var reservationId = String()
     var hotelName: String = String()
     var country: String = String()
     var city: String = String()
