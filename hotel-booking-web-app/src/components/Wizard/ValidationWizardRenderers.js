@@ -70,8 +70,8 @@ export const renderWizardContents = (
   wizardSteps,
   activeStepIndex,
   activeSubStepIndex,
-  room,
-  customer
+  customer,
+  bookingState
 ) =>
   wizardSteps.map((step, stepIndex) =>
     step.subSteps.map((sub, subStepIndex) => {
@@ -84,7 +84,7 @@ export const renderWizardContents = (
             activeStepIndex={activeStepIndex}
             activeSubStepIndex={activeSubStepIndex}
           >
-            {wizardCustomerDetailsContents(room, customer)}
+            {wizardCustomerDetailsContents(bookingState.selection.room, customer)}
           </Wizard.Contents>
         );
       } else if (stepIndex === 1 ) {
@@ -98,7 +98,8 @@ export const renderWizardContents = (
           >
             <ValidationWizardReviewStepsManager
                 steps={wizardSteps}
-                userid={customer.id} />
+                userid={customer.id}
+                bookingState={bookingState}/>
           </Wizard.Contents>
         );
       } else if (stepIndex === 2) {

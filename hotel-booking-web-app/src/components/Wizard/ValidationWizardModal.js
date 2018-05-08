@@ -17,11 +17,20 @@ export class ValidationWizardModal extends WizardBase {
         bindMethods(this, ['open', 'close', 'endClose']);
     }
 
-    async open() {
+     open() {
         const { room } = this.props;
-        const newBookingState = await this.props.handleBookingState(room);
-        await this.setState({ bookingState : newBookingState });
-        this.setState({ showModal: true });
+        let that = this;
+
+        const newBookingState = this.state.bookingState;
+        newBookingState.selection.room = room;
+
+        Promise.resolve(this.props.handleBookingState(room))
+          .then(newBookingState => {
+            that.setState(
+                { bookingState : newBookingState}
+                , () => this.setState({ showModal: true })
+            );
+          });
     }
 
     close() {
@@ -33,7 +42,7 @@ export class ValidationWizardModal extends WizardBase {
     }
 
   render() {
-    const { room, customer } = this.props;
+    const { customer } = this.props;
     const { showModal, activeStepIndex, activeSubStepIndex } = this.state;
 
     if (this.state.redirect) {
@@ -41,7 +50,7 @@ export class ValidationWizardModal extends WizardBase {
     };
 
     return (
-      <div>
+      <div >
         <Button
             bsStyle="primary"
             bsSize="large"
@@ -81,8 +90,8 @@ export class ValidationWizardModal extends WizardBase {
                     ValidationWizardItems,
                     activeStepIndex,
                     activeSubStepIndex,
-                    room,
-                    customer
+                    customer,
+                    this.state.bookingState
                   )}
                 </Wizard.Main>
               </Wizard.Row>

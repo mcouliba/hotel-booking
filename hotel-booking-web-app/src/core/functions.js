@@ -10,6 +10,10 @@ const functions = {
         const json = await response.json();
         return json;
     }
+    , getBookingState: async (userid) => {
+        const url = constants.get_bookingstate_url + "/" + userid;
+        return functions.restUrlCall(url);
+    }
     , saveBookingState: (bookingState, state) => {
         bookingState.state = state;
         fetch(constants.set_search_url, {

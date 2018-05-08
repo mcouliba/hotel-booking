@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { Tooltip, OverlayTrigger } from 'patternfly-react';
 import { HotelSearch } from '../../models/HotelSearch';
 
+
+
 const HotelSearchForm = props => {
   const cityNameTooltip = (
     <Tooltip id="tooltip">
@@ -21,6 +23,12 @@ const HotelSearchForm = props => {
         <div>Date Out</div>
       </Tooltip>
     );
+
+    const isReady =
+        props.value.city_name.length > 0
+        && props.value.date_in.length > 0
+        && props.value.date_out.length > 0
+        && props.value.date_in < props.value.date_out;
 
   return (
     <form>
@@ -118,6 +126,7 @@ const HotelSearchForm = props => {
         onClick={(e: any) => {
           props.handleSubmit(e);
         }}
+        disabled={!isReady}
       >
         Submit
       </button>

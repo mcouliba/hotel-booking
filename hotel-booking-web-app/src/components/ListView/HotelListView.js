@@ -47,7 +47,7 @@ class HotelListView extends React.Component {
         return (
           <div className="list-group list-view-pf list-view-pf-view">
 
-            {hotels.map((hotel,i) =>
+            {hotels && hotels.map((hotel,i) =>
             <div className="list-group-item" key={i}>
 
               <div className="list-group-item-header">

@@ -3,30 +3,35 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { RouteNavItem } from './RouteNavItem';
 import * as cx from 'classnames';
+import $ from 'jquery';
+import {} from './PfVerticalNavigation';
 
-export const VerticalNav = props => {
-  const overviewClass = cx({
-    'list-group-item': true,
-    'secondary-nav-item-pf': true,
-    active: window.location.pathname === '/'
-  });
+class VerticalNav extends React.Component {
+
+componentDidMount() {
+    // Initialize the vertical navigation
+    $().setupVerticalNavigation(true);
+  }
+
+  render() {
+    const overviewClass = cx({
+        'list-group-item': true,
+        'secondary-nav-item-pf': false,
+        active: window.location.pathname === '/'
+      });
+
   return (
     <div className="nav-pf-vertical">
       <ul className="list-group">
         <li className={overviewClass} data-target="#ipsum-secondary">
           <Link to="/">
-            <span className="fa fa-dashboard" data-toggle="tooltip" />
+            <span className="fa fa-home" data-toggle="tooltip" />
             <span className="list-group-item-value">Overview</span>
           </Link>
-          <div id="-secondary" className="nav-pf-secondary-nav">
-            <div className="nav-item-pf-header">
-              <span>Overview</span>
-            </div>
-          </div>
         </li>
         <RouteNavItem
           href="/hotelsearch"
-          onClick={props.handleNavClick}
+          onClick={this.props.handleNavClick}
           className="list-group-item"
         >
           <span className="fa fa-users" data-toggle="tooltip" title="Hotel Booking" />
@@ -35,7 +40,11 @@ export const VerticalNav = props => {
       </ul>
     </div>
   );
+  }
 };
+
 VerticalNav.propTypes = {
   handleNavClick: PropTypes.func
 };
+
+export default VerticalNav;

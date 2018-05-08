@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Routes } from './Routes';
 import { MastHead } from './components/Nav/MastHead';
-import { VerticalNav } from './components/Nav/VerticalNav';
+import VerticalNav from './components/Nav/VerticalNav';
 import { Credentials } from './models/credentials';
 import './css/App.css';
 
@@ -28,11 +28,11 @@ class App extends React.Component<Props, State> {
   render() {
     return (
       <div>
-        {this.props.credentials.token && <MastHead />}
-        {this.props.credentials.token && (
-          <VerticalNav handleNavClick={this.handleNavClick} />
-        )}
-        <Routes childProps={this.props} />
+        {this.props.credentials.token && <MastHead handleNavClick={this.handleNavClick} />}
+        {this.props.credentials.token && <VerticalNav handleNavClick={this.handleNavClick} />}
+        <div  className="container-fluid container-pf-nav-pf-vertical">
+            <Routes childProps={this.props} />
+        </div>
       </div>
     );
   }

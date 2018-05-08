@@ -7,17 +7,24 @@ import PageBase from './PageBase';
 
 class HotelSearchPage extends PageBase {
 
-      handleSubmitHotelSearch = async (event: Event) => {
-        event.preventDefault();
-        await functions.saveBookingState(this.state.bookingState, '/hotellist');
-        this.setState({ redirect: true });
-      };
+  handleSubmitHotelSearch = (event: Event) => {
+    event.preventDefault();
 
-        handleHotelSearchChange = (e, prop: string) => {
-            const o = Object.assign({}, this.state.bookingState);
-            o.search[prop] = e.currentTarget.value;
-            this.setState({ bookingState: o });
-        };
+    Promise.resolve(functions.saveBookingState(this.state.bookingState, '/hotellist'))
+      .then(() => {
+        this.setState({ redirect: true });
+      });
+  };
+
+    handleHotelSearchChange = (e, prop: string) => {
+        const o = Object.assign({}, this.state.bookingState);
+        o.search[prop] = e.currentTarget.value;
+        this.setState({ bookingState: o });
+    };
+
+  componentWillMount() {
+      this.updateBookingState();
+  }
 
   render() {
         if (this.state.redirect) {
@@ -25,26 +32,22 @@ class HotelSearchPage extends PageBase {
         };
 
     return (
-      <div className="container-fluid container-pf-nav-pf-vertical">
-              <div className="row">
-                <div className="col-md-12">
-                  <div className="page-header">
-                    <h1>Hotel Search</h1>
-                  </div>
-                </div>
-              </div>
+      <div>
+        <div>
+          <div className="page-header">
+            <h1>Hotel Search</h1>
+          </div>
+        </div>
 
-              <div className="row">
-                <div className="col-md-12">
-                  <br />
-                  <HotelSearchForm
-                    handleSubmit={this.handleSubmitHotelSearch}
-                    handleChange={this.handleHotelSearchChange}
-                    value={this.state.bookingState.search}
-                  />
-                </div>
-              </div>
-            </div>
+        <div>
+          <br />
+          <HotelSearchForm
+            handleSubmit={this.handleSubmitHotelSearch}
+            handleChange={this.handleHotelSearchChange}
+            value={this.state.bookingState.search}
+          />
+        </div>
+        </div>
     );
   }
 }

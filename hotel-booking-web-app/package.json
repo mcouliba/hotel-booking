@@ -2,6 +2,7 @@
   "name": "hotel-booking-web-app",
   "private": true,
   "dependencies": {
+    "history": "^3.0.0",
     "jquery": "^3.3.1",
     "moment": "^2.10.6",
     "moment-range": "^2.2.0",

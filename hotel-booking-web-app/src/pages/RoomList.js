@@ -12,33 +12,44 @@ export class RoomListPage extends PageBase {
         this.state.customer = {};
     }
 
-    async componentWillMount() {
-        await this.findRooms();
-        await this.getCustomerDetails();
+    componentWillMount() {
+        this.updateBookingState();
+        this.findRooms();
+        this.getCustomerDetails();
     }
 
-    async getCustomerDetails() {
-        const response = await fetch(constants.get_customerdetails_url + this.props.credentials.customerid)
-                    .catch(e => console.log("Error when getting customer details"));
-//        const response = await functions.getCustomerDetails(this.props.credentials.customerid);
-        const json = await response.json();
-        await this.setState({customer : json});
+findHotelsByCity() {
+        fetch(constants.find_hotels_url + this.props.credentials.customerid)
+            .then(response => response.json())
+            .then(data => {
+                this.setState({hotels : data.content})
+            })
+            .catch(e => console.log("Error when finding hotels"));
     };
 
-    async findRooms() {
-        const response = await fetch(constants.find_rooms_url + this.props.credentials.customerid)
-            .catch(e => console.log("Error when finding rooms"));
-//        const response = await functions.findRooms(this.props.credentials.customerid);
-        const json = await response.json();
-        await this.setState({rooms : json.content});
+     getCustomerDetails() {
+        fetch(constants.get_customerdetails_url + this.props.credentials.customerid)
+            .then(response => response.json())
+            .then(data => {
+                this.setState({customer : data})
+            })
+            .catch(e => console.log("Error when getting customer details"));
+    };
+
+     findRooms() {
+        fetch(constants.find_rooms_url + this.props.credentials.customerid)
+           .then(response => response.json())
+           .then(data => {
+               this.setState({rooms : data.content})
+           })
+           .catch(e => console.log("Error when finding rooms"));
     };
 
     handleRoomBookingState = async (room: any) => {
-        const o = Object.assign({}, this.state.bookingState);
-        o.selection.room = room;
-        await this.setState({ bookingState: o });
+        const newBookingState = Object.assign({}, this.state.bookingState);
+        newBookingState.selection.room = room;
         await functions.saveBookingState(this.state.bookingState, '/roomlist');
-        return await this.state.bookingState;
+        return newBookingState;
     };
 
   render() {
@@ -46,27 +57,19 @@ export class RoomListPage extends PageBase {
         const { hotel } = this.state.bookingState.selection;
 
         return (
-              <div className="container-fluid container-pf-nav-pf-vertical">
-                      <div className="row">
-                        <div className="col-md-12">
-                          <div className="page-header">
-                            <h1>Rooms in <strong>{hotel.name}</strong>
-                            <br/>from <strong>{search.date_in}</strong> to <strong>{search.date_out}</strong></h1>
-                          </div>
-                        </div>
-                      </div>
+            <div>
+                <div className="page-header">
+                    <h1>Rooms in <strong>{hotel.name}</strong>
+                    <br/>from <strong>{search.date_in}</strong> to <strong>{search.date_out}</strong></h1>
+                </div>
 
-                      <div className="row">
-                        <div className="col-md-12">
-                          <br />
-                          <RoomListView
-                            rooms={ this.state.rooms }
-                            customer={ this.state.customer }
-                            handleBookingState={this.handleRoomBookingState}
-                          />
-                        </div>
-                      </div>
-                    </div>
+                <br />
+                <RoomListView
+                    rooms={ this.state.rooms }
+                    customer={ this.state.customer }
+                    handleBookingState={this.handleRoomBookingState}
+                />
+            </div>
             );
   }
 }

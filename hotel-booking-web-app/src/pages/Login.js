@@ -52,71 +52,67 @@ class LoginPage extends React.Component<
     this.setState({ credentials: o });
   };
 
+    isReady = () =>  {
+        const { username, password } = this.state.credentials;
+
+        return username.length > 0 &&
+                 password.length > 0;
+    }
+
+
   render() {
     return (
-      <div>
-        <div className="container">
+      <div className="login-pf-page">
+        <div className="container-fluid">
           <div className="row">
-            <div className="col-sm-12">
-                <span>
-                  <img style={{ height: 500 }} src={redhatHotelLogo} alt="logo" />
-                </span>
+            <div className="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3">
+                <header className="login-pf-page-header">
+                  <img style={{ height: 400 }} src={redhatHotelLogo} alt="logo" />
+                  <p>
+                    The Hotel Booking demo showcases Data Approaches when
+                    using Microservices Architecture
+                  </p>
+                 </header>
             </div>
-            <div className="col-sm-7 col-md-6 col-lg-5 login">
+            <div className="col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2 col-lg-8 col-lg-offset-2 login">
               <form className="form-horizontal" action="index.html">
                 <div className="form-group">
                   <label
                     htmlFor="inputUsername"
-                    className="col-sm-2 col-md-2 control-label"
+                    className="sr-only"
                   >
                     Username
                   </label>
-                  <div className="col-sm-10 col-md-10">
                     <input
-                      type="text"
+                      type="email"
                       value={this.state.credentials.username}
                       onChange={e => {
                         this.handleChange(e, 'username');
                       }}
-                      className="form-control"
+                      className="form-control input-lg"
                       id="inputUsername"
+                      placeholder="Email address"
                     />
-                  </div>
                 </div>
                 <div className="form-group">
                   <label
                     htmlFor="inputPassword"
-                    className="col-sm-2 col-md-2 control-label"
+                    className="sr-only"
                   >
                     Password
                   </label>
-                  <div className="col-sm-10 col-md-10">
                     <input
                       type="password"
                       value={this.state.credentials.password}
                       onChange={e => {
                         this.handleChange(e, 'password');
                       }}
-                      className="form-control"
+                      className="form-control input-lg"
                       id="inputPassword"
+                      placeholder="Password"
                     />
-                  </div>
                 </div>
                 <div className="form-group">
-                  <div className="col-xs-8 col-sm-offset-2 col-sm-6 col-md-offset-2 col-md-6">
-                    <div className="checkbox">
-                      <label htmlFor="remember">
-                        <input id="remember" type="checkbox" />
-                        Remember username
-                      </label>
-                    </div>
-                    <span className="help-block">
-                      {' '}
-                      Forgot <a href="/">username</a> or{' '}
-                      <a href="/">password</a>
-                      ?
-                    </span>
-                  </div>
                   <div className="col-xs-4 col-sm-4 col-md-4 submit">
                     <button
                       id="loginBtn"
@@ -124,7 +120,8 @@ class LoginPage extends React.Component<
                       onClick={e => {
                         this.props.loginClick(e, this.state.credentials);
                       }}
-                      className="btn btn-primary btn-lg"
+                      className="btn btn-primary btn-block btn-lg"
+                      disabled={!this.isReady()}
                     >
                       Log In
                     </button>
@@ -132,14 +129,8 @@ class LoginPage extends React.Component<
                 </div>
               </form>
             </div>
-            <div className="col-sm-5 col-md-6 col-lg-7 details">
-              <p>
-                <strong>Welcome to Red Hotel</strong>
-              </p>
-              <p>
-                The Hotel Booking demo showcases Data Approaches when
-                using Microservices Architecture
-              </p>
+            <div className="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3 details">
+
             </div>
           </div>
         </div>
@@ -159,10 +150,10 @@ const mapDispatchToProps = (dispatch: Function) => {
     loginClick: (e, credentials: Credentials) => {
       e.preventDefault();
       Promise.resolve(functions.authenticate(credentials.username))
-      .then(function (response) {
-        credentials.customerid = response.id;
-        dispatch(loginUser(credentials));
-      })
+          .then(function (response) {
+            credentials.customerid = response.id;
+            dispatch(loginUser(credentials));
+          });
     }
   };
 };

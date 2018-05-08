@@ -1,6 +1,5 @@
 import React from 'react';
 import { RouteComponentProps } from 'react-router-dom';
-import constants from '../core/constants';
 import functions from '../core/functions';
 
 class PageBase extends React.Component<RouteComponentProps<any>, {}> {
@@ -22,10 +21,15 @@ class PageBase extends React.Component<RouteComponentProps<any>, {}> {
         };
     }
 
-    async componentDidMount() {
-        document.title = 'Red Hat Hotel';
-        const response = await functions.restUrlCall(constants.get_bookingstate_url + "/" + this.props.credentials.customerid);
-        this.setState({ bookingState: response });
+    componentDidMount() {
+        document.title = 'Red Hat Hotel Booking App';
+    }
+
+    updateBookingState = async () => {
+        let that = this;
+
+        const newBookingState = await functions.getBookingState(this.props.credentials.customerid);
+        that.setState({ bookingState: newBookingState });
     }
 }
 

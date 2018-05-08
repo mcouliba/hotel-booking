@@ -13,6 +13,9 @@ class HomePage extends PageBase {
     this.state.dismissAlert = false;
   }
 
+   componentWillMount() {
+         this.updateBookingState();
+     }
 
   componentDidUpdate() {
     if (!this.state.dismissAlert && !this.state.alertVisible && this.state.bookingState.state && this.state.bookingState.state !== "/") {
@@ -30,7 +33,7 @@ class HomePage extends PageBase {
   render() {
 
     return (
-      <div className="container-fluid container-pf-nav-pf-vertical">
+      <div>
         <div className="page-header">
           <h2>Overview</h2>
         </div>
@@ -41,11 +44,14 @@ class HomePage extends PageBase {
             </Alert>
           )}
 
-          <span>
-            <img style={{ height: 500 }} src={redhatHotelLogo} alt="logo" />
-          </span>
+          <div className="App-intro">
+            <img src={redhatHotelLogo} className="App-logo" alt="logo" />
+            <h2><strong>Welcome to Red Hat Hotel</strong></h2>
+          </div>
+            <p className="App-paragraph">
+            </p>
         </div>
-      </div>
+       </div>
     );
   }
 }
