@@ -29,7 +29,10 @@ class RoomListView extends React.Component {
                     <div className="list-view-pf-body">
                       <div className="list-view-pf-description">
                         <div className="list-group-item-heading">
-                          Room Number {room.hotelId}/{ room.room_number }
+                          {/*room.living_area && (
+                            <span className="pficon pficon-ok"></span>
+                            )*/}
+                          Room Number { room.room_number }
                         </div>
                       </div>
                       <div className="list-view-pf-additional-info">
@@ -73,12 +76,6 @@ class RoomListView extends React.Component {
                               <div className="list-view-pf-additional-info-item">
                                 <span className="fa fa-info-circle"></span>
                                   refrigerator
-                              </div>
-                          )}
-                          {room.smoking && (
-                              <div className="list-view-pf-additional-info-item">
-                                <span className="fa fa-info-circle"></span>
-                                  smoking
                               </div>
                           )}
                         </div>

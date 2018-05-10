@@ -26,15 +26,24 @@ class App extends React.Component<Props, State> {
   };
 
   render() {
-    return (
-      <div>
-        {this.props.credentials.token && <MastHead handleNavClick={this.handleNavClick} />}
-        {this.props.credentials.token && <VerticalNav handleNavClick={this.handleNavClick} />}
-        <div  className="container-fluid container-pf-nav-pf-vertical">
-            <Routes childProps={this.props} />
-        </div>
-      </div>
-    );
+
+   if (this.props.credentials.token) {
+        return (
+          <div>
+            {this.props.credentials.token && <MastHead handleNavClick={this.handleNavClick} />}
+            {this.props.credentials.token && <VerticalNav handleNavClick={this.handleNavClick} />}
+            <div  className="container-fluid container-pf-nav-pf-vertical">
+                <Routes childProps={this.props} />
+            </div>
+          </div>
+        );
+    } else {
+        return (
+            <div  className="container-fluid">
+                <Routes childProps={this.props} />
+            </div>
+        );
+    }
   }
 }
 

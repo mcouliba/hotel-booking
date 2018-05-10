@@ -1,14 +1,17 @@
 import PropTypes from 'prop-types';
-import ComponentBase from '../ComponentBase';
+import React from 'react';
 import { bindMethods } from '../../common/helpers';
 import functions from "../../core/functions";
 
-class WizardBase extends ComponentBase {
+class WizardBase extends React.Component<RouteComponentProps<any>, {}> {
     constructor(props) {
         super(props);
-        this.state.activeStepIndex = props.initialStepIndex || 0;
-//        this.state.activeSubStepIndex = props.initialSubStepIndex || 0;
-        this.state.rooms = [];
+        this.state =
+            {
+                activeStepIndex : props.initialStepIndex || 0
+                , rooms : []
+            };
+
 
         bindMethods(this, [
           'onSidebarItemClick',

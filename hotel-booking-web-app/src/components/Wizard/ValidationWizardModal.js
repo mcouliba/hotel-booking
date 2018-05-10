@@ -21,9 +21,6 @@ export class ValidationWizardModal extends WizardBase {
         const { room } = this.props;
         let that = this;
 
-        const newBookingState = this.state.bookingState;
-        newBookingState.selection.room = room;
-
         Promise.resolve(this.props.handleBookingState(room))
           .then(newBookingState => {
             that.setState(
@@ -51,12 +48,24 @@ export class ValidationWizardModal extends WizardBase {
 
     return (
       <div >
-        <Button
-            bsStyle="primary"
-            bsSize="large"
-            onClick={this.open}>
-          Choose this room
-        </Button>
+
+        {/* !this.props.room.living_area && ( */
+            <Button
+                bsStyle="primary"
+                bsSize="large"
+                onClick={this.open}>
+              Choose this room
+            </Button>
+        /* ) */}
+
+        {/* this.props.room.living_area && (
+            <Button
+                bsStyle="success"
+                bsSize="large"
+                onClick={this.open}>
+              Choose this room
+            </Button>
+        ) */}
 
         <Modal
           show={showModal}

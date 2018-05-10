@@ -84,7 +84,8 @@ export const renderWizardContents = (
             activeStepIndex={activeStepIndex}
             activeSubStepIndex={activeSubStepIndex}
           >
-            {wizardCustomerDetailsContents(bookingState.selection.room, customer)}
+
+            {bookingState && wizardCustomerDetailsContents(bookingState.selection.room, customer)}
           </Wizard.Contents>
         );
       } else if (stepIndex === 1 ) {
