@@ -22,8 +22,10 @@ class RoomServiceImpl implements RoomService {
 	@Autowired
 	private RoomRepository roomRepository;
 
-	@Value("${BOOKING_STATE_SERVICE_GET_URL:http://booking-state-service:8080/getbookingstate}")
-	private String BOOKING_STATE_SERVICE_GET_URL;
+	@Value("${BOOKING_STATE_SERVICE_ENDPOINT:booking-state-service:8080}")
+	private String BOOKING_STATE_SERVICE_ENDPOINT;
+
+	private final String BOOKING_STATE_SERVICE_GET_URL = "http://" + BOOKING_STATE_SERVICE_ENDPOINT + "/getbookingstate";
 
 	@Override
 	public Page<Room> findByUserID(Pageable pageable, String userid) throws IOException {

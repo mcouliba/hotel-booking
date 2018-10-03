@@ -30,11 +30,8 @@ class ReservationServiceImpl implements ReservationService {
     @Autowired
     private SourceReservationRepository sourceReservationRepository;
 
-    @Value("${BOOKING_STATE_SERVICE_GET_URL:http://booking-state-service:8080/getbookingstate}")
-    private String BOOKING_STATE_SERVICE_GET_URL;
-
-    @Value("${BOOKING_STATE_SERVICE_DELETE_URL:http://booking-state-service:8080/deletebookingstate}")
-    private String BOOKING_STATE_SERVICE_DELETE_URL;
+    @Value("${BOOKING_STATE_SERVICE_ENDPOINT:booking-state-service:8080}")
+    private String BOOKING_STATE_SERVICE_ENDPOINT;
 
 	@Override
 	public Page<Reservation> findByCustomerId(Pageable pageable, Integer customerId) throws IOException {
@@ -59,9 +56,12 @@ class ReservationServiceImpl implements ReservationService {
 
     @Override
     public SourceReservation confirm(Integer customerId) throws IOException, ParseException{
+        final String getbookingstate_url = "http://" + BOOKING_STATE_SERVICE_ENDPOINT + "/getbookingstate";
+        final String deletebookingstate_url = "http://" + BOOKING_STATE_SERVICE_ENDPOINT + "/deletebookingstate";
+
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<String> response
-                = restTemplate.getForEntity(BOOKING_STATE_SERVICE_GET_URL + "/" + customerId, String.class);
+                = restTemplate.getForEntity(getbookingstate_url + "/" + customerId, String.class);
         ObjectMapper mapper = new ObjectMapper();
         JsonNode root = mapper.readTree(response.getBody());
         int roomId = root.path("selection").path("room").path("id").asInt();
@@ -74,7 +74,7 @@ class ReservationServiceImpl implements ReservationService {
                 new SourceReservation("NA", customerId, roomId, checkin, checkout, dailyRate, "RESERVED");
 
         SourceReservation result = sourceReservationRepository.save(newSourceReservation);
-        restTemplate.delete(BOOKING_STATE_SERVICE_DELETE_URL + "/" + customerId);
+        restTemplate.delete(deletebookingstate_url + "/" + customerId);
         return result;
     }
 }

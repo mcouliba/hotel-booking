@@ -12,17 +12,21 @@ spec:
     spec:
       containers:
         - env:
-            - name: VIRTUALLAYER_USERNAME
+            - name: VIRTUAL_LAYER_USERNAME
               valueFrom:
                  secretKeyRef:
-                   name: virtuallayer-secret
+                   name: virtual-layer-secret
                    key: username
-            - name: VIRTUALLAYER_PASSWORD
+            - name: VIRTUAL_LAYER_PASSWORD
               valueFrom:
                  secretKeyRef:
-                   name: virtuallayer-secret
+                   name: virtual-layer-secret
                    key: password
             - name: VDB_NAME
               value: "customer"
+            - name: VIRTUAL_LAYER_SERVICE_HOST
+              value: "virtual-layer.hotel-booking-virtual-layer.svc"
+            - name: VIRTUAL_LAYER_SERVICE_PORT_JDBC
+              value: "31000"
             - name: JAVA_OPTIONS
               value: "-Dspring.profiles.active=openshift"
