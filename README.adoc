@@ -13,7 +13,6 @@ To clone the Hotel Booking project on your local environment:
 [source,bash,options="nowrap",subs="attributes+"]
 ----
 $ git clone git@github.com:mcouliba/hotel-booking
-
 $ cd hotel-booking
 ----
 
@@ -22,7 +21,9 @@ To create the project on your Openshift Cluster:
 
 [source,bash,options="nowrap",subs="attributes+"]
 ----
-$ oc new-project hotelbooking --display-name="Hotel Booking" --description="Hotel Booking Demo"
+$ oc new-project hotelbooking \
+	--display-name="Hotel Booking" \
+	--description="Hotel Booking Demo"
 ----
 
 == Monolith Database
@@ -31,18 +32,20 @@ To initialize the Monolith Database:
 [source,bash,options="nowrap",subs="attributes+"]
 ----
 $ cd hotel-booking-monolithdb
-
-$ oc new-app postgresql-persistent --name=monolithdb -p DATABASE_SERVICE_NAME=monolithdb -p POSTGRESQL_USER=postgresql -p POSTGRESQL_PASSWORD=postgresql -p POSTGRESQL_DATABASE=monolithdb
-
-$ oc rsync sql/ <POD_NAME>:/opt/app-root/src
-
-$ oc rsh <POD_NAME> 
-
-sh-4.2$ PGPASSWORD=$POSTGRESQL_PASSWORD psql -h monolithdb $POSTGRESQL_DATABASE $POSTGRESQL_USER -f hotel-booking.ddl
-
+$ oc new-project hotel-booking-monolith \
+	--display-name="Hotel Booking Monolith" \
+	--description="Hotel Booking Demo"
+$ oc new-app postgresql-persistent \
+-p DATABASE_SERVICE_NAME=monolith-postgresql \
+-p POSTGRESQL_DATABASE=monolithdb \
+-p POSTGRESQL_USER=postgresql \
+-p POSTGRESQL_PASSWORD=postgresql \
+--labels=app=monolith
+$ oc rsync sql/ $(oc get pods -lapp=monolith -o name):/opt/app-root/src
+$ oc rsh $(oc get pods -lapp=monolith -o name) 
+sh-4.2$ PGPASSWORD=$POSTGRESQL_PASSWORD psql -h monolith-postgresql $POSTGRESQL_DATABASE $POSTGRESQL_USER -f hotel-booking.ddl
 sh-4.2$  exit
-
-$ cd ..
+$ cd -
 ----
 
 == Virtual Layer
@@ -50,57 +53,88 @@ To initialize the Virtual Layer:
 
 [source,bash,options="nowrap",subs="attributes+"]
 ----
-$ cd hotel-booking-virtuallayer
-
+$ cd hotel-booking-virtual-layer
+$ oc new-project hotel-booking-virtual-layer \
+--display-name="Hotel Booking Virtual Layer" \
+--description="Hotel Booking Demo"
 $ oc create -f https://raw.githubusercontent.com/jboss-openshift/application-templates/master/secrets/datavirt-app-secret.yaml
-
-$ oc delete secrets datavirt-app-config
-
-$ oc secrets new datavirt-app-config env/datasources.env
-
+$ oc delete secret datavirt-app-config
+$ oc secret new datavirt-app-config env/datasources.env
 $ oc create sa datavirt-service-account
-
 $ oc adm policy add-role-to-user view system:serviceaccount:hotelbooking:datavirt-service-account
-
-$ oc new-app datavirt64-extensions-support-s2i  --name=virtuallayer -p APPLICATION_NAME=virtuallayer -p TEIID_USERNAME=teiidUser -p TEIID_PASSWORD='redhat1!' -p SOURCE_REPOSITORY_URL='https://github.com/mcouliba/hotel-booking.git' -p CONTEXT_DIR='hotel-booking-virtual-layer' -p VDB_DIRS=vdb -p EXTENSIONS_REPOSITORY_URL='https://github.com/mcouliba/hotel-booking.git' -p EXTENSIONS_DIR='hotel-booking-virtual-layer/extensions'
-
-$ cd ..
+$ oc new-app datavirt63-extensions-support-s2i \
+-p APPLICATION_NAME=virtual-layer \
+-p TEIID_USERNAME=teiidUser \
+-p TEIID_PASSWORD='redhat1!' \
+-p SOURCE_REPOSITORY_URL='https://github.com/mcouliba/hotel-booking.git' \
+-p CONTEXT_DIR='hotel-booking-virtual-layer' \
+-p VDB_DIRS=vdb \
+-p EXTENSIONS_REPOSITORY_URL='https://github.com/mcouliba/hotel-booking.git' \
+-p EXTENSIONS_DIR='hotel-booking-virtual-layer/extensions' \
+--labels=app=datavirtualization
+$ cd -
 ----
+IMPORTANT: Outside Openshift, JDBC Secure is only available. You need to create a keystore using the following commande
+IMPORTANT: Determine location of cacerts files, $JRE_HOME/lib/security/cacerts
+IMPORTANT: Import the certificate.cer into cacerts with keytool -import -alias virtual-layer -keystore $JRE_HOME/lib/security/cacerts -file ./certificate/openshift.cer  -storepass changeit
+IMPORTANT: Teiid URL to use: jdbc:teiid:customer@mms://jdbc-virtual-layer-hotel-booking-virtual-layer.apps.cndsw.openshiftworkshop.com:443
 
-== Shared Cache
-To initialize the Shared Cache:
+== Booking State Service
+To initialize Booking State Service:
 
 [source,bash,options="nowrap",subs="attributes+"]
 ----
-$ oc policy add-role-to-user view system:serviceaccount:hotel-booking:default
-
-$ oc new-app datagrid71-basic --name=sharedcache -p APPLICATION_NAME=sharedcache -p CACHE_NAMES=bookingStateCache
+$ cd hotel-booking-microservice/booking-state-service
+$ oc new-project hotel-booking-state \
+--display-name="Hotel Booking State" \
+--description="Hotel Booking Demo"
+$ oc policy add-role-to-user view -n hotel-booking-state -z default
+$ oc new-app datagrid71-basic \
+-p APPLICATION_NAME=sharedcache \
+-p CACHE_NAMES=bookingStateCache \
+-e MEMCACHED_CACHE=  \
+--labels=app=booking-state-service
+$ mvn clean fabric8:deploy -Popenshift -DskipTests
+$cd -
 ----
 
-== Microservices
-To initialize the microservices:
+== Customer Service
+To deploy the Customer Service:
 
 [source,bash,options="nowrap",subs="attributes+"]
 ----
-$ cd hotel-booking-microservice
-
-$ cd booking-state-service
+$ cd hotel-booking-microservice/customer-service
+$ oc new-project hotel-booking-customer \
+--display-name="Hotel Booking Customer" \
+--description="Hotel Booking Demo"
 $ mvn clean fabric8:deploy -Popenshift -DskipTests
-$ cd ..
+$ cd -
+----
 
-$ cd customer-service
+== Inventory Service
+To deploy the Inventory Service:
+
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ cd hotel-booking-microservice/inventory-service
+$ oc new-project hotel-booking-inventory \
+--display-name="Hotel Booking Inventory" \
+--description="Hotel Booking Demo"
 $ mvn clean fabric8:deploy -Popenshift -DskipTests
-$ cd ..
+$ cd -
+----
 
-$ cd inventory-service
+== Reservation Service
+To deploy the Reservation Service:
+
+[source,bash,options="nowrap",subs="attributes+"]
+----
+$ cd hotel-booking-microservice/reservation-service
+$ oc new-project hotel-booking-reservation \
+--display-name="Hotel Booking Reservation" \
+--description="Hotel Booking Demo"
 $ mvn clean fabric8:deploy -Popenshift -DskipTests
-$ cd ..
-
-$ cd reservation-service
-$ mvn clean fabric8:deploy -Popenshift -DskipTests
-$ cd ..
-
-$ cd ..
+$ cd -
 ----
 
 
@@ -110,11 +144,13 @@ To initialize the Web App :
 [source,bash,options="nowrap",subs="attributes+"]
 ----
 $ cd hotel-booking-web-app
-
-$ mv .nodeshift_v1 .nodeshift
+$ oc new-project hotel-booking-web \
+--display-name="Hotel Booking Web" \
+--description="Hotel Booking Demo"
+$ npm install
 $ npm run openshift
 
-$ cd ..
+$ cd -
 ----
 
 To set up a A/B deployment:
@@ -129,7 +165,7 @@ $ npm run openshift
 
 $ oc set route-backends hotel-booking-web-app hotel-booking-web-app=25 hotel-booking-web-app-v2=75
 
-$ cd ..
+$ cd -
 ----
 
 == Data Model

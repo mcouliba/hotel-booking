@@ -24,7 +24,7 @@
         <teiid.version>8.12.9.6_3-redhat-2</teiid.version>
         <spring-boot.version>1.5.8.RELEASE</spring-boot.version>
         <spring-boot.bom.version>1.5.8.Final-redhat-1</spring-boot.bom.version>
-        <swagger.version>2.8.0</swagger.version>
+        <swagger.version>2.9.2</swagger.version>
     </properties>
 
     <dependencyManagement>
@@ -40,6 +40,7 @@
     </dependencyManagement>
 
     <dependencies>
+        <!-- Spring -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -69,6 +70,18 @@
             <groupId>org.jboss.teiid</groupId>
             <artifactId>teiid-hibernate-dialect</artifactId>
             <version>${teiid.version}</version>
+        </dependency>
+
+        <!-- Swagger -->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${swagger.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${swagger.version}</version>
         </dependency>
     </dependencies>
 

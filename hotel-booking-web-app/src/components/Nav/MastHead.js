@@ -28,6 +28,7 @@ export const MastHead: React.StatelessComponent<Props> = props => {
               data-toggle="dropdown"
               aria-haspopup="true"
               aria-expanded="true"
+              href="/"
             >
               <span title="Notifications" className="fa pficon-flag" />
               <span className="badge">2</span>
@@ -45,7 +46,7 @@ export const MastHead: React.StatelessComponent<Props> = props => {
                 </li>
               </ul>
               <div className="footer">
-                <a>Clear Messages</a>
+                <a href="/">Clear Messages</a>
               </div>
             </div>
           </li>
@@ -56,6 +57,7 @@ export const MastHead: React.StatelessComponent<Props> = props => {
               data-toggle="dropdown"
               aria-haspopup="true"
               aria-expanded="true"
+              href="/"
             >
               <span title="Help" className="fa pficon-help" />
               <span className="caret" />
@@ -76,6 +78,7 @@ export const MastHead: React.StatelessComponent<Props> = props => {
               data-toggle="dropdown"
               aria-haspopup="true"
               aria-expanded="true"
+              href="/"
             >
               <span title="Username" className="fa pficon-user" />
               <span className="caret" />
