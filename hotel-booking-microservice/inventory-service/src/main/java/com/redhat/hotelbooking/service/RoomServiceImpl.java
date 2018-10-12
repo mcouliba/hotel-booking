@@ -22,16 +22,14 @@ class RoomServiceImpl implements RoomService {
 	@Autowired
 	private RoomRepository roomRepository;
 
-	@Value("${BOOKING_STATE_SERVICE_ENDPOINT:booking-state-service:8080}")
-	private String BOOKING_STATE_SERVICE_ENDPOINT;
-
-	private final String BOOKING_STATE_SERVICE_GET_URL = "http://" + BOOKING_STATE_SERVICE_ENDPOINT + "/getbookingstate";
+	@Value("${BOOKING_STATE_SERVICE_GET_ENDPOINT:http://booking-state-service:8080/getbookingstate}")
+	private String BOOKING_STATE_SERVICE_GET_ENDPOINT;
 
 	@Override
 	public Page<Room> findByUserID(Pageable pageable, String userid) throws IOException {
 		RestTemplate restTemplate = new RestTemplate();
 		ResponseEntity<String> response
-				= restTemplate.getForEntity(BOOKING_STATE_SERVICE_GET_URL + "/" + userid, String.class);
+				= restTemplate.getForEntity(BOOKING_STATE_SERVICE_GET_ENDPOINT + "/" + userid, String.class);
 		ObjectMapper mapper = new ObjectMapper();
 		JsonNode root = mapper.readTree(response.getBody());
 		JsonNode hotel_id = root.path("selection").path("hotel").path("id");

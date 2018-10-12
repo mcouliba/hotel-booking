@@ -22,8 +22,8 @@ class HotelServiceImpl implements HotelService {
 	@Autowired
 	private HotelRepository hotelRepository;
 
-	@Value("${BOOKING_STATE_SERVICE_ENDPOINT:booking-state-service:8080}")
-	private String BOOKING_STATE_SERVICE_ENDPOINT;
+	@Value("${BOOKING_STATE_SERVICE_GET_ENDPOINT:http://booking-state-service:8080/getbookingstate}")
+	private String BOOKING_STATE_SERVICE_GET_ENDPOINT;
 
 	@Override
 	public Page<Hotel> listAllByPage(Pageable pageable) {
@@ -32,11 +32,10 @@ class HotelServiceImpl implements HotelService {
 
 	@Override
 	public Page<Hotel> findByUserID(Pageable pageable, String userid) throws IOException {
-	    final String getbookingstate_url = "http://" + BOOKING_STATE_SERVICE_ENDPOINT + "/getbookingstate";
 
 		RestTemplate restTemplate = new RestTemplate();
 		ResponseEntity<String> response
-				= restTemplate.getForEntity(getbookingstate_url + "/" + userid, String.class);
+				= restTemplate.getForEntity(BOOKING_STATE_SERVICE_GET_ENDPOINT + "/" + userid, String.class);
 		ObjectMapper mapper = new ObjectMapper();
 		JsonNode root = mapper.readTree(response.getBody());
 		JsonNode city = root.path("search").path("city_name");

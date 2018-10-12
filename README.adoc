@@ -158,9 +158,9 @@ To set up a A/B deployment:
 [source,bash,options="nowrap",subs="attributes+"]
 ----
 $ cd hotel-booking-web-app
-
+$ oc project hotel-booking-web
 $ vi package.json #Change the "name" parameter to "hotel-booking-web-app-v2"
-$ vi src/components/ListView/RoomListView.js #Replace "abtesting hidden" by "abtesting"
+$ vi src/components/ListView/HotelListView.js #Replace "abtesting hidden" by "abtesting"
 $ npm run openshift
 
 $ oc set route-backends hotel-booking-web-app hotel-booking-web-app=25 hotel-booking-web-app-v2=75
