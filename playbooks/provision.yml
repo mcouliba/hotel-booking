@@ -1,0 +1,275 @@
+- name: hotel booking playbook to provision the application
+  hosts: localhost
+  gather_facts: false
+  connection: local
+  vars:
+    openshift_user: 
+    openshift_password: 
+    openshift_token:
+    openshift_master_url: 
+    openshift_user_password:
+    project_monolith: "hotel-booking-monolith"
+    project_virtual_layer: "hotel-booking-virtual-layer"
+    project_booking_state: "hotel-booking-state"
+    project_customer: "hotel-booking-customer"
+    project_inventory: "hotel-booking-inventory"
+    project_reservation: "hotel-booking-reservation"
+    project_web_app: "hotel-booking-web-app"
+
+
+  tasks:    
+    - name: login as super user with token
+      shell: "oc login --token={{ openshift_token }} --insecure-skip-tls-verify=true"
+      when:
+        - openshift_token is defined
+        - openshift_token is not none
+        - openshift_token|trim() != ""
+      tags: always
+
+    - name: login as super user with pwd
+      shell: "oc login -u {{ openshift_user }} -p {{ openshift_password }} --insecure-skip-tls-verify=true"
+      when: >
+        openshift_token is not defined or
+        openshift_token is none or
+        openshift_token|trim() == ""
+      tags: always
+    - name: Check if "{{ project_monolith }}" project existed
+      shell: oc project {{ project_monolith }}
+      register: project_already_existed
+      ignore_errors: yes
+    - name: Create Monolith Database
+      block:
+        - name: Create Project/Namespace
+          shell: "oc new-project {{ project_monolith }} \
+            --display-name='Hotel Booking Monolith' \
+            --description='Hotel Booking Demo'"
+        - name: Provision PostgreSQL persistent
+          shell: "oc new-app postgresql-persistent \
+            -p DATABASE_SERVICE_NAME=monolith-postgresql \
+            -p POSTGRESQL_DATABASE=monolithdb \
+            -p POSTGRESQL_USER=postgresql \
+            -p POSTGRESQL_PASSWORD=postgresql \
+            --labels=app=monolith"
+        - name: Initialize Database
+          block:
+            - name: Copy init SQL script into the pod
+              shell: "oc rsync sql/ $(oc get pods -lapp=monolith -o name):/opt/app-root/src/ddl"
+              args:
+                chdir: ../hotel-booking-monolithdb/
+              register: pod_ready
+              until: pod_ready.rc == 0
+              delay: 10
+              retries: 3
+            - name: Initialize Database
+              shell: "oc rsh $(oc get pods -lapp=monolith -o name) \ 
+                bash -c 'psql $POSTGRESQL_DATABASE $POSTGRESQL_USER -f ddl/hotel-booking.ddl'"
+      when: >
+        project_already_existed.rc == 1
+    - name: Check if "{{ project_virtual_layer }}" project existed
+      shell: oc project {{ project_virtual_layer }}
+      register: project_already_existed
+      ignore_errors: yes
+    - name: Create Virtual Layer
+      block:
+        - name: Create Project/Namespace
+          shell: "oc new-project {{ project_virtual_layer }} \
+            --display-name='Hotel Booking Virtual Layer' \
+            --description='Hotel Booking Demo'"
+        - name: Create Application
+          block:
+            - name: Import datavirt-app-secret
+              shell: oc create -f https://raw.githubusercontent.com/jboss-openshift/application-templates/master/secrets/datavirt-app-secret.yaml
+              ignore_errors: yes
+            - name : Delete Default Secret
+              shell: oc delete secret datavirt-app-config
+            - name : Create New Secret
+              shell: oc secret new datavirt-app-config datasources.env
+              args:
+                chdir: ../hotel-booking-virtual-layer/env/
+            - name: Create Service Account
+              shell: oc create sa datavirt-service-account
+              ignore_errors: yes
+            - name: Setup Policy
+              shell: oc adm policy add-role-to-user view system:serviceaccount:hotelbooking:datavirt-service-account
+            - name: Provision PostgreSQL persistent
+              shell: "oc new-app datavirt63-extensions-support-s2i \
+                -p APPLICATION_NAME=virtual-layer \
+                -p TEIID_USERNAME=teiidUser \
+                -p TEIID_PASSWORD='redhat1!' \
+                -p SOURCE_REPOSITORY_URL='https://github.com/mcouliba/hotel-booking.git' \
+                -p CONTEXT_DIR='hotel-booking-virtual-layer' \
+                -p VDB_DIRS=vdb \
+                -p EXTENSIONS_REPOSITORY_URL='https://github.com/mcouliba/hotel-booking.git' \
+                -p EXTENSIONS_DIR='hotel-booking-virtual-layer/extensions' \
+                --labels=app=datavirtualization"
+            - name: Adding GDPR users (Waiting for Application Ready)
+              shell: "oc rsh $(oc get pods -lapp=datavirtualization -o name) \ 
+                bash -c '/opt/eap/bin/add-user.sh -a -s -u admin -g admin -p redhat1! && \
+                         /opt/eap/bin/add-user.sh -a -s -u analyst1 -g analyst1 -p redhat1! && \
+                         /opt/eap/bin/add-user.sh -a -s -u analyst2 -g analyst2 -p redhat1! && \
+                         /opt/eap/bin/add-user.sh -a -s -u analyst3 -g analyst3 -p redhat1!'"
+              register: pod_ready
+              until: pod_ready.rc == 0
+              delay: 180
+              retries: 3
+      when: >
+        project_already_existed.rc == 1 
+    - name: Check if "{{ project_booking_state }}" project existed
+      shell: oc project {{ project_booking_state }}
+      register: project_already_existed
+      ignore_errors: yes
+    - name: Create Booking State Service
+      block:
+        - name: Create Project/Namespace
+          shell: "oc new-project {{ project_booking_state }} \
+            --display-name='Hotel Booking State' \
+            --description='Hotel Booking Demo'"
+        - name: Setup Policy
+          shell: oc policy add-role-to-user view -z default -n {{ project_booking_state }}
+        - name: Provision RHDG
+          shell: "oc new-app datagrid71-basic \
+            -p APPLICATION_NAME=sharedcache \
+            -p CACHE_NAMES=bookingStateCache \
+            -e MEMCACHED_CACHE=  \
+            --labels=app=booking-state-service"
+        - name: Deploy Microservice
+          shell: "mvn clean fabric8:deploy -Popenshift -DskipTests"
+          args:
+            chdir: ../hotel-booking-microservice/booking-state-service/
+      when: >
+        project_already_existed.rc == 1      
+      tags: always
+    - name: Check if "{{ project_customer }}" project existed
+      shell: oc project {{ project_customer }}
+      register: project_already_existed
+      ignore_errors: yes
+    - name: Create Customer Service
+      block:
+        - name: Create Project/Namespace
+          shell: "oc new-project {{ project_customer }} \
+            --display-name='Hotel Booking Customer' \
+            --description='Hotel Booking Demo'"
+        - name: Setup Policy
+          shell: oc policy add-role-to-user view -n {{ project_customer }} -z default
+        - name: Deploy Microservice
+          shell: "mvn clean fabric8:deploy -Popenshift -DskipTests"
+          args:
+            chdir: ../hotel-booking-microservice/customer-service/
+      when: >
+        project_already_existed.rc == 1      
+      tags: always
+    - name: Check if "{{ project_inventory }}" project existed
+      shell: oc project {{ project_inventory }}
+      register: project_already_existed
+      ignore_errors: yes
+    - name: Create Inventory Service
+      block:
+        - name: Create Project/Namespace
+          shell: "oc new-project {{ project_inventory }} \
+            --display-name='Hotel Booking Inventory' \
+            --description='Hotel Booking Demo'"
+        - name: Setup Policy
+          shell: oc policy add-role-to-user view -n {{ project_inventory }} -z default
+        - name: Deploy Microservice
+          shell: "mvn clean fabric8:deploy -Popenshift -DskipTests"
+          args:
+            chdir: ../hotel-booking-microservice/inventory-service/
+      when: >
+        project_already_existed.rc == 1      
+      tags: always
+    - name: Check if "{{ project_reservation }}" project existed
+      shell: oc project {{ project_reservation }}
+      register: project_already_existed
+      ignore_errors: yes
+    - name: Create Reservation Service
+      block:
+        - name: Create Project/Namespace
+          shell: "oc new-project {{ project_reservation }} \
+            --display-name='Hotel Booking Reservation' \
+            --description='Hotel Booking Demo'"
+        - name: Setup Policy
+          shell: oc policy add-role-to-user view -n {{ project_reservation }} -z default
+        - name: Deploy Microservice
+          shell: "mvn clean fabric8:deploy -Popenshift -DskipTests"
+          args:
+            chdir: ../hotel-booking-microservice/reservation-service/
+      when: >
+        project_already_existed.rc == 1      
+      tags: always
+
+
+    - name: Check if "{{ project_web_app }}" project existed
+      shell: oc project {{ project_web_app }}
+      register: project_already_existed
+      ignore_errors: yes
+    - name: Create Web App Service
+      block:
+        - name: Create Project/Namespace
+          shell: "oc new-project {{ project_web_app }} \
+            --display-name='Hotel Booking Web App' \
+            --description='Hotel Booking Demo'"
+        - name: Yarn Install
+          shell: yarn install
+          args:
+            chdir: ../hotel-booking-web-app/
+        - name: Deploy Microservice v1
+          shell: yarn openshift
+          args:
+            chdir: ../hotel-booking-web-app/
+        - name: Setup ABTesting 
+          block:
+            - name: Update package.json for v2
+              replace:
+                path: ../hotel-booking-web-app/package.json
+                regexp: '"hotel-booking-web-app"'
+                replace: '"hotel-booking-web-app-v2"'
+                backup: yes
+            - name: Update HotelListView.js for v2
+              replace:
+                path: ../hotel-booking-web-app/src/components/ListView/HotelListView.js
+                regexp: 'abtesting hidden'
+                replace: 'abtesting' 
+                backup: yes
+            - name: Update RoomListView.js for v2
+              replace:
+                path: ../hotel-booking-web-app/src/components/ListView/RoomListView.js
+                regexp: 'abtesting hidden'
+                replace: 'abtesting' 
+                backup: yes
+            - name: Update ValidationWizardModal.js for v2
+              replace:
+                path: ../hotel-booking-web-app/src/components/Wizard/ValidationWizardModal.js
+                regexp: 'this.abtesting = false'
+                replace: 'this.abtesting = true' 
+                backup: yes
+            - name: Deploy Microservice v2
+              shell: yarn openshift
+              args:
+                chdir: ../hotel-booking-web-app/
+            - name: Rollback package.json (v2 -> v1)
+              replace:
+                path: ../hotel-booking-web-app/package.json
+                regexp: '"hotel-booking-web-app-v2"'
+                replace: '"hotel-booking-web-app"'
+                backup: yes
+            - name: Rollback HotelListView.js (v2 -> v1)
+              replace:
+                path: ../hotel-booking-web-app/src/components/ListView/HotelListView.js
+                regexp: 'abtesting'
+                replace: 'abtesting hidden' 
+                backup: yes
+            - name: Rollback RoomListView.js (v2 -> v1)
+              replace:
+                path: ../hotel-booking-web-app/src/components/ListView/RoomListView.js
+                regexp: 'abtesting'
+                replace: 'abtesting hidden' 
+                backup: yes
+            - name: Rollback ValidationWizardModal.js (v2 -> v1)
+              replace:
+                path: ../hotel-booking-web-app/src/components/Wizard/ValidationWizardModal.js
+                regexp: 'this.abtesting = true'
+                replace: 'this.abtesting = false' 
+                backup: yes
+      when: >
+        project_already_existed.rc == 1
+      tags: always

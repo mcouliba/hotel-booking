@@ -29,9 +29,9 @@ class RoomListView extends React.Component {
                     <div className="list-view-pf-body">
                       <div className="list-view-pf-description">
                         <div className="list-group-item-heading">
-                          {/*room.living_area && (
-                            <span className="pficon pficon-ok"></span>
-                            )*/}
+                          {room.living_area && (
+                            <span className="pficon pficon-ok abtesting hidden"></span>
+                            )}
                           Room Number { room.room_number }
                         </div>
                       </div>

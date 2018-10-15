@@ -15,6 +15,9 @@ export class ValidationWizardModal extends WizardBase {
      constructor(props: any) {
         super(props);
         bindMethods(this, ['open', 'close', 'endClose']);
+
+        // To enable the version 2 of the application
+        this.abtesting = false;
     }
 
      open() {
@@ -49,23 +52,23 @@ export class ValidationWizardModal extends WizardBase {
     return (
       <div >
 
-        {/* !this.props.room.living_area && ( */
+        {(!this.abtesting || !this.props.room.living_area) && (
             <Button
                 bsStyle="primary"
                 bsSize="large"
                 onClick={this.open}>
               Choose this room
             </Button>
-        /* ) */}
+        )}
 
-        {/* this.props.room.living_area && (
+        { (this.abtesting && this.props.room.living_area) && (
             <Button
                 bsStyle="success"
                 bsSize="large"
                 onClick={this.open}>
               Choose this room
             </Button>
-        ) */}
+        )}
 
         <Modal
           show={showModal}

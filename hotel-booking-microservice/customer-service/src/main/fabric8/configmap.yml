@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ${project.artifactId}
+  labels:
+    app: ${project.artifactId}
+    group: ${project.groupId}
+    provider: fabric8
+    version: ${project.version}
+data:
+  application.properties: >-
+    #
+    # [ Database Configuration Section ]
+    #
+    spring.jpa.database-platform=org.teiid.dialect.TeiidDialect
+    spring.jpa.show-sql=false
+    spring.jpa.hibernate.ddl-auto=none
+    spring.datasource.driver-class-name=org.teiid.jdbc.TeiidDriver
+
+    # The database connection string
+    spring.datasource.url=jdbc:teiid:customer@mm://virtual-layer.hotel-booking-virtual-layer.svc:31000
+
+    # The database username
+    spring.datasource.username=teiidUser
+
+    # The database password
+    spring.datasource.password=redhat1!
+
+    #
+    # [ Other Configuration Attributes ]
+    #
