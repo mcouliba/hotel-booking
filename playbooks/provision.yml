@@ -50,6 +50,9 @@
             -p POSTGRESQL_USER=postgresql \
             -p POSTGRESQL_PASSWORD=postgresql \
             --labels=app=monolith"
+        - name: Waiting for the Database to be up and running (120s)
+          pause:
+            minutes: 2
         - name: Initialize Database
           block:
             - name: Copy init SQL script into the pod
