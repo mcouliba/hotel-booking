@@ -152,6 +152,10 @@
           shell: "oc new-project {{ project_customer }} \
             --display-name='Hotel Booking Customer' \
             --description='Hotel Booking Demo'"
+        - name: Create ConfigMap
+          shell: oc create configmap customer-service --from-file=etc/application.properties
+          args:
+            chdir: ../hotel-booking-microservice/customer-service/
         - name: Setup Policy
           shell: oc policy add-role-to-user view -n {{ project_customer }} -z default
         - name: Deploy Microservice
