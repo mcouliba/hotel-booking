@@ -11,10 +11,7 @@ spec:
   template:
     spec:
       containers:
-        - env:
-            - name: BOOKING_STATE_SERVICE_GET_ENDPOINT
-              value: "http://booking-state-service.hotel-booking-state.svc:8080/getbookingstate"
-          livenessProbe:
+        - livenessProbe:
             failureThreshold: 2
             httpGet:
               path: "/health"

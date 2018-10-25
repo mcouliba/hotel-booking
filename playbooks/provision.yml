@@ -148,17 +148,17 @@
       ignore_errors: yes
     - name: Create Customer Service
       block:
-        - name: Create Project/Namespace
+        - name: Create {{ project_customer }} Project/Namespace
           shell: "oc new-project {{ project_customer }} \
             --display-name='Hotel Booking Customer' \
             --description='Hotel Booking Demo'"
-        - name: Create ConfigMap
+        - name: Create 'customer-service' ConfigMap
           shell: oc create configmap customer-service --from-file=etc/application.properties
           args:
             chdir: ../hotel-booking-microservice/customer-service/
         - name: Setup Policy
           shell: oc policy add-role-to-user view -n {{ project_customer }} -z default
-        - name: Deploy Microservice
+        - name: Deploy Customer Microservice
           shell: "mvn clean fabric8:deploy -Popenshift -DskipTests"
           args:
             chdir: ../hotel-booking-microservice/customer-service/
@@ -171,13 +171,17 @@
       ignore_errors: yes
     - name: Create Inventory Service
       block:
-        - name: Create Project/Namespace
+        - name: Create {{ project_inventory }} Project/Namespace
           shell: "oc new-project {{ project_inventory }} \
             --display-name='Hotel Booking Inventory' \
             --description='Hotel Booking Demo'"
+        - name: Create 'inventory-service' ConfigMap
+          shell: oc create configmap inventory-service --from-file=etc/application.properties
+          args:
+            chdir: ../hotel-booking-microservice/inventory-service/
         - name: Setup Policy
           shell: oc policy add-role-to-user view -n {{ project_inventory }} -z default
-        - name: Deploy Microservice
+        - name: Deploy Inventory Microservice
           shell: "mvn clean fabric8:deploy -Popenshift -DskipTests"
           args:
             chdir: ../hotel-booking-microservice/inventory-service/
@@ -190,13 +194,17 @@
       ignore_errors: yes
     - name: Create Reservation Service
       block:
-        - name: Create Project/Namespace
+        - name: Create {{ project_reservation }} Project/Namespace
           shell: "oc new-project {{ project_reservation }} \
             --display-name='Hotel Booking Reservation' \
             --description='Hotel Booking Demo'"
+        - name: Create 'reservation-service' ConfigMap
+          shell: oc create configmap reservation-service --from-file=etc/application.properties
+          args:
+            chdir: ../hotel-booking-microservice/reservation-service/
         - name: Setup Policy
           shell: oc policy add-role-to-user view -n {{ project_reservation }} -z default
-        - name: Deploy Microservice
+        - name: Deploy Reservation Microservice
           shell: "mvn clean fabric8:deploy -Popenshift -DskipTests"
           args:
             chdir: ../hotel-booking-microservice/reservation-service/

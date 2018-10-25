@@ -12,23 +12,32 @@ spec:
     spec:
       containers:
         - env:
-            - name: VIRTUAL_LAYER_USERNAME
-              valueFrom:
-                 secretKeyRef:
-                   name: virtual-layer-secret
-                   key: username
-            - name: VIRTUAL_LAYER_PASSWORD
-              valueFrom:
-                 secretKeyRef:
-                   name: virtual-layer-secret
-                   key: password
-            - name: VDB_NAME
-              value: "reservation"
-            - name: VIRTUAL_LAYER_SERVICE_HOST
-              value: "virtual-layer.hotel-booking-virtual-layer.svc"
-            - name: VIRTUAL_LAYER_SERVICE_PORT_JDBC
-              value: "31000"
-            - name: JAVA_OPTIONS
-              value: "-Dspring.profiles.active=openshift"
-            - name: BOOKING_STATE_SERVICE_ENDPOINT
-              value: "booking-state-service.hotel-booking-state.svc:8080"
+            - name: BOOKING_STATE_SERVICE_GET_ENDPOINT
+              value: "http://booking-state-service.hotel-booking-state.svc:8080/getbookingstate"
+          livenessProbe:
+            failureThreshold: 2
+            httpGet:
+              path: "/health"
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 60
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          readinessProbe:
+            failureThreshold: 3
+            httpGet:
+              path: "/health"
+              port: 8080
+              scheme: HTTP
+            initialDelaySeconds: 20
+            periodSeconds: 10
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources:
+            limits:
+              cpu: 1
+              memory: 1Gi
+            requests:
+              cpu: 200m
+              memory: 200Mi

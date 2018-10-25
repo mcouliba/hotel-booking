@@ -1,15 +1,11 @@
 image::summit-logo.png[Summit Logo]
 = Hotel Booking Demo
+== Install Demo
 
 IMPORTANT: Requires Node.js 8.11 or greater and `npm` 5.6 or greater.
-
 IMPORTANT: Requires Maven 3.3 or greater.
-
 IMPORTANT: Requires Openshift Container Platform 3.9 or greater.
-
 IMPORTANT: Requires Ansible 2.7 or greater.
-
-== Install Demo
 
 [source,bash,options="nowrap",subs="attributes+"]
 ----
