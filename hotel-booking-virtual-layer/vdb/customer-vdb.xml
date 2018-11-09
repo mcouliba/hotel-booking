@@ -27,17 +27,20 @@
             id integer NOT NULL,
             email string(256) NOT NULL,
             country string(256) NOT NULL,
+            status string(256) NOT NULL,
             CONSTRAINT customer_pk PRIMARY KEY(id)
         )
         AS
             SELECT
                 c.id,
                 c.email,
-                co.name as country
+                co.name as country,
+                rc.status
             FROM
                 Monolith.customer c
                 inner join Monolith.city as ci on (c.city_id = ci.id)
-                inner join Monolith.country as co on (ci.country_id = co.id);
+                inner join Monolith.country as co on (ci.country_id = co.id)
+                left outer join Reward.customers as rc on (c.id = rc.customer_id);
 
         CREATE VIEW details(
             id integer NOT NULL,
@@ -45,7 +48,7 @@
             email string(256) NOT NULL,
             address string(256) NOT NULL,
             member_since date NOT NULL,
-            rewards_id string(256) NOT NULL,
+            rewards_status string(256) NOT NULL,
             credit_card_number string(256) NOT NULL,
             credit_card_type string(256) NOT NULL,
             expiration_date string(256) NOT NULL,
@@ -58,14 +61,15 @@
                 , cu.email
                 , cu.address_line_1 || ', ' || ci.name as address
                 , member_since
-                , rewards_id
+                , rc.status
                 , 'xxxxxxxxxxxx' || RIGHT(p.credit_card_number, 4) as credit_card_number
                 , p.credit_card_type
                 , FORMATDATE(p.expiration_date, 'MM/yyyy') as expiration_date
             FROM
                 Monolith.customer cu 
                 INNER JOIN Monolith.city ci ON cu.city_id = ci.id
-                INNER JOIN Monolith.payment_info p ON cu.id = p.customer_id;
+                INNER JOIN Monolith.payment_info p ON cu.id = p.customer_id
+                left outer join Reward.customers as rc on (cu.id = rc.customer_id);
         ]]></metadata>
     </model>
 </vdb>
