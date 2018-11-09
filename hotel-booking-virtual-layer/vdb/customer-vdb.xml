@@ -11,6 +11,14 @@
     </model>
     <model name="Reward" visible="true">
         <source connection-jndi-name="java:/rewarddb" name="rewarddb" translator-name="mongodb"/>
+        <metadata type="DDL"><![CDATA[
+
+            CREATE FOREIGN TABLE customers (
+                customer_id integer NOT NULL OPTIONS(UPDATABLE 'FALSE'),
+                status string(256) NOT NULL
+            ) OPTIONS(NAMEINSOURCE 'customers', UPDATABLE 'TRUE');
+
+            ]]></metadata>
     </model>
     <model name="DataServiceLayer" type="VIRTUAL" visible="true">
         <metadata type="DDL"><![CDATA[
