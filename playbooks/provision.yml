@@ -91,7 +91,7 @@
         - name: Update the Security Context Constraints (SCC) by adding the service account to the priviledged SCCs
           shell: "oc adm policy add-scc-to-user privileged \
             -z default -n {{ project_new_sources }}"
-        - name: Provision PostgreSQL persistent
+        - name: Provision MongoDB persistent
           shell: "oc new-app mongodb-persistent \
             -p DATABASE_SERVICE_NAME=reward-mongodb \
             -p MONGODB_DATABASE=rewarddb \
@@ -102,6 +102,15 @@
         - name: Waiting for the Database to be up and running (120s)
           pause:
             minutes: 2
+        - name: Initialize Database
+          block:
+            - name: Copy init SQL script into the pod
+              shell: "oc rsync rewarddb/ $(oc get pods -lapp=reward -o name):/opt/app-root/src/ddl"
+              args:
+                chdir: ../hotel-booking-new-sources/
+            - name: Initialize Database
+              shell: "oc rsh $(oc get pods -lapp=reward -o name) \ 
+                bash -c 'mongo -u $MONGODB_USER -p $MONGODB_PASSWORD $MONGODB_DATABASE ddl/initRewardDB.js'"
       when: >
         project_already_existed.rc == 1
     - name: Check if "{{ project_virtual_layer }}" project existed

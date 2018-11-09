@@ -9,7 +9,7 @@
         <property name="importer.schemapattern" value="public"/>
         <source name="monolithdb" translator-name="postgresql" connection-jndi-name="java:/monolithdb"/>
     </model>
-    <model name="Reward" visible="true">
+    <model name="Reward" visible="false">
         <source connection-jndi-name="java:/rewarddb" name="rewarddb" translator-name="mongodb"/>
         <metadata type="DDL"><![CDATA[
 
