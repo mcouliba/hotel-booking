@@ -9,7 +9,6 @@
     openshift_master_url: 
     openshift_user_password:
     project_monolith: "hotel-booking-monolith"
-    project_new_sources: "hotel-booking-new-sources"
     project_virtual_layer: "hotel-booking-virtual-layer"
     project_booking_state: "hotel-booking-state"
     project_customer: "hotel-booking-customer"
@@ -69,10 +68,6 @@
                 bash -c 'psql $POSTGRESQL_DATABASE $POSTGRESQL_USER -f ddl/hotel-booking.ddl'"
       when: >
         project_already_existed.rc == 1
-    - name: Check if "{{ project_new_sources }}" project existed
-      shell: oc project {{ project_new_sources }}
-      register: project_already_existed
-      ignore_errors: yes
     - name: Check if "{{ project_virtual_layer }}" project existed
       shell: oc project {{ project_virtual_layer }}
       register: project_already_existed
