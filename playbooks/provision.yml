@@ -44,12 +44,6 @@
           shell: "oc new-project {{ project_monolith }} \
             --display-name='Hotel Booking Monolith' \
             --description='Hotel Booking Demo'"
-        - name: Update the Security Context Constraints (SCC) by adding the service account to the anyuid SCCs
-          shell: "oc adm policy add-scc-to-user anyuid \
-            -z default -n {{ project_monolith }}"
-        - name: Update the Security Context Constraints (SCC) by adding the service account to the priviledged SCCs
-          shell: "oc adm policy add-scc-to-user privileged \
-            -z default -n {{ project_monolith }}"
         - name: Provision PostgreSQL persistent
           shell: "oc new-app postgresql-persistent \
             -p DATABASE_SERVICE_NAME=monolith-postgresql \
@@ -79,40 +73,6 @@
       shell: oc project {{ project_new_sources }}
       register: project_already_existed
       ignore_errors: yes
-    - name: Create New DataSources
-      block:
-        - name: Create Project/Namespace
-          shell: "oc new-project {{ project_new_sources }} \
-            --display-name='Hotel Booking New Sources' \
-            --description='Hotel Booking Demo'"
-        - name: Update the Security Context Constraints (SCC) by adding the service account to the anyuid SCCs
-          shell: "oc adm policy add-scc-to-user anyuid \
-            -z default -n {{ project_new_sources }}"
-        - name: Update the Security Context Constraints (SCC) by adding the service account to the priviledged SCCs
-          shell: "oc adm policy add-scc-to-user privileged \
-            -z default -n {{ project_new_sources }}"
-        - name: Provision MongoDB persistent
-          shell: "oc new-app mongodb-persistent \
-            -p DATABASE_SERVICE_NAME=reward-mongodb \
-            -p MONGODB_DATABASE=rewarddb \
-            -p MONGODB_USER=mongodb \
-            -p MONGODB_PASSWORD=mongodb \
-            -p MONGODB_VERSION=2.6 \
-            --labels=app=reward"
-        - name: Waiting for the Database to be up and running (120s)
-          pause:
-            minutes: 2
-        - name: Initialize Database
-          block:
-            - name: Copy init SQL script into the pod
-              shell: "oc rsync rewarddb/ $(oc get pods -lapp=reward -o name):/opt/app-root/src/ddl"
-              args:
-                chdir: ../hotel-booking-new-sources/
-            - name: Initialize Database
-              shell: "oc rsh $(oc get pods -lapp=reward -o name) \ 
-                bash -c 'mongo -u $MONGODB_USER -p $MONGODB_PASSWORD $MONGODB_DATABASE ddl/initRewardDB.js'"
-      when: >
-        project_already_existed.rc == 1
     - name: Check if "{{ project_virtual_layer }}" project existed
       shell: oc project {{ project_virtual_layer }}
       register: project_already_existed

@@ -2,53 +2,37 @@
 <vdb name="customer" version="1">
 
   <description>Customer VDB</description>
-    <model name="Monolith" visible="false">
+      <model name="Monolith" visible="false">
         <property name="importer.useFullSchemaName" value="false"/>
         <property name="importer.TableTypes" value="TABLE" />
         <property name="importer.importKeys" value="false"/>
         <property name="importer.schemapattern" value="public"/>
         <source name="monolithdb" translator-name="postgresql" connection-jndi-name="java:/monolithdb"/>
     </model>
-    <model name="Reward" visible="false">
-        <source connection-jndi-name="java:/rewarddb" name="rewarddb" translator-name="mongodb"/>
-        <metadata type="DDL"><![CDATA[
-
-            CREATE FOREIGN TABLE customers (
-                customer_id integer NOT NULL OPTIONS(UPDATABLE 'FALSE'),
-                status string(256) NOT NULL
-            ) OPTIONS(NAMEINSOURCE 'customers', UPDATABLE 'TRUE');
-
-            ]]></metadata>
-    </model>
     <model name="DataServiceLayer" type="VIRTUAL" visible="true">
         <metadata type="DDL"><![CDATA[
-
         CREATE VIEW customer(
             id integer NOT NULL,
             email string(256) NOT NULL,
             country string(256) NOT NULL,
-            status string(256) NOT NULL,
             CONSTRAINT customer_pk PRIMARY KEY(id)
         )
         AS
             SELECT
                 c.id,
                 c.email,
-                co.name as country,
-                rc.status
+                co.name as country
             FROM
                 Monolith.customer c
                 inner join Monolith.city as ci on (c.city_id = ci.id)
-                inner join Monolith.country as co on (ci.country_id = co.id)
-                left outer join Reward.customers as rc on (c.id = rc.customer_id);
-
+                inner join Monolith.country as co on (ci.country_id = co.id);
         CREATE VIEW details(
             id integer NOT NULL,
             fullname string(256) NOT NULL,
             email string(256) NOT NULL,
             address string(256) NOT NULL,
             member_since date NOT NULL,
-            rewards_status string(256) NOT NULL,
+            rewards_id string(256) NOT NULL,
             credit_card_number string(256) NOT NULL,
             credit_card_type string(256) NOT NULL,
             expiration_date string(256) NOT NULL,
@@ -61,15 +45,14 @@
                 , cu.email
                 , cu.address_line_1 || ', ' || ci.name as address
                 , member_since
-                , rc.status
+                , rewards_id
                 , 'xxxxxxxxxxxx' || RIGHT(p.credit_card_number, 4) as credit_card_number
                 , p.credit_card_type
                 , FORMATDATE(p.expiration_date, 'MM/yyyy') as expiration_date
             FROM
                 Monolith.customer cu 
                 INNER JOIN Monolith.city ci ON cu.city_id = ci.id
-                INNER JOIN Monolith.payment_info p ON cu.id = p.customer_id
-                left outer join Reward.customers as rc on (cu.id = rc.customer_id);
+                INNER JOIN Monolith.payment_info p ON cu.id = p.customer_id;
         ]]></metadata>
     </model>
 </vdb>
