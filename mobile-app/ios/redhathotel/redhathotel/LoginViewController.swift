@@ -71,7 +71,7 @@ class LoginViewController: UIViewController {
         let errorMessageTitle = "Error"
         
         // Define base URL
-        let baseUrl = "http://customer-service-hotelbooking.apps.46.4.112.21.xip.io/customer/authenticate"
+        let baseUrl = "http://customer-service-hotel-booking-customer.apps.cndsw.openshiftworkshop.com/customer/authenticate"
         // Add parameter
         let urlWithParams = baseUrl + "?email=\(userNameText!)"
         // Create URL Ibject

@@ -11,7 +11,7 @@ import SafariServices
 
 class ReservationsViewController: UIViewController {
     
-    let url = "http://hotel-booking-web-app-hotelbooking.apps.46.4.112.21.xip.io/"
+    let url = "http://hotel-booking-web-app-hotel-booking-web-app.apps.cndsw.openshiftworkshop.com/"
     
     @IBOutlet weak var tableVIew: UITableView!
     
@@ -66,7 +66,7 @@ class ReservationsViewController: UIViewController {
         let noReservationsFoundMessageTitle = "No Reservations Found"
         
         // Define base URL
-        let baseUrl = "http://reservation-service-hotelbooking.apps.46.4.112.21.xip.io/reservation/findbycustomerid"
+        let baseUrl = "http://reservation-service-hotel-booking-reservation.apps.cndsw.openshiftworkshop.com/reservation/findbycustomerid"
         // Add parameter
         let urlWithParams = baseUrl + "?customerid=\(self.userId)"
         // Create URL Ibject

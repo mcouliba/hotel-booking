@@ -12,7 +12,7 @@ import WebKit
 class WebViewController: UIViewController, WKNavigationDelegate {
     
     @IBOutlet weak var webView: WKWebView!
-    let path = "http://hotel-booking-web-app-hotelbooking.apps.46.4.112.21.xip.io/"
+    let path = "http://hotel-booking-web-app-hotel-booking-web-app.apps.cndsw.openshiftworkshop.com/"
         
     override func loadView() {
         webView = WKWebView()
